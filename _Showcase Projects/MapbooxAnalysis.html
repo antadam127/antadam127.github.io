@@ -1,0 +1,248 @@
+<!-- <!DOCTYPE html> -->
+<html lang='en'>
+
+<head>
+	<meta charset="utf-8">
+	<title>My Map</title>
+	<meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+
+	<!-- Required -->
+	<script src='https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.js'></script>
+	<link href='https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.css' rel='stylesheet' />
+
+	<!-- Load the `mapbox-gl-geocoder` plugin. -->
+	<script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.min.js"></script>
+	<link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.css" type="text/css">
+
+	<style>
+		body {
+			margin: 0;
+			padding: 0;
+		}
+
+		#map {
+			position: absolute;
+			top: 0;
+			bottom: 0;
+			width: 100%;
+		}
+
+		#stylemenu {
+			position: absolute;
+			background: #efefef;
+			padding: 8px;
+			margin: 10px;
+			font-family: 'Open Sans', sans-serif;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="map"></div>
+
+	<script>
+		// TO ADD
+		// North-Up and reset pitch and bearing button
+		// Terrain
+		// Globe
+		// Population Density
+		// Counties, Towns, Etc
+		// Street Hover Data
+		// Mapillary Hover Data
+		// Directions
+		// Traffic
+		// 3D Buildings
+		// Measure Distances
+
+		let searchMODE = true; // Show Search Bar
+		let threeDMODE = true; // 3D Mode
+		let projectionMODE = 'mercator'; // 'mercator' 'albers' 'naturalEarth' 'globe' // Map Projection (theeDMODE must be on for Globe)
+		let hashMODE = false; // Update URL
+		let exaggeration = 1.5; // 3D Terrain Exaggeration [1.5 Default]
+
+		// Define Styles
+		const Mapbox_Streets = [0, 'Street', 'mapbox://styles/mapbox/streets-v11'];
+		const Mapbox_Outdoors = [1, 'Outdoors', 'mapbox://styles/mapbox/outdoors-v11'];
+		const Mapbox_Light = [2, 'Light', 'mapbox://styles/mapbox/light-v10'];
+		const Mapbox_Dark = [3, 'Dark', 'mapbox://styles/mapbox/dark-v10'];
+		const Mapbox_Satellite_Streets = [5, 'Satellite', 'mapbox://styles/mapbox/satellite-streets-v11'];
+		const Layered_Satellite_Less_Labels = [11, 'Satellite (Reduced Labels)', 'mapbox://styles/mapbox-map-design/ckhqrf2tz0dt119ny6azh975y'];
+		const Mapbox_Satellite = [4, 'Satellite (Clear)', 'mapbox://styles/mapbox/satellite-v9'];
+		const Layered_Outdoors_Hillshading = [10, 'Terrain', 'mapbox://styles/mapbox/cjaudgl840gn32rnrepcb9b9g'];
+		const Mapbox_Navigation_Day = [6, 'Navigation', 'mapbox://styles/mapbox/navigation-day-v1'];
+		const Mapbox_Navigation_Night = [7, 'Navigation (Night)', 'mapbox://styles/mapbox/navigation-night-v1'];
+		const Moonlight = [8, 'Moonlight', 'mapbox://styles/antadam127/cl4yfem29005b15p9ltlrd9oy', 'night'];
+		const Moonlight_No_Labels = [9, 'Moonlight (Clear)', 'mapbox://styles/antadam127/cl4yjh0sd000115mnv3lowqwo'];
+
+		const allMapStyles = [Mapbox_Streets, Mapbox_Outdoors, Mapbox_Light, Mapbox_Dark, Mapbox_Satellite, Mapbox_Satellite_Streets, Mapbox_Navigation_Day, Mapbox_Navigation_Night, Moonlight, Moonlight_No_Labels, Layered_Outdoors_Hillshading,
+			Layered_Satellite_Less_Labels
+		];
+
+		// Set Style
+		const startingStyle = Mapbox_Streets; // Starting Style
+		const styleOptions = [0, 2, 10, 11, 8]; //[0, 1, 2, 3, 5, 11, 4, 10, 6, 7, 8, 9]; // Radio Button Options Indices;
+		let currentStyle = startingStyle;
+
+		// Create Map
+		mapboxgl.accessToken = 'pk.eyJ1IjoiYW50YWRhbTEyNyIsImEiOiJjbDI2ZGJnN2wyaW5qM2JxZHVmZTJjNm8zIn0.4aMtEeYWx4hxIVKRrqsqWw';
+		const map = new mapboxgl.Map({
+			container: 'map', // container ID
+			style: startingStyle[2], // style URL
+			center: [-96, 38.5], // starting position [lng, lat]
+			zoom: 4, // starting zoom
+			projection: !threeDMODE && projectionMODE == 'globe' ? projectionMODE = 'mercator' : projectionMODE, // Map Projection
+			hash: hashMODE, // Update URL
+			dragRotate: threeDMODE, // Allow rotation
+			// scrollZoom: false, // Allow map zoom
+		});
+
+		// Map Load
+
+		// Style Load
+		map.on('style.load', (e) => {
+
+			if (threeDMODE) {
+				map.addSource('mapbox-dem', {
+					'type': 'raster-dem',
+					'url': 'mapbox://mapbox.mapbox-terrain-dem-v1',
+					'tileSize': 512,
+					'maxzoom': 14
+				});
+				// add the DEM source as a terrain layer with exaggerated height
+				map.setTerrain({
+					'source': 'mapbox-dem',
+					'exaggeration': exaggeration // 1.5 Default
+				});
+
+				// Set Fog
+				const fp = fogProperties[currentStyle[3] ? currentStyle[3] : 'standard'];
+				map.setFog(fp);
+
+			} else {
+				resetAngles();
+			}
+
+			if (currentStyle == Layered_Outdoors_Hillshading) {
+				map.addSource('dem', {
+					'type': 'raster-dem',
+					'url': 'mapbox://mapbox.mapbox-terrain-dem-v1'
+				});
+				map.addLayer({
+						'id': 'hillshading',
+						'source': 'dem',
+						'type': 'hillshade'
+						// insert below waterway-river-canal-shadow;
+						// where hillshading sits in the Mapbox Outdoors style
+					},
+					'waterway-river-canal-shadow'
+				);
+			}
+
+		});
+
+		// Add Search Bar
+		if (searchMODE) {
+			map.addControl(
+				new MapboxGeocoder({
+					accessToken: mapboxgl.accessToken,
+					mapboxgl: mapboxgl,
+				})
+			);
+		}
+
+		// Create Radio Buttons
+		if (styleOptions.length > 0) {
+			let menu = document.createElement('div');
+			menu.id = 'stylemenu';
+			for (const i of styleOptions) {
+				let item = document.createElement('input');
+				item.id = allMapStyles[i][2];
+				item.type = 'radio';
+				item.name = 'rtoggle';
+				item.checked = allMapStyles[i] == startingStyle ? true : false;
+				item.onclick = () => {
+					// currentStyle =
+					if (allMapStyles[i] != currentStyle) {
+						currentStyle = allMapStyles[i];
+						map.setStyle(allMapStyles[i][2]);
+					}
+				}
+				menu.appendChild(item);
+				let label = document.createElement('label');
+				label.setAttribute('for', allMapStyles[i][2]);
+				label.innerHTML = ' ' + allMapStyles[i][1] + ' ';
+				menu.appendChild(label);
+			}
+			document.body.appendChild(menu);
+		}
+
+		// Map On Click
+		map.on('click', (e) => {
+			e.preventDefault();
+			resetMap();
+		});
+
+		// Reset Map
+		function resetMap() {
+			map.flyTo({
+				center: [-96, 38.5],
+				zoom: 4,
+				pitch: 0,
+				bearing: 0
+			});
+		}
+		// Reset Angles
+		function resetAngles() {
+			map.jumpTo({
+				pitch: 0,
+				bearing: 0
+			})
+		}
+
+		// Define Fog Properties
+		fogProperties = {
+			standard: {},
+			day: {
+				'horizon-blend': 0.3,
+				'color': '#f8f0e3',
+				'high-color': '#add8e6',
+				'space-color': '#d8f2ff',
+				'star-intensity': 0.0
+			},
+			sunset: {
+				"range": [0.8, 8],
+				"color": "#dc9f9f",
+				"horizon-blend": 0.5,
+				"high-color": "#245bde",
+				"space-color": "#000000",
+				"star-intensity": 0.15
+			},
+			night: {
+				'range': [-1, 2],
+				'horizon-blend': 0.3,
+				'color': '#242B4B',
+				'high-color': '#161B36',
+				'space-color': '#0B1026',
+				'star-intensity': 0.8
+			},
+			heavyFog: {
+				'range': [-1, 2],
+				'horizon-blend': 0.3,
+				'color': 'white',
+				'high-color': '#add8e6',
+				'space-color': '#d8f2ff',
+				'star-intensity': 0.0
+			},
+			space: {
+				color: 'rgb(186, 210, 235)', // Lower atmosphere
+				'high-color': 'rgb(36, 92, 223)', // Upper atmosphere
+				'horizon-blend': 0.02, // Atmosphere thickness (default 0.2 at low zooms)
+				'space-color': 'rgb(11, 11, 25)', // Background color
+				'star-intensity': 0.6 // Background star brightness (default 0.35 at low zoooms )
+			}
+		}
+	</script>
+
+</body>
+
+</html>
