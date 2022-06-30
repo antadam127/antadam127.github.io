@@ -6,7 +6,7 @@ https://www.tooplate.com/view/2124-vertex
 
 */
 
-/* Loader 
+/* Loader
 https://ihatetomatoes.net/create-custom-preloading-screen/
 */
 #loader-wrapper {
@@ -66,7 +66,7 @@ https://ihatetomatoes.net/create-custom-preloading-screen/
     }
 
     @-webkit-keyframes spin {
-        0%   { 
+        0%   {
             -webkit-transform: rotate(0deg);  /* Chrome, Opera 15+, Safari 3.1+ */
             -ms-transform: rotate(0deg);  /* IE 9 */
             transform: rotate(0deg);  /* Firefox 16+, IE 10+, Opera */
@@ -78,7 +78,7 @@ https://ihatetomatoes.net/create-custom-preloading-screen/
         }
     }
     @keyframes spin {
-        0%   { 
+        0%   {
             -webkit-transform: rotate(0deg);  /* Chrome, Opera 15+, Safari 3.1+ */
             -ms-transform: rotate(0deg);  /* IE 9 */
             transform: rotate(0deg);  /* Firefox 16+, IE 10+, Opera */
@@ -116,7 +116,7 @@ https://ihatetomatoes.net/create-custom-preloading-screen/
             -ms-transform: translateX(-100%);  /* IE 9 */
                 transform: translateX(-100%);  /* Firefox 16+, IE 10+, Opera */
 
-        -webkit-transition: all 0.7s 0.3s cubic-bezier(0.645, 0.045, 0.355, 1.000);  
+        -webkit-transition: all 0.7s 0.3s cubic-bezier(0.645, 0.045, 0.355, 1.000);
                 transition: all 0.7s 0.3s cubic-bezier(0.645, 0.045, 0.355, 1.000);
     }
 
@@ -125,13 +125,13 @@ https://ihatetomatoes.net/create-custom-preloading-screen/
             -ms-transform: translateX(100%);  /* IE 9 */
                 transform: translateX(100%);  /* Firefox 16+, IE 10+, Opera */
 
--webkit-transition: all 0.7s 0.3s cubic-bezier(0.645, 0.045, 0.355, 1.000);  
+-webkit-transition: all 0.7s 0.3s cubic-bezier(0.645, 0.045, 0.355, 1.000);
         transition: all 0.7s 0.3s cubic-bezier(0.645, 0.045, 0.355, 1.000);
     }
-    
+
     .loaded #loader {
         opacity: 0;
-        -webkit-transition: all 0.3s ease-out;  
+        -webkit-transition: all 0.3s ease-out;
                 transition: all 0.3s ease-out;
     }
     .loaded #loader-wrapper {
@@ -141,7 +141,7 @@ https://ihatetomatoes.net/create-custom-preloading-screen/
             -ms-transform: translateY(-100%);  /* IE 9 */
                 transform: translateY(-100%);  /* Firefox 16+, IE 10+, Opera */
 
-        -webkit-transition: all 0.3s 1s ease-out;  
+        -webkit-transition: all 0.3s 1s ease-out;
                 transition: all 0.3s 1s ease-out;
     }
 
@@ -149,7 +149,7 @@ https://ihatetomatoes.net/create-custom-preloading-screen/
 
 * {  box-sizing: border-box; }
 html, body { overflow-x: hidden; }
-body { 
+body {
     font-family: 'Kumbh Sans', sans-serif;
     font-size: 18px;
     background-color: #333;
@@ -204,7 +204,7 @@ span, footer {  line-height: 1.8; }
 .tm-hr {
     border-color: #555;
     max-width: 340px;
-    width: 100%;    
+    width: 100%;
 }
 
 .tm-mr {
@@ -284,7 +284,7 @@ span, footer {  line-height: 1.8; }
     top: 0;
     left: -1px;
     width: 50%;
-    z-index: 1000;  
+    z-index: 1000;
 }
 
 .tm-nav ul {
@@ -358,10 +358,13 @@ span, footer {  line-height: 1.8; }
 	/* float: left; */
 	overflow: hidden;
 	margin: 15px;
-	min-width: 200px;
-	max-width: 250px;
-	max-height: 250px;
-	width: 25%;
+	min-width: 280px;
+  /* max-width: 250px; */
+  max-width: 400px;
+  /* max-height: 250px; */
+  max-height: 400px;
+  /* width: 25%; */
+  width: 30%;
 	text-align: center;
 	cursor: pointer;
 }
@@ -370,6 +373,7 @@ span, footer {  line-height: 1.8; }
 	position: relative;
 	display: block;
 	min-height: 100%;
+  min-width: 100%;
 	max-width: 100%;
 	opacity: 0.8;
 }
@@ -409,7 +413,7 @@ span, footer {  line-height: 1.8; }
 }
 
 .tm-gallery figure h2 {
-	word-spacing: -0.15em;
+	/* word-spacing: -0.15em; */
 	font-weight: 300;
 }
 
@@ -422,7 +426,8 @@ span, footer {  line-height: 1.8; }
 
 .tm-gallery figure p {
 	letter-spacing: 1px;
-	font-size: 68.5%;
+  /* font-size: 68.5%; */
+  font-size: 60%;
 }
 
 /*-----------------*/
@@ -563,7 +568,7 @@ figure.effect-goliath:hover p {
         left: -280px;
         flex-direction: column;
         padding-top: 15px;
-        padding-bottom: 15px;        
+        padding-bottom: 15px;
         width: 280px;
         transition: all 0.5s ease;
     }
@@ -599,7 +604,7 @@ figure.effect-goliath:hover p {
 }
 
 @media (max-width: 992px) {
-    .tm-brand { 
+    .tm-brand {
         position: static;
         margin-left: auto;
         margin-right: 0;
@@ -621,7 +626,7 @@ figure.effect-goliath:hover p {
     #contact .tm-parallax {
         margin-bottom: 425px;
     }
-    
+
     .mapouter {
         top: 360px;
         width: 100%;
