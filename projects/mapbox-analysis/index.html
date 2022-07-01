@@ -3,8 +3,10 @@
 
 <head>
 	<meta charset="utf-8">
-	<title>My Map</title>
-	<meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
+	<meta name="description" content="Anthony Adam Portfolio Penn State Mapbox Alumni IT LinkedIn Data Analytics Information Technology West Hartford Connecticut">
+	<title>Anthony Adam | Mapbox Analysis</title>
+
 
 	<!-- Required -->
 	<script src='https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.js'></script>
@@ -14,10 +16,15 @@
 	<script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.min.js"></script>
 	<link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.css" type="text/css">
 
+	<!-- CSS -->
+	<link href="https://fonts.googleapis.com/css2?family=Kumbh+Sans&display=swap" rel="stylesheet"> <!-- https://fonts.google.com/specimen/Kumbh+Sans -->
+	<link rel="stylesheet" href="../../site/fontawesome/css/all.min.css"> <!-- https://fontawesome.com/-->
+	<link rel="stylesheet" href="../../site/css/magnific-popup.css"> <!-- https://dimsemenov.com/plugins/magnific-popup/ -->
+	<link rel="stylesheet" href="../../site/css/tooplate-vertex.css">
+
 	<style>
-		body {
-			margin: 0;
-			padding: 0;
+		.standard-page {
+			color: #333
 		}
 
 		#map {
@@ -32,14 +39,37 @@
 			background: #efefef;
 			padding: 8px;
 			margin: 10px;
-			font-family: 'Open Sans', sans-serif;
+			/* font-family: 'Open Sans', sans-serif; */
 		}
 	</style>
 </head>
 
-<body>
-	<div id="map"></div>
+<body class="standard-page">
+	<!-- Page Loader -->
+	<!-- <div id="loader-wrapper" class="loader-toggler"> -->
+	<!-- <div id="loader"></div> -->
 
+	<!-- <div class="loader-section section-left"></div> -->
+	<!-- <div class="loader-section section-right"></div> -->
+
+	<!-- </div> -->
+
+
+	<div id="map"></div>
+	<nav class="tm-nav home-tm-nav">
+		<a href="../../index.html">
+			<button class="navbar-toggler home-navbar-toggler" type="button" aria-label="Toggle navigation">
+				<i class="fas fa-home"></i>
+			</button>
+		</a>
+		<ul class="home-bar">
+			<li class="nav-item home-nav-item">
+				<a href="../../index.html" class="nav-link">Home</a>
+			</li>
+		</ul>
+	</nav>
+
+	<!-- <script src="../../site/js/plugins.js"></script> -->
 	<script>
 		// TO ADD
 		// North-Up and reset pitch and bearing button
@@ -54,6 +84,7 @@
 		// 3D Buildings
 		// Measure Distances
 
+		let preloadMODE = 'none'; // 'none', 'page', 'map'
 		let searchMODE = true; // Show Search Bar
 		let threeDMODE = true; // 3D Mode
 		let projectionMODE = 'mercator'; // 'mercator' 'albers' 'naturalEarth' 'globe' // Map Projection (theeDMODE must be on for Globe)
@@ -96,10 +127,36 @@
 			// scrollZoom: false, // Allow map zoom
 		});
 
-		// Map Load
+		// // Page Loader
+		// if (preloadMODE == 'map') {
+		// 	map.on('load', (e) => {
+		// 		$('body').addClass('loaded');
+		// 	});
+		// } else if (preloadMODE != 'page') {
+		// 	// document.getElementById("loader-wrapper").style.visibility = "hidden";
+		// }
 
 		// Style Load
 		map.on('style.load', (e) => {
+
+			// DATA //
+			map.addSource('alumni', {
+				type: 'geojson',
+				data: 'data/stations.geojson'
+			});
+
+			map.addLayer({
+				'id': 'earthquakes-layer',
+				'type': 'circle',
+				'source': 'alumni',
+				'paint': {
+					'circle-radius': 4,
+					'circle-stroke-width': 2,
+					'circle-color': 'red',
+					'circle-stroke-color': 'white'
+				}
+			});
+			// DATA END //
 
 			if (threeDMODE) {
 				map.addSource('mapbox-dem', {
@@ -241,6 +298,13 @@
 				'star-intensity': 0.6 // Background star brightness (default 0.35 at low zoooms )
 			}
 		}
+
+		// // Set up Loader
+		// if (preloadMODE == 'page') {
+		// 	$(window).on("load", function() {
+		// 		$('body').addClass('loaded');
+		// 	});
+		// }
 	</script>
 
 </body>

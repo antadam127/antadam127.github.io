@@ -186,6 +186,7 @@ body {
   background-color: #333;
   color: #999;
   margin: 0;
+  padding: 0;
 }
 
 a {
@@ -386,11 +387,23 @@ span, footer {
   z-index: 1000;
 }
 
+.home-tm-nav {
+  width: auto;
+}
+
 .tm-nav ul {
   background-color: #444;
   display: flex;
   justify-content: space-around;
 }
+
+.home-tm-nav ul {
+  background-color: #444;
+  display: flex;
+  justify-content: space-around;
+  padding: 0 20px;
+}
+
 
 .nav-item {
   list-style: none;
@@ -674,6 +687,38 @@ figure.effect-goliath:hover p {
   margin-left: -50px;
   margin-bottom: -50px;
 }
+
+/* Display Home Icon in Bar */
+.home-navbar-toggler {
+  display: block;
+  width: 50px;
+  height: 45px;
+  font-size: 1.2rem;
+  background-color: #444444;
+  border: none;
+  color: #999999;
+  outline: none;
+}
+
+.tm-nav ul.home-bar {
+  position: relative;
+  left: -280px;
+  flex-direction: column;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  width: 280px;
+  transition: all 0.5s ease;
+}
+
+.home-navbar-toggler:hover {
+  color: #99CC99;
+}
+
+.home-tm-nav {
+  width: 0;
+}
+
+/* Display Home Icon in Bar END */
 
 @media (max-width: 1200px) {
   .tm-nav {
