@@ -148,23 +148,23 @@
 		map.on('style.load', (e) => {
 
 			// DATA //
-			map.addSource('alumni', {
-				type: 'geojson',
-				data: 'data/linkedin_psu_alumni_dataset.geojson'
-			});
-
-			// Add a layer showing the places.
-			map.addLayer({
-				'id': 'places',
-				'type': 'circle',
-				'source': 'alumni',
-				'paint': {
-					'circle-color': '#4264fb',
-					'circle-radius': 4,
-					'circle-stroke-width': 1,
-					'circle-stroke-color': '#ffffff'
-				}
-			});
+			// map.addSource('alumni', {
+			// 	type: 'geojson',
+			// 	data: 'data/linkedin_psu_alumni_dataset.geojson'
+			// });
+			//
+			// // Add a layer showing the places.
+			// map.addLayer({
+			// 	'id': 'places',
+			// 	'type': 'circle',
+			// 	'source': 'alumni',
+			// 	'paint': {
+			// 		'circle-color': '#4264fb',
+			// 		'circle-radius': 4,
+			// 		'circle-stroke-width': 1,
+			// 		'circle-stroke-color': '#ffffff'
+			// 	}
+			// });
 			// DATA END //
 
 			if (threeDMODE) {
