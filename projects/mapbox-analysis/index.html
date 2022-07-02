@@ -93,7 +93,7 @@
 		let searchMODE = true; // Show Search Bar
 		let threeDMODE = true; // 3D Mode
 		let projectionMODE = 'mercator'; // 'mercator' 'albers' 'naturalEarth' 'globe' // Map Projection (theeDMODE must be on for Globe)
-		let hashMODE = true; // Update URL
+		let hashMODE = false; // Update URL
 		let exaggeration = 1.5; // 3D Terrain Exaggeration [1.5 Default]
 
 		// Define Styles
@@ -140,6 +140,11 @@
 		// } else if (preloadMODE != 'page') {
 		// 	// document.getElementById("loader-wrapper").style.visibility = "hidden";
 		// }
+
+		// Map Load
+		map.on('load', () => {
+			resetMap();
+		});
 
 		// Style Load
 		map.on('style.load', (e) => {
@@ -279,10 +284,14 @@
 		// Reset Map
 		function resetMap() {
 			map.flyTo({
-				center: [-96, 38.5],
-				zoom: 4,
-				pitch: 0,
-				bearing: 0
+				// center: [-96, 38.5],
+				// zoom: 4,
+				// bearing: 0
+				// pitch: 0,
+				center: [-76.312, 20.8],
+				zoom: 6,
+				bearing: 20.8,
+				pitch: 38.5
 			});
 		}
 		// Reset Angles
