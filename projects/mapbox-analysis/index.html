@@ -61,7 +61,7 @@
 
 
 	<div id="map"></div>
-	<nav class="tm-nav home-tm-nav">
+	<!-- <nav class="tm-nav home-tm-nav">
 		<a href="../../index.html">
 			<button class="navbar-toggler home-navbar-toggler" type="button" aria-label="Toggle navigation">
 				<i class="fas fa-home"></i>
@@ -72,7 +72,7 @@
 				<a href="../../index.html" class="nav-link">Home</a>
 			</li>
 		</ul>
-	</nav>
+	</nav> -->
 
 	<!-- <script src="../../site/js/plugins.js"></script> -->
 	<script>
@@ -90,7 +90,7 @@
 		// Measure Distances
 
 		let preloadMODE = 'none'; // 'none', 'page', 'map'
-		let searchMODE = true; // Show Search Bar
+		let searchMODE = false; // Show Search Bar
 		let threeDMODE = true; // 3D Mode
 		let projectionMODE = 'mercator'; // 'mercator' 'albers' 'naturalEarth' 'globe' // Map Projection (theeDMODE must be on for Globe)
 		let hashMODE = false; // Update URL
@@ -110,9 +110,7 @@
 		const Moonlight = [8, 'Moonlight', 'mapbox://styles/antadam127/cl4yfem29005b15p9ltlrd9oy', 'night'];
 		const Moonlight_No_Labels = [9, 'Moonlight (Clear)', 'mapbox://styles/antadam127/cl4yjh0sd000115mnv3lowqwo'];
 
-		const allMapStyles = [Mapbox_Streets, Mapbox_Outdoors, Mapbox_Light, Mapbox_Dark, Mapbox_Satellite, Mapbox_Satellite_Streets, Mapbox_Navigation_Day, Mapbox_Navigation_Night, Moonlight, Moonlight_No_Labels, Layered_Outdoors_Hillshading,
-			Layered_Satellite_Less_Labels
-		];
+		const allMapStyles = [Mapbox_Streets, Mapbox_Outdoors, Mapbox_Light, Mapbox_Dark, Mapbox_Satellite, Mapbox_Satellite_Streets, Mapbox_Navigation_Day, Mapbox_Navigation_Night, Moonlight, Moonlight_No_Labels, Layered_Outdoors_Hillshading, Layered_Satellite_Less_Labels];
 
 		// Set Style
 		const startingStyle = Mapbox_Streets; // Starting Style
@@ -245,11 +243,11 @@
 		}
 
 		// Create a popup, but don't add it to the map yet.
-		const popup = new mapboxgl.Popup({
-			closeButton: false,
-			closeOnClick: false
-		});
-
+		// const popup = new mapboxgl.Popup({
+		// 	closeButton: false,
+		// 	closeOnClick: false
+		// });
+		//
 		// map.on('mouseenter', 'alumni', (e) => {
 		// 	// Change the cursor style as a UI indicator.
 		// 	map.getCanvas().style.cursor = 'pointer';
@@ -288,10 +286,10 @@
 				// zoom: 4,
 				// bearing: 0
 				// pitch: 0,
-				center: [-76.312, 20.8],
+				center: [-76.312, 40.484],
 				zoom: 6,
 				bearing: 20.8,
-				pitch: 38.5
+				pitch: 47
 			});
 		}
 		// Reset Angles
