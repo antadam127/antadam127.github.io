@@ -1,357 +1,130 @@
-<!-- <!DOCTYPE html> -->
-<html lang='en'>
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
 
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
-	<meta name="description" content="Anthony Adam Portfolio Penn State Mapbox Alumni IT LinkedIn Data Analytics Information Technology West Hartford Connecticut">
-	<title>Anthony Adam | Mapbox Analysis</title>
+  <meta charset="utf-8">
+  <title>Anthony Adam | Mapbox Analysis</title>
+  <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+  <!-- Mapbox Required -->
+  <script src='https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.js'></script>
+  <link href='https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.css' rel='stylesheet' />
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-2466715FY8"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
 
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
 
-	<!-- Required -->
-	<script src='https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.js'></script>
-	<link href='https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.css' rel='stylesheet' />
+    gtag('config', 'G-2466715FY8');
+  </script>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+    }
 
-	<!-- Load the `mapbox-gl-geocoder` plugin. -->
-	<script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.min.js"></script>
-	<link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.css" type="text/css">
+    #map {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 100%;
+    }
 
-	<!-- CSS -->
-	<link href="https://fonts.googleapis.com/css2?family=Kumbh+Sans&display=swap" rel="stylesheet"> <!-- https://fonts.google.com/specimen/Kumbh+Sans -->
-	<link rel="stylesheet" href="../../site/fontawesome/css/all.min.css"> <!-- https://fontawesome.com/-->
-	<link rel="stylesheet" href="../../site/css/magnific-popup.css"> <!-- https://dimsemenov.com/plugins/magnific-popup/ -->
-	<link rel="stylesheet" href="../../site/css/tooplate-vertex.css">
+    .mapboxgl-popup {
+      width: 100%;
+      min-width: 325px;
+      min-height: 325px;
+      font-size: 14px;
+    }
 
-	<style>
-		.standard-page {
-			color: #333
-		}
-
-		#map {
-			position: absolute;
-			top: 0;
-			bottom: 0;
-			width: 100%;
-		}
-
-		#stylemenu {
-			position: absolute;
-			background: #efefef;
-			padding: 8px;
-			margin: 10px;
-			/* font-family: 'Open Sans', sans-serif; */
-		}
-
-		/* .mapboxgl-popup { */
-			/* max-width: 400px; */
-			/* font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif; */
-		/* } */
-
-	</style>
+    .aUnderlineHover:hover {
+      text-decoration: none;
+    }
+  </style>
 </head>
 
-<body class="standard-page">
-	<!-- Page Loader -->
-	<!-- <div id="loader-wrapper" class="loader-toggler"> -->
-	<!-- <div id="loader"></div> -->
+<body>
+  <div id='map'></div>
+  <script>
+    // Add Myself and finish "presentation" on me saying check out LinkedIn
+    // People Fly out from Center
+    mapboxgl.accessToken = 'pk.eyJ1IjoiYW50YWRhbTEyNyIsImEiOiJjbDI2ZGJnN2wyaW5qM2JxZHVmZTJjNm8zIn0.4aMtEeYWx4hxIVKRrqsqWw';
+    const map = new mapboxgl.Map({
+      container: 'map',
+      style: 'mapbox://styles/antadam127/cl5biu6vl000u14lly9nqyk21',
+      center: [-96, 38.5],
+      zoom: 4,
+      projection: 'mercator', // 'globe',
+      hash: false,
+      dragRotate: false,
+      minZoom: 3,
+    });
 
-	<!-- <div class="loader-section section-left"></div> -->
-	<!-- <div class="loader-section section-right"></div> -->
+    let clicked = false;
+    map.on('style.load', () => {
+      map.setFog({});
 
-	<!-- </div> -->
+      const popup = new mapboxgl.Popup({
+        closeButton: false,
+        closeOnClick: false
+      });
 
+      map.on('mouseenter', 'data-driven-circles', (e) => {
+        map.getCanvas().style.cursor = 'pointer';
+      });
 
-	<div id="map"></div>
-	<!-- <nav class="tm-nav home-tm-nav">
-		<a href="../../index.html">
-			<button class="navbar-toggler home-navbar-toggler" type="button" aria-label="Toggle navigation">
-				<i class="fas fa-home"></i>
-			</button>
-		</a>
-		<ul class="home-bar">
-			<li class="nav-item home-nav-item">
-				<a href="../../index.html" class="nav-link">Home</a>
-			</li>
-		</ul>
-	</nav> -->
+      map.on('mousemove', 'data-driven-circles', (e) => {
+        if (!clicked) setPopup(popup, e);
+      });
 
-	<!-- <script src="../../site/js/plugins.js"></script> -->
-	<script>
-		// TO ADD
-		// North-Up and reset pitch and bearing button
-		// Terrain
-		// Globe
-		// Population Density
-		// Counties, Towns, Etc
-		// Street Hover Data
-		// Mapillary Hover Data
-		// Directions
-		// Traffic
-		// 3D Buildings
-		// Measure Distances
+      map.on('mouseleave', 'data-driven-circles', (e) => {
+        map.getCanvas().style.cursor = '';
+        if (!clicked) popup.remove();
+      });
 
-		let preloadMODE = 'none'; // 'none', 'page', 'map'
-		let searchMODE = false; // Show Search Bar
-		let threeDMODE = true; // 3D Mode
-		let projectionMODE = 'mercator'; // 'mercator' 'albers' 'naturalEarth' 'globe' // Map Projection (theeDMODE must be on for Globe)
-		let hashMODE = false; // Update URL
-		let exaggeration = 1.5; // 3D Terrain Exaggeration [1.5 Default]
+      map.on('click', (e) => {
+        clicked = false;
+        popup.remove();
+      });
 
-		// Define Styles
-		const Mapbox_Streets = [0, 'Street', 'mapbox://styles/mapbox/streets-v11'];
-		const Mapbox_Outdoors = [1, 'Outdoors', 'mapbox://styles/mapbox/outdoors-v11'];
-		const Mapbox_Light = [2, 'Light', 'mapbox://styles/mapbox/light-v10'];
-		const Mapbox_Dark = [3, 'Dark', 'mapbox://styles/mapbox/dark-v10'];
-		const Mapbox_Satellite_Streets = [5, 'Satellite', 'mapbox://styles/mapbox/satellite-streets-v11'];
-		const Layered_Satellite_Less_Labels = [11, 'Satellite (Reduced Labels)', 'mapbox://styles/mapbox-map-design/ckhqrf2tz0dt119ny6azh975y'];
-		const Mapbox_Satellite = [4, 'Satellite (Clear)', 'mapbox://styles/mapbox/satellite-v9'];
-		const Layered_Outdoors_Hillshading = [10, 'Terrain', 'mapbox://styles/mapbox/cjaudgl840gn32rnrepcb9b9g'];
-		const Mapbox_Navigation_Day = [6, 'Navigation', 'mapbox://styles/mapbox/navigation-day-v1'];
-		const Mapbox_Navigation_Night = [7, 'Navigation (Night)', 'mapbox://styles/mapbox/navigation-night-v1'];
-		const Moonlight = [8, 'Moonlight', 'mapbox://styles/antadam127/cl4yfem29005b15p9ltlrd9oy', 'night'];
-		const Moonlight_No_Labels = [9, 'Moonlight (Clear)', 'mapbox://styles/antadam127/cl4yjh0sd000115mnv3lowqwo'];
+      map.on('click', 'data-driven-circles', (e) => {
+        clicked = true;
+        setPopup(popup, e);
+      });
 
-		const allMapStyles = [Mapbox_Streets, Mapbox_Outdoors, Mapbox_Light, Mapbox_Dark, Mapbox_Satellite, Mapbox_Satellite_Streets, Mapbox_Navigation_Day, Mapbox_Navigation_Night, Moonlight, Moonlight_No_Labels, Layered_Outdoors_Hillshading, Layered_Satellite_Less_Labels];
+    });
 
-		// Set Style
-		const startingStyle = Mapbox_Streets; // Starting Style
-		const styleOptions = [0, 2, 10, 11, 8]; //[0, 1, 2, 3, 5, 11, 4, 10, 6, 7, 8, 9]; // Radio Button Options Indices;
-		let currentStyle = startingStyle;
+    function setPopup(popup, e) {
+      const coordinates = e.features[0].geometry.coordinates.slice();
 
-		// Create Map
-		mapboxgl.accessToken = 'pk.eyJ1IjoiYW50YWRhbTEyNyIsImEiOiJjbDI2ZGJnN2wyaW5qM2JxZHVmZTJjNm8zIn0.4aMtEeYWx4hxIVKRrqsqWw';
-		const map = new mapboxgl.Map({
-			container: 'map', // container ID
-			style: startingStyle[2], // style URL
-			center: [-96, 38.5], // starting position [lng, lat]
-			zoom: 4, // starting zoom
-			projection: !threeDMODE && projectionMODE == 'globe' ? projectionMODE = 'mercator' : projectionMODE, // Map Projection
-			hash: hashMODE, // Update URL
-			dragRotate: threeDMODE, // Allow rotation
-			// scrollZoom: false, // Allow map zoom
-		});
+      let profileImg = e.features[0].properties.profileImg;
+      if (profileImg == "0") profileImg = 'https://www.pikpng.com/pngl/b/80-805068_my-profile-icon-blank-profile-picture-circle-clipart.png';
+      const fullName = e.features[0].properties.fullName;
+      const profileUrl = e.features[0].properties.profileUrl;
+      const jobTitle = e.features[0].properties.jobTitle;
+      const location = e.features[0].properties.location;
+      const company = e.features[0].properties.company;
+      const companyLogo = e.features[0].properties.companyLogo;
+      const companyLink = e.features[0].properties.companyLink;
 
-		// // Page Loader
-		// if (preloadMODE == 'map') {
-		// 	map.on('load', (e) => {
-		// 		$('body').addClass('loaded');
-		// 	});
-		// } else if (preloadMODE != 'page') {
-		// 	// document.getElementById("loader-wrapper").style.visibility = "hidden";
-		// }
+      const innerHTML = '<div style="height: 100px;"><a title="' + fullName + '" href="' + profileUrl + '" target="_blank"> <img style="float: left; border-radius: 50%;" src="' + profileImg +
+        '" alt="Profile Image" height="100%" /> </a> <ul style="list-style-type: none; padding: 0; margin: 0; text-align: right;"> <li style="padding: 8px 4px 4px;"><a class="aUnderlineHover" style=" color:black;" title="' +
+        fullName + '" href="' + profileUrl +
+        '" target="_blank"><strong style="font-size: 18px;">' + fullName + '</strong></a></li> <li style="padding: 0px 4px;">' + jobTitle + '</li> </ul> </div> <a title="' + company + '" href="' + companyLink +
+        '" target="_blank"><img style="padding: 6px 0px; display: block; margin-left: auto; margin-right: auto;" src="' + companyLogo + '" alt="' + company + '" height="40px" /></a> <div style="text-align: right"><i>' + location +
+        '</i></div>';
 
-		// Map Load
-		// map.on('load', () => {
-		// 	resetMap();
-		// });
+      while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+        coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+      }
 
-		// Style Load
-		map.on('style.load', (e) => {
-
-			// DATA //
-			// map.addSource('alumni', {
-			// 	type: 'geojson',
-			// 	data: 'data/linkedin_psu_alumni_dataset.geojson'
-			// });
-			//
-			// // Add a layer showing the places.
-			// map.addLayer({
-			// 	'id': 'places',
-			// 	'type': 'circle',
-			// 	'source': 'alumni',
-			// 	'paint': {
-			// 		'circle-color': '#4264fb',
-			// 		'circle-radius': 4,
-			// 		'circle-stroke-width': 1,
-			// 		'circle-stroke-color': '#ffffff'
-			// 	}
-			// });
-			// DATA END //
-
-			if (threeDMODE) {
-				map.addSource('mapbox-dem', {
-					'type': 'raster-dem',
-					'url': 'mapbox://mapbox.mapbox-terrain-dem-v1',
-					'tileSize': 512,
-					'maxzoom': 14
-				});
-				// add the DEM source as a terrain layer with exaggerated height
-				map.setTerrain({
-					'source': 'mapbox-dem',
-					'exaggeration': exaggeration // 1.5 Default
-				});
-
-				// Set Fog
-				const fp = fogProperties[currentStyle[3] ? currentStyle[3] : 'standard'];
-				map.setFog(fp);
-
-			} else {
-				resetAngles();
-			}
-
-			if (currentStyle == Layered_Outdoors_Hillshading) {
-				map.addSource('dem', {
-					'type': 'raster-dem',
-					'url': 'mapbox://mapbox.mapbox-terrain-dem-v1'
-				});
-				map.addLayer({
-						'id': 'hillshading',
-						'source': 'dem',
-						'type': 'hillshade'
-						// insert below waterway-river-canal-shadow;
-						// where hillshading sits in the Mapbox Outdoors style
-					},
-					'waterway-river-canal-shadow'
-				);
-			}
-
-		});
-
-		// Add Search Bar
-		if (searchMODE) {
-			map.addControl(
-				new MapboxGeocoder({
-					accessToken: mapboxgl.accessToken,
-					mapboxgl: mapboxgl,
-				})
-			);
-		}
-
-		// Create Radio Buttons
-		if (styleOptions.length > 0) {
-			let menu = document.createElement('div');
-			menu.id = 'stylemenu';
-			for (const i of styleOptions) {
-				let item = document.createElement('input');
-				item.id = allMapStyles[i][2];
-				item.type = 'radio';
-				item.name = 'rtoggle';
-				item.checked = allMapStyles[i] == startingStyle ? true : false;
-				item.onclick = () => {
-					// currentStyle =
-					if (allMapStyles[i] != currentStyle) {
-						currentStyle = allMapStyles[i];
-						map.setStyle(allMapStyles[i][2]);
-					}
-				}
-				menu.appendChild(item);
-				let label = document.createElement('label');
-				label.setAttribute('for', allMapStyles[i][2]);
-				label.innerHTML = ' ' + allMapStyles[i][1] + ' ';
-				menu.appendChild(label);
-			}
-			document.body.appendChild(menu);
-		}
-
-		// Create a popup, but don't add it to the map yet.
-		// const popup = new mapboxgl.Popup({
-		// 	closeButton: false,
-		// 	closeOnClick: false
-		// });
-		//
-		// map.on('mouseenter', 'alumni', (e) => {
-		// 	// Change the cursor style as a UI indicator.
-		// 	map.getCanvas().style.cursor = 'pointer';
-		//
-		// 	// Copy coordinates array.
-		// 	const coordinates = e.features[0].geometry.coordinates.slice();
-		// 	const description = e.features[0].properties.jobTitle;
-		//
-		// 	// Ensure that if the map is zoomed out such that multiple
-		// 	// copies of the feature are visible, the popup appears
-		// 	// over the copy being pointed to.
-		// 	while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-		// 		coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
-		// 	}
-		//
-		// 	// Populate the popup and set its coordinates
-		// 	// based on the feature found.
-		// 	popup.setLngLat(coordinates).setHTML(description).addTo(map);
-		// });
-		//
-		// map.on('mouseleave', 'alumni', () => {
-		// 	map.getCanvas().style.cursor = '';
-		// 	popup.remove();
-		// });
-
-		// Map On Click
-		map.on('click', (e) => {
-			e.preventDefault();
-			resetMap();
-		});
-
-		// Reset Map
-		function resetMap() {
-			map.flyTo({
-				// center: [-96, 38.5],
-				// zoom: 4,
-				// bearing: 0
-				// pitch: 0,
-				center: [-76.312, 40.484],
-				zoom: 6,
-				bearing: 20.8,
-				pitch: 47
-			});
-		}
-		// Reset Angles
-		function resetAngles() {
-			map.jumpTo({
-				pitch: 0,
-				bearing: 0
-			})
-		}
-
-		// Define Fog Properties
-		fogProperties = {
-			standard: {},
-			day: {
-				'horizon-blend': 0.3,
-				'color': '#f8f0e3',
-				'high-color': '#add8e6',
-				'space-color': '#d8f2ff',
-				'star-intensity': 0.0
-			},
-			sunset: {
-				"range": [0.8, 8],
-				"color": "#dc9f9f",
-				"horizon-blend": 0.5,
-				"high-color": "#245bde",
-				"space-color": "#000000",
-				"star-intensity": 0.15
-			},
-			night: {
-				'range': [-1, 2],
-				'horizon-blend': 0.3,
-				'color': '#242B4B',
-				'high-color': '#161B36',
-				'space-color': '#0B1026',
-				'star-intensity': 0.8
-			},
-			heavyFog: {
-				'range': [-1, 2],
-				'horizon-blend': 0.3,
-				'color': 'white',
-				'high-color': '#add8e6',
-				'space-color': '#d8f2ff',
-				'star-intensity': 0.0
-			},
-			space: {
-				color: 'rgb(186, 210, 235)', // Lower atmosphere
-				'high-color': 'rgb(36, 92, 223)', // Upper atmosphere
-				'horizon-blend': 0.02, // Atmosphere thickness (default 0.2 at low zooms)
-				'space-color': 'rgb(11, 11, 25)', // Background color
-				'star-intensity': 0.6 // Background star brightness (default 0.35 at low zoooms )
-			}
-		}
-
-		// // Set up Loader
-		// if (preloadMODE == 'page') {
-		// 	$(window).on("load", function() {
-		// 		$('body').addClass('loaded');
-		// 	});
-		// }
-	</script>
-
+      popup.setLngLat(coordinates).setHTML(innerHTML).addTo(map);
+    }
+  </script>
 </body>
 
 </html>
