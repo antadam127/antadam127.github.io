@@ -97,7 +97,8 @@ h6, .h6 {
 .btn-outline-primary:active, .btn-outline-primary:hover, .btn-outline-primary.focus, .btn-outline-primary.active {
   background: #ce8460 !important;
   border-color: #ce8460 !important;
-  color: #fff;
+  /* color: #fff; */
+  color: #fff !important;
 }
 
 .btn-outline-light {

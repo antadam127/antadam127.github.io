@@ -76,7 +76,7 @@
             data-toggle="collapse"
             data-target="#navigation"
           >
-            <i class="ti-menu"></i>
+            <i class="ti-menu" style="color: black"></i>
           </button>
 
           <div class="collapse navbar-collapse text-center" id="navigation">
@@ -197,7 +197,7 @@
                      loading="lazy"
                      src="images/posts/${art.id}/image_${ii}.jpg"
                      class="img-fluid"
-                     alt="post-thumb"
+                     alt="${art.id}_image_${ii}"
                      ${
                        asList
                          ? 'style="height: 200px; object-fit: cover"'
@@ -209,7 +209,7 @@
                 }
               }
 
-              const limitAmt = 10;
+              const limitAmt = 6;
               mainContent.forEach((art, inx) => {
                 if (cat === false && tag === false) {
                   if (inx >= limitAmt) return;
@@ -347,16 +347,17 @@
       </div>
     </section>
 
-    <div id="btn-cont-ua" class="container"></div>
     <script>
       if (cat === false && tag === false) {
         if (limitAmt < mainContent.length) {
-          $("#btn-cont-ua").append(
+          $("#main-cont-ua").append(
             $(`
-            <div class="row justify-content-center">
-                <a onclick="loadAll()" class="px-5 mb-4 btn btn-outline-primary">Load More</a>
+            <div id="btn-cont-ua" class="row mb-lg-5 justify-content-end">
+              <div class="col-lg-6"><div class="row justify-content-center">
+                <a onclick="loadAll()" class="px-5 btn btn-outline-primary">Load More</a>
+              </div></div>
             </div>
-        `)
+            `)
           );
         }
       }

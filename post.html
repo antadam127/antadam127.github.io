@@ -76,7 +76,7 @@
             data-toggle="collapse"
             data-target="#navigation"
           >
-            <i class="ti-menu"></i>
+            <i class="ti-menu" style="color: black"></i>
           </button>
 
           <div class="collapse navbar-collapse text-center" id="navigation">
@@ -143,21 +143,21 @@
                 style="aspect-ratio: 15/7; object-fit: cover"
                 src=""
                 class="img-fluid"
-                alt="post-thumb"
+                alt="post-thumb_image_1"
               />
               <img
                 id="img-2-ua"
                 style="aspect-ratio: 15/7; object-fit: cover"
                 src=""
                 class="img-fluid"
-                alt="post-thumb"
+                alt="post-thumb_image_2"
               />
               <img
                 id="img-3-ua"
                 style="aspect-ratio: 15/7; object-fit: cover"
                 src=""
                 class="img-fluid"
-                alt="post-thumb"
+                alt="post-thumb_image_3"
               />
             </div>
           </div>
@@ -169,7 +169,8 @@
                 <p>
                   <b class="title-ua"></b> is a
                   <em id="int-ua" class="tag-ua"></em>
-                  <em class="cat-ua"></em> located in State College, Pennsylvania.
+                  <em class="cat-ua"></em> located in State College,
+                  Pennsylvania.
                 </p>
               </div>
             </div>
@@ -178,7 +179,11 @@
                 <p id="p1-ua" class="m-0"></p>
               </div>
               <div class="col-sm-5 text-center my-3">
-                <a id="dir-btn-ua" href="#!" target="_blank" class="btn btn-outline-primary pr-3"
+                <a
+                  id="dir-btn-ua"
+                  href="#!"
+                  target="_blank"
+                  class="btn btn-outline-primary pr-3"
                   >Get Directions
                   <img
                     src="images/google-maps.png"
@@ -188,7 +193,7 @@
               </div>
             </div>
 
-            <hr style="margin: 32px 0;" />
+            <hr style="margin: 32px 0" />
             <!-- <hr/> -->
             <div id="iframe-cont-ua"></div>
             <div id="google-reviews"></div>
@@ -217,7 +222,7 @@
         $("#img-2-ua").attr("src", `images/posts/${art.id}/image_2.jpg`);
         $("#img-3-ua").attr("src", `images/posts/${art.id}/image_3.jpg`);
         $("#p1-ua").html(art.content);
-        $("#dir-btn-ua").attr('href', art.google);
+        $("#dir-btn-ua").attr("href", art.google);
 
         $("#iframe-cont-ua").append(art.iframe);
         $("iframe").attr("width", "100%");
