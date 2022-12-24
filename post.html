@@ -203,6 +203,11 @@
     </section>
     <script src="js/mainContent.js"></script>
     <script>
+      slickOptions.arrows = true;
+      slickOptions.autoplaySpeed = 4000;
+      slickOptions.fade = false;
+      slickOptions.pauseOnHover = true;
+
       const urlParams = new URLSearchParams(window.location.search);
       const id = urlParams.get("r");
       let art;

@@ -1,6 +1,6 @@
 (function ($) {
 	'use strict';
-	
+
 	// Preloader js    
 	$(window).on('load', function () {
 		$('.preloader').fadeOut(100);
@@ -58,9 +58,9 @@
 	//easeInOutExpo Declaration
 	jQuery.extend(jQuery.easing, {
 		easeInOutExpo: function (x, t, b, c, d) {
-			if (t === 0) {return b;}
-			if (t === d) {return b + c;}
-			if ((t /= d / 2) < 1) {return c / 2 * Math.pow(2, 10 * (t - 1)) + b;}
+			if (t === 0) { return b; }
+			if (t === d) { return b + c; }
+			if ((t /= d / 2) < 1) { return c / 2 * Math.pow(2, 10 * (t - 1)) + b; }
 			return c / 2 * (-Math.pow(2, -10 * --t) + 2) + b;
 		}
 	});
@@ -74,14 +74,6 @@
 	});
 
 	//post slider
-	$('.post-slider').slick({
-		slidesToShow: 1,
-		slidesToScroll: 1,
-		autoplay: true,
-		dots: false,
-		arrows: true,
-		prevArrow: '<button type=\'button\' class=\'prevArrow\'><i class=\'ti-angle-left\'></i></button>',
-		nextArrow: '<button type=\'button\' class=\'nextArrow\'><i class=\'ti-angle-right\'></i></button>'
-	});
+	$('.post-slider').slick(slickOptions);
 
 })(jQuery);

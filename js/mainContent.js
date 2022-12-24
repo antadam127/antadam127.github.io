@@ -1,3 +1,22 @@
+const slickOptions = {
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    dots: false,
+    arrows: false, // HOME + POST: true, OTHER: false
+    prevArrow: '<button type=\'button\' class=\'prevArrow\'><i class=\'ti-angle-left\'></i></button>',
+    nextArrow: '<button type=\'button\' class=\'nextArrow\'><i class=\'ti-angle-right\'></i></button>',
+
+    autoplaySpeed: 3000, // HOME + POST: 4000, OTHER: 3000
+    fade: true, // HOME + POST: false, OTHER: true
+    cssEase: 'ease',
+    pauseOnFocus: false,
+    pauseOnHover: false, // POST: true, OTHER: false
+    speed: 800,
+    vertical: false,
+    draggable: false,
+}
+
 const mainContent = [
     {
         id: "elixr",
