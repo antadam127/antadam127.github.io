@@ -1,0 +1,16 @@
+img.fluid-img {
+    object-fit: cover;
+    aspect-ratio: 3 / 2;
+}
+
+.portfolio-overlay {
+	/* background: RGBA(235, 84, 36, 1); */
+	background: RGBA(235, 84, 36, 0.8);
+	/* background: RGBA(0, 0, 0, 0.6); */
+}
+
+#portfolio-wrapper-ua {
+    max-height: 250vh;
+    overflow-y: scroll;
+    /* overflow-y: hidden; */
+}

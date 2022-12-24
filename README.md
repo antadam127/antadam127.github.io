@@ -1,3 +1,3 @@
 # Anthony Adam
 
-#### View Website: **[Click Here](https://antadam127.github.io)**
+#### View Web Portfolio: **[Click Here](https://antadam127.github.io)**
