@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <!-- Meta Tags -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+
+    <!-- Title -->
+    <title>Mapbox Template</title>
+
+    <!-- Icon -->
+    <link rel="icon" href="icon.svg" type="image/x-icon" />
+
+    <!-- Mapbox Required -->
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.13.0/mapbox-gl.js"></script>
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.13.0/mapbox-gl.css" rel="stylesheet" />
+
+    <!-- JQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+
+    <!-- \/ NEEDS CONFIRMATION \/ -->
+
+    <!-- Mapbox Assebly.css (To Add Symbols)-->
+    <!-- <link
+      href="https://api.mapbox.com/mapbox-assembly/v1.3.0/assembly.min.css"
+      rel="stylesheet"
+    />
+    <script
+      async
+      defer
+      src="https://api.mapbox.com/mapbox-assembly/v1.3.0/assembly.min.js"
+    ></script>  -->
+
+    <!-- DEPENDENCIES -->
+
+    <!-- Mapbox Geocoder -->
+    <!-- NEXT WAS UNCOMMENTED -->
+    <!-- <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.min.js"></script> -->
+    <!-- <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.css" type="text/css" /> -->
+
+    <!-- GEOCODER AND DIRECTION STYLESHEETS CANNOT COEXIST Directions stylesheet added in code.js-->
+
+    <!-- Mapbox Directions -->
+    <!-- NEXT WAS UNCOMMENTED -->
+    <!-- <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.1.0/mapbox-gl-directions.js"></script> -->
+    <!-- <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.1.0/mapbox-gl-directions.css" type="text/css" /> -->
+
+    <!-- D3.js -->
+    <!-- NEXT WAS UNCOMMENTED -->
+    <!-- <script src="https://d3js.org/d3.v7.min.js"></script> -->
+
+    <!-- Google Fonts -->
+    <!-- NEXT 3 Were UNCOMMENTED -->
+    <!-- <link rel="preconnect" href="https://fonts.googleapis.com" /> -->
+    <!-- <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin /> -->
+    <!-- <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;400;700&display=swap" rel="stylesheet" /> -->
+
+    <!-- ^^ NEEDS CONFIRMATION ^^ -->
+
+    <!-- USER ADDED -->
+    <link href="css/style.css" rel="stylesheet" />
+    <link href="css/corners.css" rel="stylesheet" />
+
+    <!-- GOOGLE ANALYTICS -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-2466715FY8"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "G-2466715FY8");
+    </script>
+    <!-- GOOGLE ANALYTICS -->
+  </head>
+
+  <body>
+    <div id="map"></div>
+
+    <script src="data.js"></script>
+    <script src="config.js"></script>
+    <script src="configSet.js"></script>
+    <script src="code.js"></script>
+
+    <script src="dependencies/geocode.js"></script>
+    <script src="dependencies/stylechanger.js"></script>
+
+    <script src="layers.js"></script>
+    <script src="dependencies/weather.js"></script>
+    <script src="dependencies/mapillary.js"></script>
+    <script src="dependencies/boundaries.js"></script>
+    <script src="dependencies/datasets.js"></script>
+    <script src="dependencies/blueplanet.js"></script>
+
+    <script src="styling.js"></script>
+    <script src="main.js"></script>
+    <script src="control.js"></script>
+  </body>
+</html>

@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+    <!-- <link
+      rel="shortcut icon"
+      type="image/x-icon"
+      href="https://cdn0.iconfinder.com/data/icons/thin-travel-places/24/thin-0509_globus_world_travel_regional-32.png"
+      defer /> -->
+    <!-- <link rel="icon" href="../../../img/icon.png" /> -->
+    <title>Anthony Adam | LinkedIn Analysis</title>
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+    <!-- Mapbox Required -->
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.js"></script>
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+      }
+
+      #map {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 100%;
+      }
+
+      .mapboxgl-popup {
+        width: 100%;
+        min-width: 325px;
+        min-height: 325px;
+        font-size: 14px;
+      }
+
+      .aUnderlineHover:hover {
+        text-decoration: none;
+      }
+    </style>
+
+    <!-- Side Buttons -->
+    <!-- <style>
+      #mySidenav .button {
+        position: absolute;
+        left: -88px;
+        transition: 0.3s;
+        padding: 15px;
+        width: 75px;
+        text-decoration: none;
+        font-size: 20px;
+        color: white;
+        border-radius: 0 5px 5px 0;
+        z-index: 100;
+        font-family: TimesNewRoman, Times New Roman, Times, Baskerville, Georgia, serif;
+        opacity: 0.8;
+      }
+      #mySidenav .button:hover {
+        left: 0;
+        cursor: pointer;
+        opacity: 1;
+      }
+    </style> -->
+    <!-- Side Buttons -->
+  </head>
+
+  <body>
+    <!-- Side Buttons -->
+    <!-- <div id="mySidenav" class="sidenav">
+      <div id="bt1" class="button" style="top: 20px; background-color: #2c343b">Home</div>
+      <a
+        target="_blank"
+        href="https://github.com/antadam127/antadam127.github.io/tree/main/more/projects/linkedin-analysis"
+        class="button"
+        style="top: 80px; background-color: #2c343b"
+        >Code</a
+      >
+      <script>
+        $("#bt1").on("click", () => {
+          const urlParams = new URLSearchParams(window.location.search);
+          if (urlParams.get("rf") == "hm") window.history.back();
+          else window.location.href = "../../../index.html#portfolio";
+        });
+      </script>
+    </div> -->
+    <!-- Side Buttons -->
+
+    <!-- ADD CORNER INFO BUTTONS -->
+    <!-- <style>
+      .sources-map__instructions-button {
+        background: 0 0;
+        border: 0;
+        cursor: pointer;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        z-index: 10;
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        display: block;
+        width: 32px;
+        height: 32px;
+        padding: 10px;
+        line-height: 0;
+        background: #fff;
+      }
+      .sources-map__instructions-button:active {
+        outline: 0;
+      }
+      .sources-map__instructions-button > svg {
+        fill: #003755;
+        transform: rotate(90deg);
+      }
+      @media only screen and (max-width: 47.4375em) {
+        .sources-map__instructions-button {
+          display: none;
+        }
+      }
+      .sources-map__instructions-button:focus,
+      .sources-map__instructions-button:hover {
+        opacity: 0.7;
+      }
+      .sources-map__instructions-button:active {
+        transform: scale(0.85);
+      }
+      .sources-map__instructions-button[aria-expanded="false"] > svg {
+        transform: rotate(-90deg);
+      }
+      .sources-map__instructions {
+        z-index: 5;
+        position: absolute;
+        right: 30px;
+        top: 30px;
+        width: 250px;
+        padding: 20px 25px;
+        background: #5b7f92;
+        color: #fff;
+        font-size: 1.2rem;
+        line-height: 1.3;
+        transform-origin: 100% 0;
+        transition: all 0.2s;
+      }
+      @media only screen and (max-width: 47.4375em) {
+        .sources-map__instructions {
+          display: none;
+        }
+      }
+      .sources-map__instructions[aria-hidden="true"] {
+        transform: scale(0);
+        opacity: 0;
+        visibility: hidden;
+      }
+      .no-csstransforms .sources-map__instructions[aria-hidden="true"] {
+        display: none;
+      }
+      .sources-map__instructions dl {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        zoom: 1;
+        position: relative;
+        line-height: 1.2;
+      }
+      .sources-map__instructions dl:after {
+        height: 0;
+        visibility: hidden;
+        display: block;
+        clear: both;
+        content: "";
+      }
+      .sources-map__instructions dl::before {
+        content: "";
+        position: absolute;
+        left: 10%;
+        top: 4px;
+        bottom: 4px;
+        margin-left: 15px;
+        display: block;
+        width: 1px;
+        background: rgba(255, 255, 255, 0.5);
+      }
+      .sources-map__instructions dt {
+        margin: 0;
+        float: left;
+        clear: left;
+        width: 10%;
+        padding: 6px 0;
+        text-align: center;
+      }
+      .sources-map__instructions dt > svg {
+        fill: #fff;
+      }
+      .sources-map__instructions dt:nth-of-type(1) {
+        margin-top: 1px;
+      }
+      .sources-map__instructions dt:nth-of-type(2) {
+        margin-top: 4px;
+      }
+      .sources-map__instructions dt:nth-of-type(3) {
+        margin-top: 4px;
+      }
+      .sources-map__instructions dd {
+        margin: 0;
+        float: left;
+        width: 90%;
+        padding: 6px 0 6px 32px;
+      }
+    </style> -->
+    <!-- <button class="sources-map__instructions-button js-corner-toggle" aria-expanded="false" aria-controls="map-instructions" aria-title="Expand or collapse map instructions">
+      <svg width="12" height="12" viewbox="0 0 12 12" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 1V0H0v12h1V1" fill-rule="nonzero"></path>
+      </svg>
+    </button>
+    <aside class="sources-map__instructions js-corner-overlay" id="map-instructions" aria-hidden="false"></aside> -->
+    <!-- ADD CORNER INFO BUTTONS -->
+
+    <div id="map"></div>
+    <script>
+      // Add Myself and finish "presentation" on me saying check out LinkedIn
+      // People Fly out from Center
+      mapboxgl.accessToken = "pk.eyJ1IjoiYW50YWRhbTEyNyIsImEiOiJjbDI2ZGJnN2wyaW5qM2JxZHVmZTJjNm8zIn0.4aMtEeYWx4hxIVKRrqsqWw";
+      const map = new mapboxgl.Map({
+        container: "map",
+        style: "mapbox://styles/antadam127/cl5biu6vl000u14lly9nqyk21",
+        center: [-96, 38.5],
+        zoom: 4,
+        projection: "mercator", // 'globe',
+        hash: false,
+        dragRotate: false,
+        minZoom: 2.75,
+        attributionControl: false,
+        logoPosition: 'top-left',
+    //     customAttribution: `<a title="Anthony Adam" href="https://www.linkedin.com/in/anthony-adam-psu/" target="_blank">
+    // <svg width="16px" height="16px" viewBox="2 4 48 48" style="vertical-align: middle;">
+    //     <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+    //         <path d="M20.9716667,33.5527338 L25.001,33.5527338 L25.001,27.1328007 C25.001,25.439485 25.3213333,23.7988354 27.4206667,23.7988354 C29.491,23.7988354 29.517,25.7351486 29.517,27.2404662 L29.517,33.5527338 L33.5506667,33.5527338 L33.5506667,26.4341413 C33.5506667,22.9381777 32.796,20.2505391 28.711,20.2505391 C26.7483333,20.2505391 25.432,21.3265278 24.8943333,22.3471839 L24.839,22.3471839 L24.839,20.5725357 L20.9716667,20.5725357 L20.9716667,33.5527338 Z M16.423,14.1202696 C15.1273333,14.1202696 14.0823333,15.1682587 14.0823333,16.4595785 C14.0823333,17.7508984 15.1273333,18.7992208 16.423,18.7992208 C17.7133333,18.7992208 18.761,17.7508984 18.761,16.4595785 C18.761,15.1682587 17.7133333,14.1202696 16.423,14.1202696 L16.423,14.1202696 Z M14.4026667,33.5527338 L18.4406667,33.5527338 L18.4406667,20.5725357 L14.4026667,20.5725357 L14.4026667,33.5527338 Z M9.76633333,40 C8.79033333,40 8,39.2090082 8,38.2336851 L8,9.76631493 C8,8.79065843 8.79033333,8 9.76633333,8 L38.234,8 C39.2093333,8 40,8.79065843 40,9.76631493 L40,38.2336851 C40,39.2090082 39.2093333,40 38.234,40 L9.76633333,40 Z" id="Shape" fill="#000000"></path>
+    //     </g>
+    // </svg>Anthony Adam</a>`,
+      });
+
+      let clicked = false;
+      map.on("style.load", () => {
+        map.setFog({});
+
+        const popup = new mapboxgl.Popup({
+          closeButton: false,
+          closeOnClick: false,
+        });
+        map.on("zoomstart", () => {
+          popup.remove();
+        });
+
+        map.on("mouseenter", "linkedin-psu-alumni-tileset-with", (e) => {
+          map.getCanvas().style.cursor = "pointer";
+        });
+
+        map.on("mousemove", "linkedin-psu-alumni-tileset-with", (e) => {
+          if (!clicked) setPopup(popup, e);
+        });
+
+        map.on("mouseleave", "linkedin-psu-alumni-tileset-with", (e) => {
+          map.getCanvas().style.cursor = "";
+          if (!clicked) popup.remove();
+        });
+
+        map.on("click", (e) => {
+          clicked = false;
+          popup.remove();
+        });
+
+        map.on("click", "linkedin-psu-alumni-tileset-with", (e) => {
+          clicked = true;
+          setPopup(popup, e);
+        });
+      });
+
+      function setPopup(popup, e) {
+        // console.log(e.features[0].properties);
+
+        const coordinates = e.features[0].geometry.coordinates.slice();
+
+        let attemptProfPics = false;
+        let profileImg = "https://www.pikpng.com/pngl/b/80-805068_my-profile-icon-blank-profile-picture-circle-clipart.png";
+        if (attemptProfPics) {
+          profileImg = e.features[0].properties.profileImg;
+          if (profileImg == "0") profileImg = "https://www.pikpng.com/pngl/b/80-805068_my-profile-icon-blank-profile-picture-circle-clipart.png";
+        }
+
+        const fullName = e.features[0].properties.fullName;
+        const profileUrl = e.features[0].properties.profileUrl;
+        const jobTitle = e.features[0].properties.jobTitle;
+        const location = e.features[0].properties.location;
+        const company = e.features[0].properties.company;
+        const companyLogo = e.features[0].properties.companyLogo;
+        const companyLink = e.features[0].properties.companyLink;
+
+        const innerHTML =
+          '<div style="height: 100px;"><a title="' +
+          fullName +
+          '" href="' +
+          profileUrl +
+          '" target="_blank"> <img style="float: left; border-radius: 50%;" src="' +
+          profileImg +
+          '" alt="Profile Image" height="100%" /> </a> <ul style="list-style-type: none; padding: 0; margin: 0; text-align: right;"> <li style="padding: 8px 4px 4px;"><a class="aUnderlineHover" style=" color:black;" title="' +
+          fullName +
+          '" href="' +
+          profileUrl +
+          '" target="_blank"><strong style="font-size: 18px;">' +
+          fullName +
+          '</strong></a></li> <li style="padding: 0px 4px;">' +
+          jobTitle +
+          '</li> </ul> </div> <a title="' +
+          company +
+          '" href="' +
+          companyLink +
+          '" target="_blank"><img style="padding: 6px 0px; display: block; margin-left: auto; margin-right: auto;" src="' +
+          companyLogo +
+          '" alt="' +
+          company +
+          '" height="40px" /></a> <div style="text-align: right"><i>' +
+          location +
+          "</i></div>";
+
+        while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+          coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+        }
+
+        popup.setLngLat(coordinates).setHTML(innerHTML).addTo(map);
+      }
+    </script>
+  </body>
+</html>

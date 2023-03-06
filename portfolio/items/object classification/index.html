@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Multiple object detection using pre trained model in TensorFlow.js</title>
+    <meta charset="utf-8" />
+    <!-- Import the webpage's stylesheet -->
+    <link rel="stylesheet" href="style.css" />
+    <!-- GOOGLE ANALYTICS -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-2466715FY8"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "G-2466715FY8");
+    </script>
+    <!-- GOOGLE ANALYTICS -->
+    <!-- CHECK IFRAME STATUS -->
+    <style id="scroll-style">
+      /* Set Custom Attributes for Scrollbar */
+      body::-webkit-scrollbar {
+        width: 2px;
+        height: 2px;
+      }
+      body::-webkit-scrollbar-thumb {
+        background: #888;
+      }
+
+      .fullscreen {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        margin: 0;
+      }
+    </style>
+    <script>
+      const style = document.getElementById("scroll-style");
+      let iFrameView = false;
+      style.disabled = true;
+      // Check URL Paramaters
+      (function checkParams() {
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.has("iframe"))
+          if (urlParams.get("iframe") == "true") {
+            iFrameView = true;
+            style.disabled = false;
+          }
+      })();
+    </script>
+    <!-- CHECK IFRAME STATUS -->
+  </head>
+  <body>
+    <h1>Multiple object detection using pre trained model in TensorFlow.js</h1>
+
+    <p>Wait for the model to load before clicking the button to enable the webcam - at which point it will become visible to use.</p>
+
+    <section id="demos" class="invisible">
+      <p>Hold some objects up close to your webcam to get a real-time classification! When ready click "enable webcam" below and accept access to the webcam when the browser asks (check the top left of your window)</p>
+
+      <div id="liveView" class="camView">
+        <button id="webcamButton">Enable Webcam</button>
+        <video id="webcam" autoplay muted width="640" height="480"></video>
+      </div>
+    </section>
+
+    <!-- Import TensorFlow.js library -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs/dist/tf.min.js" type="text/javascript"></script>
+    <!-- Load the coco-ssd model to use to recognize things in images -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/coco-ssd"></script>
+
+    <!-- Import the page's JavaScript to do some stuff -->
+    <script src="script.js" defer></script>
+  </body>
+</html>

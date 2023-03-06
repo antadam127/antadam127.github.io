@@ -1,0 +1,96 @@
+/* NOTES */
+/* width: calc(100% - 60px); */
+/* width: clamp(min, prefer, max); */
+/* background-color: var(--myVar); */
+
+/* DEFINE CSS VARIABLES */
+/* :root {
+  --myVar: 500px;
+} */
+
+body {
+  font-family: "Open Sans", sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+#map {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  overflow: hidden;
+}
+
+#stylemenu {
+  position: absolute;
+  background: rgba(239, 239, 239, 0.85);
+  padding: 6px;
+  margin: 10px;
+  /* margin-right: 20%; */
+  margin-right: 60px;
+}
+
+.custom-geocoder {
+  display: block;
+  z-index: 1;
+  min-width: 180px;
+  width: 75%;
+  margin: 10px auto;
+}
+
+.mapboxgl-ctrl-geocoder--input:focus {
+  outline: none;
+}
+
+.temperature-container {
+  background-color: #fff;
+  cursor: default;
+  border-radius: 4px;
+  box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.1);
+  font-family: "Oswald", sans-serif;
+  position: absolute;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  height: fit-content;
+}
+
+.hovertemp-container {
+  background-color: #fff;
+  border-radius: 4px;
+  box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.1);
+  font-family: "Oswald", sans-serif;
+  font-weight: lighter;
+  font-size: smaller;
+  position: absolute;
+  z-index: 2;
+  margin: 4px 0;
+  padding: 2px 6px;
+  display: none;
+  /* text-align: right;
+  top: 46px;
+  right: 10px; */
+}
+
+#center-target {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: none;
+}
+
+.mapboxgl-popup-content {
+  padding: 2px;
+  width: fit-content;
+}
+
+/* .mapbox-directions-instructions {
+  overflow-y: scroll;
+} */

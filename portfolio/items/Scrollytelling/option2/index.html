@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <!-- Meta Tags -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+
+    <!-- Title -->
+    <title>Global State College Map Story</title>
+
+    <!-- Icon -->
+    <!-- <link
+      rel="shortcut icon"
+      type="image/x-icon"
+      href="https://cdn0.iconfinder.com/data/icons/thin-travel-places/24/thin-0509_globus_world_travel_regional-32.png"
+    /> -->
+    <link rel="icon" href="images/favicon.svg" type="image/x-icon" />
+
+    <!-- Mapbox Required -->
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.js"></script>
+    <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.css" />
+
+    <!-- JQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&display=swap" rel="stylesheet" />
+    <!-- Mapbox Assebly.css -->
+    <link href="https://api.mapbox.com/mapbox-assembly/v1.3.0/assembly.min.css" rel="stylesheet" />
+    <script async defer src="https://api.mapbox.com/mapbox-assembly/v1.3.0/assembly.js"></script>
+
+    <!-- DEPENDENCIES -->
+
+    <!-- Mapbox Geocoder -->
+    <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.min.js"></script>
+    <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.css" type="text/css" />
+
+    <!-- Scrollytelling Required -->
+    <!-- <script src="https://unpkg.com/intersection-observer"></script> -->
+    <!-- <script src="https://unpkg.com/scrollama"></script> -->
+    <!-- <script src="dependencies/scrollytelling/scrollama.js"></script> -->
+
+    <!-- User Files -->
+    <link rel="stylesheet" href="styles.css" />
+    <script src="data.js"></script>
+    <script src="config.js"></script>
+    <script src="dependencies/scrollytelling/scrollyconfig.js"></script>
+    <script src="dependencies/scrollytelling/globalscdata.js"></script>
+    <script src="code.js"></script>
+    <script src="dependencies/geocode.js"></script>
+    <script src="dependencies/stylechanger.js"></script>
+
+    <style>
+      #side-wrap {
+        background-color: white;
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        width: var(--sidePanelSize);
+      }
+      #nav-wrap {
+        position: fixed;
+        z-index: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        width: 50px;
+      }
+      #feature-wrap {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        left: calc(100% - var(--sidePanelSize));
+        padding-left: 30px;
+        padding-right: 50px;
+        overflow-y: scroll;
+      }
+      @media (max-width: 750px) {
+        #side-wrap {
+          top: 50vh;
+          bottom: 0;
+          right: 0;
+          width: 100%;
+        }
+        #feature-wrap {
+          top: 50vh;
+          bottom: 0;
+          right: 0;
+          left: 0;
+        }
+        #nav-wrap {
+          top: 50vh;
+        }
+        #map-wrap {
+          top: 0;
+          bottom: 50vh;
+          left: 0;
+          width: 100%;
+          z-index: 999;
+        }
+        .chapter img {
+          max-width: 450px;
+        }
+      }
+
+      #intro-section {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        height: 30vh;
+      }
+      .chapter {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        height: 100vh;
+      }
+
+      #intro-section h1 {
+        margin-top: 0px;
+        margin-bottom: 0px;
+        color: #000;
+        font-size: 40px;
+        line-height: 57px;
+        font-weight: 700;
+        font-family: "Oswald", sans-serif;
+      }
+      #intro-section p {
+        margin-top: 8px;
+      }
+
+      .number {
+        margin-right: 8px;
+        opacity: 0.3;
+      }
+      .heading {
+        display: flex;
+        color: #000;
+        font-size: 29px;
+        font-weight: 400;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+        line-height: 44px;
+        font-family: "Oswald", sans-serif;
+      }
+
+      #feature-wrap p {
+        color: #424242;
+        font-size: 13px;
+        line-height: 25px;
+        font-weight: 300;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+      }
+      .chapter p {
+        margin-top: 24px;
+        margin-bottom: 10px;
+      }
+
+      #nav-inner {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+      .nav-item {
+        width: 14px;
+        height: 14px;
+        margin-bottom: 12px;
+        flex: 0 0 auto;
+        border-style: solid;
+        border-width: 1px;
+        border-color: rgba(0, 0, 0, 0.5);
+        border-radius: 50%;
+        transition: all 100ms ease;
+      }
+      .nav-item:hover,
+      .nav-active {
+        background-color: #000;
+      }
+
+      #feature-wrap img {
+        margin-top: 34px;
+        margin-bottom: 10px;
+        /* padding: 0 10px; */
+      }
+
+      #mapInset {
+        /* bottom: 50px; */
+        bottom: 30px;
+        right: 30px;
+        height: 180px;
+        width: 250px;
+        max-width: 100%;
+        position: absolute;
+        z-index: 1;
+        /* opacity: 1; */
+        opacity: 0.95;
+        transition: opacity 0.5s ease-in-out;
+        pointer-events: none;
+      }
+    </style>
+
+    <!-- GOOGLE ANALYTICS -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-2466715FY8"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "G-2466715FY8");
+    </script>
+    <!-- GOOGLE ANALYTICS -->
+    <!-- CHECK IFRAME STATUS -->
+    <style id="scroll-style">
+      /* Set Custom Attributes for Scrollbar */
+      body::-webkit-scrollbar {
+        width: 2px;
+        height: 2px;
+      }
+      body::-webkit-scrollbar-thumb {
+        background: #888;
+      }
+      .nav-item {
+        width: 8px;
+        height: 8px;
+        margin-bottom: 6px;
+      }
+    </style>
+    <script>
+      const style = document.getElementById("scroll-style");
+      style.disabled = true;
+      // Check URL Paramaters
+      (function checkParams() {
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.has("iframe")) if (urlParams.get("iframe") == "true") style.disabled = false;
+      })();
+    </script>
+    <!-- CHECK IFRAME STATUS -->
+  </head>
+  <body>
+    <div id="mapbox-wrap">
+      <div id="map-wrap">
+        <div id="map"></div>
+      </div>
+
+      <!-- <div id="side-wrap">
+        <div id="nav-wrap">
+          <nav class="nav-inner">
+            <a href="#chapter_1" class="nav-item"></a>
+            <a href="#chapter_2" class="nav-item"></a>
+            <a href="#chapter_3" class="nav-item"></a>
+          </nav>
+        </div>
+        <div id="feature-wrap">
+          <div id="intro-section">
+            <h1>Touring San Fran</h1>
+            <p>Scroll Down to Explore</p>
+          </div>
+          <div id="chapter_1" class="chapter">
+            <h1 class="heading"><span class="number">01</span>Chinatown</h1>
+            <img src="https://picsum.photos/600/500" alt="Image">
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+              Suspendisse varius enim in eros elementum tristique. Duis cursus,
+              mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam
+              libero vitae erat. Aenean faucibus nibh et justo cursus id rutrum
+              lorem imperdiet. Nunc ut sem vitae risus tristique posuere.
+            </p>
+          </div>
+          <div id="chapter_2" class="chapter">
+            <h1 class="heading"><span class="number">02</span>Non Chinatown</h1>
+            <img src="https://picsum.photos/600/500" alt="Image">
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+              Suspendisse varius enim in eros elementum tristique. Duis cursus,
+              mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam
+              libero vitae erat. Aenean faucibus nibh et justo cursus id rutrum
+              lorem imperdiet. Nunc ut sem vitae risus tristique posuere.
+            </p>
+          </div>
+          <div id="chapter_3" class="chapter">
+            <h1 class="heading"><span class="number">03</span>Chinatown</h1>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+              Suspendisse varius enim in eros elementum tristique. Duis cursus,
+              mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam
+              libero vitae erat. Aenean faucibus nibh et justo cursus id rutrum
+              lorem imperdiet. Nunc ut sem vitae risus tristique posuere.
+            </p>
+          </div>
+        </div>
+      </div> -->
+    </div>
+
+    <script src="styling.js"></script>
+    <script src="main.js"></script>
+    <script src="dependencies/scrollytelling/scrollytelling.js"></script>
+  </body>
+</html>
