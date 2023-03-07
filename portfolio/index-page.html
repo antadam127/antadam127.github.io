@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>Anthony Adam</title>
+    <title>Portfolio Item | Anthony Adam</title>
     <meta content="Data Analysis | Data Visualization" name="description" />
     <meta content="Anthony Adam West Hartford Penn State College" name="keywords" />
 
@@ -96,11 +96,8 @@
         <div class="container">
           <div class="row mb-4 align-items-center">
             <div class="col-md-8" data-aos="fade-up">
-              <h2>Earth At Night</h2>
-              <p>
-                This is a Mapbox Visualization using the NASA Visible Infrared Imaging Radiometer Suite (VIIRS) instrument, a component of the Suomi National Polar-orbiting Partnership (NPP) satellite. VIIRS consists of 22 spectral bands from the ultra-violet to the mid-infrared, one of which is able to observe
-                nighttime lights, the day night band (DNB). DNB is a panchromatic band sensitive to visible and near-infrared wavelengths.
-              </p>
+              <h2 id="mod1"></h2>
+              <p id="mod2"></p>
             </div>
           </div>
         </div>
@@ -109,36 +106,40 @@
           <div class="container">
             <div class="row align-items-stretch">
               <div class="col-md-8" data-aos="fade-up">
-                <div class="shadow-wrap" style="box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; border-radius: 6px;">
+                <div class="shadow-wrap" style="box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; border-radius: 6px">
                   <div style="background: #ececec; height: 32px; width: 100%; border-radius: 6px 6px 0 0">
                     <span style="background-color: #ff5f57; border-radius: 50%; display: inline-block; margin: 10px 0 10px 12px; height: 12px; width: 12px"></span>
                     <span style="background-color: #ffbd2d; border-radius: 50%; display: inline-block; margin: 10px 0; height: 12px; width: 12px"></span>
                     <span style="background-color: #29c940; border-radius: 50%; display: inline-block; margin: 10px 0; height: 12px; width: 12px"></span>
-                    <a class="readmore external-button-greyed" style="border-radius: 3px; border: 1px #dcdcdc solid; background-color: white; padding: 3px 6px; position: absolute; right: 12px; margin: 3px"><span class="bi bi-box-arrow-up-right" style="color: #216977"></span> </a>
+                    <a id="mod3" target="_blank" class="readmore" style="border-radius: 3px; border: 1px #dcdcdc solid; background-color: white; padding: 3px 6px; position: absolute; right: 12px; margin: 3px"
+                      ><span class="bi bi-box-arrow-up-right" style="color: #216977"></span
+                    ></a>
                   </div>
-                  <div style="width: 100%" class="ratio ratio-1x1">
-                    <iframe defer src="items/object classification/index.html?iframe=true" frameborder="0" style="border-radius: 0 0 6px 6px; width: 100%; height: 100%"></iframe>
+                  <div id="main-content" style="width: 100%" class="ratio ratio-4x3">
+                    <!-- <iframe defer src="items/mapbox-config/index-mapbox-config.html?c=black-marble&iframe=true" frameborder="0" style="border-radius: 0 0 6px 6px; width: 100%; height: 100%"></iframe> -->
                   </div>
                 </div>
               </div>
               <!-- <div class="col-md-3 ml-auto" data-aos="fade-up" data-aos-delay="100"> -->
               <div class="col-md-4 ml-auto" data-aos="fade-up" data-aos-delay="100">
                 <div class="sticky-content">
-                  <h3 class="h3">Black Marble</h3>
-                  <p class="mb-4"><span class="text-muted">Mapbox</span></p>
+                  <h3 id="mod5" class="h3"></h3>
+                  <p id="mod6" class="mb-4">
+                    <!-- <span class="text-muted"></span> -->
+                  </p>
 
-                  <div class="mb-5">
-                    <p>This project utilizes Mapbox and the external dataset provided by NASA. The raster image fades out as the user zooms in reveal the Satellite data.</p>
-                  </div>
+                  <div class="mb-5"><p id="mod7"></p></div>
 
                   <h4 class="h4 mb-3">Elements</h4>
-                  <ul class="list-unstyled list-line mb-5">
-                    <li>Javascript</li>
+                  <ul id="mod8" class="list-unstyled list-line mb-5">
+                    <!-- <li>Javascript</li>
                     <li>Mapbox</li>
-                    <li>HTML</li>
+                    <li>HTML</li> -->
                   </ul>
 
-                  <p><a href="items/mapbox-config/index-mapbox-config.html?c=black-marble" class="readmore">Visit Website</a></p>
+                  <p id="mod9">
+                    <!-- <a href="" target="_blank" class="readmore">Visit Site</a> -->
+                  </p>
                 </div>
               </div>
             </div>
@@ -147,7 +148,7 @@
       </section>
 
       <!-- ======= Testimonials Section ======= -->
-      <section class="section pt-0">
+      <!-- <section class="section pt-0">
         <div class="container">
           <div class="testimonials-slider swiper" data-aos="fade-up" data-aos-delay="100">
             <div class="swiper-wrapper">
@@ -160,7 +161,6 @@
 
               <div class="swiper-slide">
                 <div class="testimonial-wrap p-4 m-2">
-                  <!-- <div class="testimonial"> -->
                   <pre><code class="language-javascript">
   // Initiate Map
   mapboxgl.accessToken = config.accessToken;
@@ -187,7 +187,6 @@
 
               <div class="swiper-slide">
                 <div class="testimonial-wrap p-4 m-2">
-                  <!-- <div class="testimonial"> -->
                   <pre><code class="language-javascript">
   // Initiate Map
   mapboxgl.accessToken = config.accessToken;
@@ -205,7 +204,7 @@
             <div class="swiper-pagination m-0" style="top: 6px"></div>
           </div>
         </div>
-      </section>
+      </section> -->
     </main>
     <!-- End #main -->
 
@@ -224,6 +223,10 @@
     </footer>
 
     <a href="#" class="pt-4 back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+    <!-- More -->
+    <script src="portfolioSet.js"></script>
+    <script src="scriptPage.js"></script>
 
     <!-- Vendor JS Files -->
     <script src="../assets/vendor/aos/aos.js"></script>

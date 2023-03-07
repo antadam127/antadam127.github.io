@@ -51,9 +51,7 @@ const skills = [
     },
 ];
 
-const filters = ["Web", "Design", "Branding", "Photo"];
-
-const portfolio = [
+const portfolio_not_neeeded = [
     {
         name: "Country Populations",
         image: "country-populations.jpg",
@@ -98,5 +96,94 @@ const portfolio = [
         url: "",
         description: "",
         tags: ["wordpress", "html"],
+    },
+];
+
+const filters = ["Mapbox", "D3.js"];
+
+const portfolio = [
+    {
+        id: 'blackmarble',
+        title: 'Earth At Night',
+        title2: 'Black Marble',
+        tags: ['Web', 'Photo'],
+        desc: 'This is a Mapbox Visualization using the NASA Visible Infrared Imaging Radiometer Suite (VIIRS) instrument, a component of the Suomi National Polar-orbiting Partnership (NPP) satellite. VIIRS consists of 22 spectral bands from the ultra-violet to the mid-infrared, one of which is able to observe nighttime lights, the day night band (DNB). DNB is a panchromatic band sensitive to visible and near-infrared wavelengths.',
+        desc2: 'This project utilizes Mapbox and the external dataset provided by NASA. The raster image fades out as the user zooms in reveal the Satellite data.',
+        skills: ['Javascript', 'Mapbox', 'HTML'],
+        externalSite: 'items/mapbox-config/index-mapbox-config.html?c=black-marble',
+        main: {
+            type: 'iframe', // 'iframe', 'script'
+            src: 'items/mapbox-config/index-mapbox-config.html?c=black-marble&iframe=true',
+        }
+    },
+    {
+        id: 'linkedin',
+        title: 'LinkedIn',
+        title2: 'Black Marble',
+        tags: ['Web', 'Photo'],
+        desc: 'This is a Mapbox Visualization using the NASA Visible Infrared Imaging Radiometer Suite (VIIRS) instrument, a component of the Suomi National Polar-orbiting Partnership (NPP) satellite. VIIRS consists of 22 spectral bands from the ultra-violet to the mid-infrared, one of which is able to observe nighttime lights, the day night band (DNB). DNB is a panchromatic band sensitive to visible and near-infrared wavelengths.',
+        desc2: 'This project utilizes Mapbox and the external dataset provided by NASA. The raster image fades out as the user zooms in reveal the Satellite data.',
+        skills: ['Javascript', 'Mapbox', 'HTML'],
+        externalSite: 'items/index-linkedin.html',
+        main: {
+            type: 'iframe', // 'iframe', 'script'
+            src: 'items/index-linkedin.html?iframe=true',
+        }
+    },
+    {
+        id: 'weather',
+        title: 'Current Weather',
+        title2: 'Black Marble',
+        tags: ['Web', 'Photo'],
+        desc: 'This is a Mapbox Visualization using the NASA Visible Infrared Imaging Radiometer Suite (VIIRS) instrument, a component of the Suomi National Polar-orbiting Partnership (NPP) satellite. VIIRS consists of 22 spectral bands from the ultra-violet to the mid-infrared, one of which is able to observe nighttime lights, the day night band (DNB). DNB is a panchromatic band sensitive to visible and near-infrared wavelengths.',
+        desc2: 'This project utilizes Mapbox and the external dataset provided by NASA. The raster image fades out as the user zooms in reveal the Satellite data.',
+        skills: ['Javascript', 'Mapbox', 'HTML'],
+        externalSite: 'items/mapbox-config/index-mapbox-config.html?c=current-weather',
+        main: {
+            type: 'iframe', // 'iframe', 'script'
+            src: 'items/mapbox-config/index-mapbox-config.html?c=current-weather&iframe=true',
+        }
+    },
+    {
+        id: 'globalsc',
+        title: 'Global State College',
+        title2: 'Black Marble',
+        tags: ['Web', 'Photo'],
+        desc: 'This is a Mapbox Visualization using the NASA Visible Infrared Imaging Radiometer Suite (VIIRS) instrument, a component of the Suomi National Polar-orbiting Partnership (NPP) satellite. VIIRS consists of 22 spectral bands from the ultra-violet to the mid-infrared, one of which is able to observe nighttime lights, the day night band (DNB). DNB is a panchromatic band sensitive to visible and near-infrared wavelengths.',
+        desc2: 'This project utilizes Mapbox and the external dataset provided by NASA. The raster image fades out as the user zooms in reveal the Satellite data.',
+        skills: ['Javascript', 'Mapbox', 'HTML'],
+        externalSite: 'items/Global State College Blog/index.html',
+        main: {
+            type: 'iframe', // 'iframe', 'script'
+            src: 'items/Global State College Blog/index.html?iframe=true',
+        }
+    },
+    {
+        id: 'globalmapstory',
+        title: 'Global Map Story',
+        title2: 'Black Marble',
+        tags: ['Web', 'Photo'],
+        desc: 'This is a Mapbox Visualization using the NASA Visible Infrared Imaging Radiometer Suite (VIIRS) instrument, a component of the Suomi National Polar-orbiting Partnership (NPP) satellite. VIIRS consists of 22 spectral bands from the ultra-violet to the mid-infrared, one of which is able to observe nighttime lights, the day night band (DNB). DNB is a panchromatic band sensitive to visible and near-infrared wavelengths.',
+        desc2: 'This project utilizes Mapbox and the external dataset provided by NASA. The raster image fades out as the user zooms in reveal the Satellite data.',
+        skills: ['Javascript', 'Mapbox', 'HTML'],
+        externalSite: 'items/Scrollytelling/option2/index.html',
+        main: {
+            type: 'iframe', // 'iframe', 'script'
+            src: 'items/Scrollytelling/option2/index.html?iframe=true',
+        }
+    },
+    {
+        id: 'tensorflow',
+        title: 'TensorFlow Image Recognition',
+        title2: 'Black Marble',
+        tags: ['Web', 'Photo'],
+        desc: 'This is a Mapbox Visualization using the NASA Visible Infrared Imaging Radiometer Suite (VIIRS) instrument, a component of the Suomi National Polar-orbiting Partnership (NPP) satellite. VIIRS consists of 22 spectral bands from the ultra-violet to the mid-infrared, one of which is able to observe nighttime lights, the day night band (DNB). DNB is a panchromatic band sensitive to visible and near-infrared wavelengths.',
+        desc2: 'This project utilizes Mapbox and the external dataset provided by NASA. The raster image fades out as the user zooms in reveal the Satellite data.',
+        skills: ['Javascript', 'Mapbox', 'HTML'],
+        externalSite: false,
+        main: {
+            type: 'iframe', // 'iframe', 'script'
+            src: 'items/object classification/index.html?iframe=true',
+        }
     },
 ];
