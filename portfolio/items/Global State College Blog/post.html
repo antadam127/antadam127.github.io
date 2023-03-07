@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8" />
+    <title>Global State College</title>
+
+    <!-- mobile responsive meta -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="State College International Food" />
+    <meta name="author" content="Anthony Adam" />
+
+    <!-- plugins -->
+    <link rel="preload" href="https://fonts.gstatic.com/s/opensans/v18/mem8YaGs126MiZpBA-UFWJ0bbck.woff2" style="font-display: optional" />
+    <link rel="stylesheet" href="plugins/bootstrap/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:600%7cOpen&#43;Sans&amp;display=swap" media="screen" />
+
+    <link rel="stylesheet" href="plugins/themify-icons/themify-icons.css" />
+    <link rel="stylesheet" href="plugins/slick/slick.css" />
+
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="css/style.css" />
+
+    <!--Favicon-->
+    <link rel="shortcut icon" href="images/favicon.svg" type="image/x-icon" />
+    <link rel="icon" href="images/favicon.svg" type="image/x-icon" />
+
+    <!-- ADDED -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css" />
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+
+    <!-- GOOGLE ANALYTICS -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-2466715FY8"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "G-2466715FY8");
+    </script>
+    <!-- GOOGLE ANALYTICS -->
+    <!-- CHECK IFRAME STATUS -->
+    <style id="scroll-style">
+      /* Set Custom Attributes for Scrollbar */
+      body::-webkit-scrollbar {
+        width: 2px;
+        height: 2px;
+      }
+      body::-webkit-scrollbar-thumb {
+        background: #888;
+      }
+    </style>
+    <script>
+      const style = document.getElementById("scroll-style");
+      style.disabled = true;
+      // Check URL Paramaters
+      (function checkParams() {
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.has("iframe")) if (urlParams.get("iframe") == "true") style.disabled = false;
+      })();
+    </script>
+    <!-- CHECK IFRAME STATUS -->
+  </head>
+
+  <body>
+    <!-- navigation -->
+    <header class="sticky-top bg-white border-bottom border-default">
+      <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-white">
+          <a class="navbar-brand" href="index.html">
+            <i style="color: black; padding-right: 4px; font-size: x-large" class="bi bi-globe-asia-australia"></i>
+            <h4 style="display: inline-block">Global State College</h4>
+          </a>
+          <button class="navbar-toggler border-0" type="button" data-toggle="collapse" data-target="#navigation">
+            <i class="ti-menu" style="color: black"></i>
+          </button>
+
+          <div class="collapse navbar-collapse text-center" id="navigation">
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item">
+                <a class="nav-link" href="index.html">Blog Home</a>
+              </li>
+
+              <li class="nav-item dropdown">
+                <a class="nav-link" href="index.html?c=All" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Categories <i class="ti-angle-down ml-1"></i> </a>
+                <div class="dropdown-menu">
+                  <a class="dropdown-item" href="index.html?c=All">All Posts</a>
+                  <a class="dropdown-item" href="index.html?c=Restaurant">Restaurant</a>
+                  <a class="dropdown-item" href="index.html?c=Cafe">Cafe</a>
+                  <a class="dropdown-item" href="index.html?c=Market">Market</a>
+                </div>
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link" href="author.html">About the Author</a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </div>
+    </header>
+    <!-- /navigation -->
+
+    <!-- POST -->
+    <section class="section">
+      <div class="container">
+        <article class="row mb-4">
+          <div class="col-lg-10 mx-auto mb-4">
+            <h1 class="title-ua h2 mb-3"></h1>
+            <ul class="list-inline post-meta mb-3">
+              <li class="list-inline-item"><i class="ti-user mr-2"></i><a href="author.html">Anthony Adam</a></li>
+              <li class="date-ua list-inline-item"></li>
+              <li class="list-inline-item">Categories : <a id="cat-ua" href="#!" class="cat-ua ml-1"> </a></li>
+              <li class="list-inline-item">Tags : <a id="tag-ua" href="#!" class="tag-ua ml-1"> </a></li>
+            </ul>
+          </div>
+          <div class="col-12 mb-3">
+            <div class="post-slider">
+              <img id="img-1-ua" style="aspect-ratio: 15/7; object-fit: cover" src="" class="img-fluid" alt="post-thumb_image_1" />
+              <img id="img-2-ua" style="aspect-ratio: 15/7; object-fit: cover" src="" class="img-fluid" alt="post-thumb_image_2" />
+              <img id="img-3-ua" style="aspect-ratio: 15/7; object-fit: cover" src="" class="img-fluid" alt="post-thumb_image_3" />
+            </div>
+          </div>
+          <div class="col-lg-10 mx-auto">
+            <h3 class="title-ua"></h3>
+            <hr />
+            <div class="content">
+              <div class="notices info">
+                <p>
+                  <b class="title-ua"></b> is a
+                  <em id="int-ua" class="tag-ua"></em>
+                  <em class="cat-ua"></em> located in State College, Pennsylvania.
+                </p>
+              </div>
+            </div>
+            <div class="row align-items-center">
+              <div class="col-sm-7">
+                <p id="p1-ua" class="m-0"></p>
+              </div>
+              <div class="col-sm-5 text-center my-3">
+                <a id="dir-btn-ua" href="#!" target="_blank" class="btn btn-outline-primary pr-3">Get Directions <img src="images/google-maps.png" alt="Google Maps" width="20px" /></a>
+              </div>
+            </div>
+
+            <hr style="margin: 32px 0" />
+            <!-- <hr/> -->
+            <div id="iframe-cont-ua"></div>
+            <div id="google-reviews"></div>
+          </div>
+        </article>
+      </div>
+    </section>
+    <script src="js/mainContent.js"></script>
+    <script>
+      slickOptions.arrows = true;
+      slickOptions.autoplaySpeed = 4000;
+      slickOptions.fade = false;
+      slickOptions.pauseOnHover = true;
+
+      const urlParams = new URLSearchParams(window.location.search);
+      const id = urlParams.get("r");
+      let art;
+      mainContent.forEach((a) => {
+        if (a.id == id) art = a;
+      });
+      if (art) {
+        document.title = art.title;
+        $(".title-ua").html(art.title);
+        $(".date-ua").html(`Date : ${art.date}`);
+        $(".cat-ua").html(art.category);
+        $("#cat-ua").attr("href", `index.html?c=${art.category}`);
+        $(".tag-ua").html(art.tag);
+        if (art.tag == "Market") $("#int-ua").html("International");
+        $("#tag-ua").attr("href", `index.html?t=${art.tag}`);
+        $("#img-1-ua").attr("src", `images/posts/${art.id}/image_1.jpg`);
+        $("#img-2-ua").attr("src", `images/posts/${art.id}/image_2.jpg`);
+        $("#img-3-ua").attr("src", `images/posts/${art.id}/image_3.jpg`);
+        $("#p1-ua").html(art.content);
+        $("#dir-btn-ua").attr("href", art.google);
+
+        $("#iframe-cont-ua").append(art.iframe);
+        $("iframe").attr("width", "100%");
+      } else window.location.href = "index.html";
+    </script>
+
+    <link rel="stylesheet" href="https://cdn.rawgit.com/stevenmonson/googleReviews/master/google-places.css" />
+    <script src="https://cdn.jsdelivr.net/gh/stevenmonson/googleReviews@6e8f0d794393ec657dab69eb1421f3a60add23ef/google-places.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyB845vGMUYbl8CH0TQy6EXkiNi9sSdyblE&signed_in=true&libraries=places"></script>
+
+    <script>
+      jQuery(document).ready(function ($) {
+        $("#google-reviews").googlePlaces({
+          placeId: art.googleID, //Find placeID @: https://developers.google.com/places/place-id
+          render: ["reviews"],
+          min_rating: 4,
+          max_rows: 4,
+        });
+      });
+    </script>
+
+    <footer class="section-sm pb-0 pt-5 border-top border-default">
+      <div class="container">
+        <div class="row justify-content-center mb-5">
+          <a href="index.html">
+            <i style="color: black; padding-right: 4px; font-size: x-large" class="bi bi-globe-asia-australia"></i>
+            <h4 style="display: inline-block">Global State College</h4></a
+          >
+        </div>
+        <div class="scroll-top">
+          <a href="javascript:void(0);" id="scrollTop"><i class="ti-angle-up"></i></a>
+        </div>
+        <div class="text-center">
+          <p class="content">&copy; 2022 - Anthony Adam</p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- JS Plugins -->
+    <script src="plugins/jQuery/jquery.min.js"></script>
+    <script src="plugins/bootstrap/bootstrap.min.js" async></script>
+    <script src="plugins/slick/slick.min.js"></script>
+
+    <!-- Main Script -->
+    <script src="js/script.js"></script>
+  </body>
+</html>

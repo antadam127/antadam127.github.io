@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8" />
+    <title>Global State College</title>
+
+    <!-- mobile responsive meta -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="State College International Food" />
+    <meta name="author" content="Anthony Adam" />
+
+    <!-- plugins -->
+    <link rel="preload" href="https://fonts.gstatic.com/s/opensans/v18/mem8YaGs126MiZpBA-UFWJ0bbck.woff2" style="font-display: optional" />
+    <link rel="stylesheet" href="plugins/bootstrap/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:600%7cOpen&#43;Sans&amp;display=swap" media="screen" />
+
+    <link rel="stylesheet" href="plugins/themify-icons/themify-icons.css" />
+    <link rel="stylesheet" href="plugins/slick/slick.css" />
+
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="css/style.css" />
+
+    <!--Favicon-->
+    <link rel="icon" href="images/favicon.svg" type="image/x-icon" />
+
+    <!-- ADDED -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css" />
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+
+    <!-- GOOGLE ANALYTICS -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-2466715FY8"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "G-2466715FY8");
+    </script>
+    <!-- GOOGLE ANALYTICS -->
+
+    <!-- CHECK IFRAME STATUS -->
+    <style id="scroll-style">
+      /* Set Custom Attributes for Scrollbar */
+      body::-webkit-scrollbar {
+        width: 2px;
+        height: 2px;
+      }
+      body::-webkit-scrollbar-thumb {
+        background: #888;
+      }
+    </style>
+    <script>
+      const style = document.getElementById("scroll-style");
+      style.disabled = true;
+      // Check URL Paramaters
+      (function checkParams() {
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.has("iframe")) if (urlParams.get("iframe") == "true") style.disabled = false;
+      })();
+    </script>
+    <!-- CHECK IFRAME STATUS -->
+  </head>
+
+  <body>
+    <!-- navigation -->
+    <header class="sticky-top bg-white border-bottom border-default">
+      <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-white">
+          <a class="navbar-brand" href="index.html">
+            <i style="color: black; padding-right: 4px; font-size: x-large" class="bi bi-globe-asia-australia"></i>
+            <h4 style="display: inline-block">Global State College</h4>
+          </a>
+          <button class="navbar-toggler border-0" type="button" data-toggle="collapse" data-target="#navigation">
+            <i class="ti-menu" style="color: black"></i>
+          </button>
+
+          <div class="collapse navbar-collapse text-center" id="navigation">
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item">
+                <a class="nav-link" href="index.html">Blog Home</a>
+              </li>
+
+              <li class="nav-item dropdown">
+                <a class="nav-link" href="index.html?c=All" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Categories <i class="ti-angle-down ml-1"></i> </a>
+                <div class="dropdown-menu">
+                  <a class="dropdown-item" href="index.html?c=All">All Posts</a>
+                  <a class="dropdown-item" href="index.html?c=Restaurant">Restaurant</a>
+                  <a class="dropdown-item" href="index.html?c=Cafe">Cafe</a>
+                  <a class="dropdown-item" href="index.html?c=Market">Market</a>
+                </div>
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link" href="author.html">About the Author</a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </div>
+    </header>
+    <!-- /navigation -->
+
+    <section class="section pb-2">
+      <div class="container">
+        <!-- MAIN -->
+        <div class="row">
+          <div id="main-cont-ua" class="col-lg-8 mb-5 mb-lg-0">
+            <script src="js/mainContent.js"></script>
+            <script>
+              const urlParams = new URLSearchParams(window.location.search);
+              let asList = false;
+              let cat = false;
+              let tag = false;
+
+              if (urlParams.has("c")) {
+                asList = true;
+                cat = urlParams.get("c");
+              }
+              if (urlParams.has("t")) {
+                asList = true;
+                tag = urlParams.get("t");
+              }
+              if (!asList) {
+                slickOptions.autoplaySpeed = 4000;
+                slickOptions.fade = false;
+              }
+
+              function appendMain(art, i, notInit) {
+                const maxWords = 45;
+                $("#main-cont-ua").append(
+                  $(`
+                  <article class="row mb-5">
+                  <div class="${asList ? "col-md-4 mb-4 mb-md-0" : "col-12"}">
+                     <div id="slide-cont-${i}-ua" class="post-slider ${asList ? "slider-sm" : ""}">
+                     </div>
+                  </div>
+                  <div class="${asList ? "col-md-8" : "col-12 mx-auto"}">
+                     <h3${asList ? ' class="h5"' : ""}>
+                        <a class="post-title" href="post.html?r=${art.id}"
+                        >${art.title}</a
+                        >
+                     </h3>
+                     <ul class="list-inline post-meta ${asList ? "mb-2" : "mb-4"}">
+                        <li class="list-inline-item">
+                        <i class="ti-user mr-2"></i>
+                        <a href="author.html">Anthony Adam</a>
+                        </li>
+                        <li class="list-inline-item">Date : ${art.date}</li>
+                        <li class="list-inline-item">
+                        Categories : <a href="index.html?c=${art.category}" class="ml-1">${art.category} </a>
+                        </li>
+                        <li class="list-inline-item">
+                        Tags : <a href="index.html?t=${art.tag}" class="ml-1">${art.tag} </a>
+                        </li>
+                     </ul>
+                     <p>
+                        ${art.content.split(" ").slice(0, maxWords).join(" ") + (art.content.split(" ").length <= maxWords ? "" : "...")}
+                     </p>
+                     <a href="post.html?r=${art.id}" class="btn btn-outline-primary"
+                        >Continue Reading</a
+                     >
+                  </div>
+                  </article>
+                  `)
+                );
+                if (notInit) $(`#slide-cont-${i}-ua`).addClass("post-slider-notInit");
+                for (let ii = 1; ii <= 3; ii++) {
+                  $(`#slide-cont-${i}-ua`).append(
+                    $(`
+                     <img
+                     onclick="(function(){window.location.href = 'post.html?r=${art.id}';})();"
+                     loading="lazy"
+                     src="images/posts/${art.id}/image_${ii}.jpg"
+                     class="img-fluid"
+                     alt="${art.id}_image_${ii}"
+                     ${asList ? 'style="height: 200px; object-fit: cover; cursor: pointer;"' : 'style="aspect-ratio: 5/3; object-fit: cover; cursor: pointer;"'}
+                     />
+                     `)
+                  );
+                }
+              }
+
+              const limitAmt = 6;
+              mainContent.forEach((art, inx) => {
+                if (cat === false && tag === false) {
+                  if (inx >= limitAmt) return;
+                } else {
+                  if (cat) {
+                    if (cat !== "All" && cat !== art.category) return;
+                  }
+                  if (tag) {
+                    if (tag !== art.tag) return;
+                  }
+                }
+                appendMain(art, inx);
+              });
+            </script>
+          </div>
+
+          <!-- SIDE -->
+          <aside class="col-lg-4">
+            <!-- categories -->
+            <div class="widget">
+              <h5 class="widget-title"><span>Categories</span></h5>
+              <ul class="list-unstyled widget-list">
+                <li>
+                  <a href="index.html?c=All" class="d-flex">All Posts <small class="ml-auto">(17)</small></a>
+                </li>
+                <li>
+                  <a href="index.html?c=Restaurant" class="d-flex">Restaurant <small class="ml-auto">(12)</small></a>
+                </li>
+                <li>
+                  <a href="index.html?c=Cafe" class="d-flex">Cafe <small class="ml-auto">(3)</small></a>
+                </li>
+                <li>
+                  <a href="index.html?c=Market" class="d-flex">Market <small class="ml-auto">(2)</small></a>
+                </li>
+              </ul>
+            </div>
+            <!-- tags -->
+            <div class="widget">
+              <h5 class="widget-title"><span>Tags</span></h5>
+              <ul id="tags-cont-ua" class="list-inline widget-list-inline"></ul>
+            </div>
+            <script>
+              const tags = ["Chinese", "Coffee", "Hawaiian", "Indian", "Japanese", "Lebanese", "Market", "Mediterranean", "Mexican", "Middle Eastern", "Tea", "Vietnamese"];
+              const tagCont = $("#tags-cont-ua");
+              for (const t of tags) {
+                tagCont.append($(`<li class="list-inline-item"><a href="index.html?t=${t}">${t}</a></li>`));
+              }
+            </script>
+
+            <!-- latest post -->
+            <div class="widget">
+              <h5 class="widget-title"><span>Latest Articles</span></h5>
+              <!-- post-item -->
+              <ul class="list-unstyled widget-list">
+                <li class="media widget-post align-items-center">
+                  <a href="post.html?r=elixr">
+                    <img loading="lazy" class="mr-3" src="images/posts/elixr/image_1.jpg" />
+                  </a>
+                  <div class="media-body">
+                    <h5 class="h6 mb-0">
+                      <a href="post.html?r=elixr">Elixr Coffee Roasters</a>
+                    </h5>
+                    <small>December 7, 2022</small>
+                  </div>
+                </li>
+              </ul>
+              <ul class="list-unstyled widget-list">
+                <li class="media widget-post align-items-center">
+                  <a href="post.html?r=lupitas">
+                    <img loading="lazy" class="mr-3" src="images/posts/lupitas/image_1.jpg" />
+                  </a>
+                  <div class="media-body">
+                    <h5 class="h6 mb-0">
+                      <a href="post.html?r=lupitas">Lupitas Authentic Mexican Food</a>
+                    </h5>
+                    <small>December 7, 2022</small>
+                  </div>
+                </li>
+              </ul>
+              <ul class="list-unstyled widget-list">
+                <li class="media widget-post align-items-center">
+                  <a href="post.html?r=pita">
+                    <img loading="lazy" class="mr-3" src="images/posts/pita/image_1.jpg" />
+                  </a>
+                  <div class="media-body">
+                    <h5 class="h6 mb-0">
+                      <a href="post.html?r=pita">Pita Cabana Grill</a>
+                    </h5>
+                    <small>December 4, 2022</small>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <script>
+      if (cat === false && tag === false) {
+        if (limitAmt < mainContent.length) {
+          $("#main-cont-ua").append(
+            $(`
+            <div id="btn-cont-ua" class="row mb-lg-5 justify-content-end">
+              <div class="col-lg-6"><div class="row justify-content-center">
+                <a onclick="loadAll()" class="px-5 btn btn-outline-primary">Load More</a>
+              </div></div>
+            </div>
+            `)
+          );
+        }
+      }
+      function loadAll() {
+        $("#btn-cont-ua").remove();
+        for (let inx2 = limitAmt; inx2 < mainContent.length; inx2++) {
+          appendMain(mainContent[inx2], inx2, true);
+        }
+        // Initialize New Sliders
+        $(".post-slider-notInit").slick(slickOptions);
+      }
+    </script>
+
+    <footer class="section-sm pb-0 pt-5 border-top border-default">
+      <div class="container">
+        <div class="row justify-content-center mb-5">
+          <a href="index.html">
+            <i style="color: black; padding-right: 4px; font-size: x-large" class="bi bi-globe-asia-australia"></i>
+            <h4 style="display: inline-block">Global State College</h4></a
+          >
+        </div>
+        <div class="scroll-top">
+          <a href="javascript:void(0);" id="scrollTop"><i class="ti-angle-up"></i></a>
+        </div>
+        <div class="text-center">
+          <p class="content">&copy; 2022 - Anthony Adam</p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- JS Plugins -->
+    <script src="plugins/jQuery/jquery.min.js"></script>
+    <script src="plugins/bootstrap/bootstrap.min.js" async></script>
+    <script src="plugins/slick/slick.min.js"></script>
+
+    <!-- Main Script -->
+    <script src="js/script.js"></script>
+  </body>
+</html>
