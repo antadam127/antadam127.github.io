@@ -10,6 +10,7 @@ if (true) {
     console.log(isMobile ? "Mobile Detected" : "Mobile Not Detected");
     if (isMobile) enhanced = false;
     console.log(enhanced ? "Displaying Enhanced Map" : "Displaying Basic Map");
+    console.log('(map not optimized)');
 
     // ADD MAP
     mapboxgl.accessToken = "pk.eyJ1IjoiYW50YWRhbTEyNyIsImEiOiJjbDI2ZGJnN2wyaW5qM2JxZHVmZTJjNm8zIn0.4aMtEeYWx4hxIVKRrqsqWw";
@@ -20,8 +21,8 @@ if (true) {
     ]; // East Coast Bounds
 
     const st = Date.now();
-    console.log("start");
-    console.log(st);
+    // console.log("start");
+    // console.log(st);
 
     // if (cachedMap == null) {
     //   console.log("Initializing Map for Session");
@@ -67,8 +68,8 @@ if (true) {
 
     // console.log(map);
 
-    console.log("next");
-    console.log(Date.now() - st);
+    // console.log("next");
+    // console.log(Date.now() - st);
 
     // Disable touch rotation when mobile
     if (!enhanced) map.touchZoomRotate.disableRotation();
@@ -117,8 +118,8 @@ if (true) {
       if (moveonhover) {
         // FLY TO WHEN MOUSEOVER
         map.on("load", () => {
-          console.log("load");
-          console.log(Date.now() - st);
+          // console.log("load");
+          // console.log(Date.now() - st);
 
           map.on("mouseover", () => {
             map.flyTo({ center: markerLocation, zoom: 6 });
@@ -133,8 +134,8 @@ if (true) {
 
       // SATELLITE AND LAYERS
       map.on("style.load", () => {
-        console.log("style");
-        console.log(Date.now() - st);
+        // console.log("style");
+        // console.log(Date.now() - st);
 
         map.setFog();
         // REVEAL LABELS (for use with custom "clear" style only)

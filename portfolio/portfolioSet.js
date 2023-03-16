@@ -10,6 +10,10 @@ const skills = [
         link: 'https://developer.mozilla.org/en-US/docs/Web/javascript'
     },
     {
+        skill: 'Web Scraping',
+        percent: 84,
+    },
+    {
         skill: 'SQL',
         percent: 82,
         link: 'https://dev.mysql.com/doc/'
@@ -51,7 +55,7 @@ const skills = [
     },
 ];
 
-const portfolio_not_neeeded = [
+const portfolio_old_for_reference = [
     {
         name: "Country Populations",
         image: "country-populations.jpg",
@@ -99,14 +103,15 @@ const portfolio_not_neeeded = [
     },
 ];
 
-const filters = ["Mapbox", "D3.js"];
+// const filters = ["GIS", "Web Scraped"];
+const filters = [];
 
 const portfolio = [
     {
         id: 'blackmarble',
         title: 'Earth At Night',
         title2: 'Black Marble',
-        tags: ['Web', 'Photo'],
+        tags: ['GIS'],
         desc: 'This is a Mapbox Visualization using the NASA Visible Infrared Imaging Radiometer Suite (VIIRS) instrument, a component of the Suomi National Polar-orbiting Partnership (NPP) satellite. VIIRS consists of 22 spectral bands from the ultra-violet to the mid-infrared, one of which is able to observe nighttime lights, the day night band (DNB). DNB is a panchromatic band sensitive to visible and near-infrared wavelengths.',
         desc2: 'This project utilizes Mapbox and the external dataset provided by NASA. The raster image fades out as the user zooms in reveal the Satellite data.',
         skills: ['Javascript', 'Mapbox', 'HTML'],
@@ -118,12 +123,12 @@ const portfolio = [
     },
     {
         id: 'linkedin',
-        title: 'LinkedIn',
-        title2: 'Black Marble',
-        tags: ['Web', 'Photo'],
+        title: 'LinkedIn Visualization',
+        title2: 'Penn State Graduates Technology Industry LinkedIn Visualization',
+        tags: ['GIS', 'Scraped'],
         desc: 'This is a Mapbox Visualization using the NASA Visible Infrared Imaging Radiometer Suite (VIIRS) instrument, a component of the Suomi National Polar-orbiting Partnership (NPP) satellite. VIIRS consists of 22 spectral bands from the ultra-violet to the mid-infrared, one of which is able to observe nighttime lights, the day night band (DNB). DNB is a panchromatic band sensitive to visible and near-infrared wavelengths.',
         desc2: 'This project utilizes Mapbox and the external dataset provided by NASA. The raster image fades out as the user zooms in reveal the Satellite data.',
-        skills: ['Javascript', 'Mapbox', 'HTML'],
+        skills: ['Web Scraping', 'Javascript', 'Mapbox', 'HTML'],
         externalSite: 'items/index-linkedin.html',
         main: {
             type: 'iframe', // 'iframe', 'script'
@@ -134,7 +139,7 @@ const portfolio = [
         id: 'weather',
         title: 'Current Weather',
         title2: 'Black Marble',
-        tags: ['Web', 'Photo'],
+        tags: ['GIS'],
         desc: 'This is a Mapbox Visualization using the NASA Visible Infrared Imaging Radiometer Suite (VIIRS) instrument, a component of the Suomi National Polar-orbiting Partnership (NPP) satellite. VIIRS consists of 22 spectral bands from the ultra-violet to the mid-infrared, one of which is able to observe nighttime lights, the day night band (DNB). DNB is a panchromatic band sensitive to visible and near-infrared wavelengths.',
         desc2: 'This project utilizes Mapbox and the external dataset provided by NASA. The raster image fades out as the user zooms in reveal the Satellite data.',
         skills: ['Javascript', 'Mapbox', 'HTML'],
@@ -148,7 +153,7 @@ const portfolio = [
         id: 'globalsc',
         title: 'Global State College',
         title2: 'Black Marble',
-        tags: ['Web', 'Photo'],
+        tags: ['Web/Dev'],
         desc: 'This is a Mapbox Visualization using the NASA Visible Infrared Imaging Radiometer Suite (VIIRS) instrument, a component of the Suomi National Polar-orbiting Partnership (NPP) satellite. VIIRS consists of 22 spectral bands from the ultra-violet to the mid-infrared, one of which is able to observe nighttime lights, the day night band (DNB). DNB is a panchromatic band sensitive to visible and near-infrared wavelengths.',
         desc2: 'This project utilizes Mapbox and the external dataset provided by NASA. The raster image fades out as the user zooms in reveal the Satellite data.',
         skills: ['Javascript', 'Mapbox', 'HTML'],
@@ -162,7 +167,7 @@ const portfolio = [
         id: 'globalmapstory',
         title: 'Global Map Story',
         title2: 'Black Marble',
-        tags: ['Web', 'Photo'],
+        tags: ['GIS', 'Web/Dev'],
         desc: 'This is a Mapbox Visualization using the NASA Visible Infrared Imaging Radiometer Suite (VIIRS) instrument, a component of the Suomi National Polar-orbiting Partnership (NPP) satellite. VIIRS consists of 22 spectral bands from the ultra-violet to the mid-infrared, one of which is able to observe nighttime lights, the day night band (DNB). DNB is a panchromatic band sensitive to visible and near-infrared wavelengths.',
         desc2: 'This project utilizes Mapbox and the external dataset provided by NASA. The raster image fades out as the user zooms in reveal the Satellite data.',
         skills: ['Javascript', 'Mapbox', 'HTML'],
@@ -176,7 +181,7 @@ const portfolio = [
         id: 'tensorflow',
         title: 'TensorFlow Image Recognition',
         title2: 'Black Marble',
-        tags: ['Web', 'Photo'],
+        tags: ['AI'],
         desc: 'This is a Mapbox Visualization using the NASA Visible Infrared Imaging Radiometer Suite (VIIRS) instrument, a component of the Suomi National Polar-orbiting Partnership (NPP) satellite. VIIRS consists of 22 spectral bands from the ultra-violet to the mid-infrared, one of which is able to observe nighttime lights, the day night band (DNB). DNB is a panchromatic band sensitive to visible and near-infrared wavelengths.',
         desc2: 'This project utilizes Mapbox and the external dataset provided by NASA. The raster image fades out as the user zooms in reveal the Satellite data.',
         skills: ['Javascript', 'Mapbox', 'HTML'],
@@ -187,3 +192,10 @@ const portfolio = [
         }
     },
 ];
+
+portfolio.forEach(e => {
+    e.tags.forEach(t => {
+        if (!filters.includes(t)) filters.push(t);
+    });
+});
+filters.sort();

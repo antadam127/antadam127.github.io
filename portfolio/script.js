@@ -15,7 +15,8 @@ skills.forEach((e) => {
 
 // Set Filters
 filters.forEach((e) => {
-    $("#filters").append(`<a href="#" data-filter=".${e.toLowerCase()}">${e}</a>`);
+    // $("#filters").append(`<a href="#" data-filter=".${e.toLowerCase()}">${e}</a>`);
+    $("#filters").append(`<a href="#" data-filter=".${(match = e.toLowerCase().match(/^[a-zA-Z]+/)) ? match[0] : ''}">${e}</a>`);
 });
 
 // Shuffle Portfolio Order
@@ -40,7 +41,8 @@ portfolio.forEach((e, i) => {
         </div>
     `);
     if (e.tags) e.tags.forEach((ee, ii) => {
-        $(`#itemAdded_${i + 1}`).addClass(ee.toLowerCase());
+        // $(`#itemAdded_${i + 1}`).addClass(ee.toLowerCase());
+        $(`#itemAdded_${i + 1}`).addClass((match = ee.toLowerCase().match(/^[a-zA-Z]+/)) ? match[0] : '');
         $(`#itemAdded_${i + 1} .work-info`).append(`<span>${ii == 0 ? '' : ' | '}${ee}</span>`);
     });
 });
@@ -49,16 +51,14 @@ portfolio.forEach((e, i) => {
 (function setConfig() {
     const urlParams = new URLSearchParams(window.location.search);
     if (urlParams.has("jumpto")) {
+        const target = urlParams.get("jumpto");
+        urlParams.delete("jumpto");
+        window.history.replaceState({}, '', `${window.location.pathname}?${urlParams}`); // IMPORTANT LINE
         $(document).ready(function () {
-            console.log('load');
             setTimeout(function () {
-                console.log('delay');
-                // window.location.href = "#" + urlParams.get("jumpto");
-                window.location.href = "#" + urlParams.get("jumpto");
+                window.location.href = "#" + target;
                 console.log(window.location.href);
-                urlParams.delete("jumpto");
             }, 1000);
         });
-        //   if (allConfigSets.hasOwnProperty(con)) config = allConfigSets[con];
     }
 })();

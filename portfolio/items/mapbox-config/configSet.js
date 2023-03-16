@@ -10,8 +10,8 @@ const config_blackMarble = {
   hashMode: false, // Hash the URL
   bounded: false, // false || bounds [[],[]] // Sets movement boundaries for user
   mapOnClick: "", // '' || 'reset' || 'northUp' || 'coord' || 'flyTo' // Map Click Action
-  logoPosition: "top-left", // 'top/bottom-left/right' // Mapbox Logo Position
-  includeAttribution: false, // Include Attribution
+  logoPosition: "bottom-left", // 'top/bottom-left/right' // Mapbox Logo Position
+  includeAttribution: true, // Include Attribution
   mapCursor: false, // Default: false, "pointer", "crosshair", "default", "zoom-in", "zoom-out", Explicit Default: "grab"
 
   // Starting Location
@@ -894,8 +894,8 @@ const config_current_weather = {
   hashMode: false, // Hash the URL
   bounded: false, // false || bounds [[],[]] // Sets movement boundaries for user
   mapOnClick: "flyTo", // '' || 'reset' || 'northUp' || 'coord' || 'cam' // Map Click Action
-  logoPosition: "top-left", // 'top/bottom-left/right' // Mapbox Logo Position
-  includeAttribution: false, // Include Attribution
+  logoPosition: "bottom-left", // 'top/bottom-left/right' // Mapbox Logo Position
+  includeAttribution: true, // Include Attribution
   mapCursor: false, // false, "pointer", "crosshair", "default", "zoom-in", "zoom-out", "grab"
 
   // Starting Location

@@ -583,3 +583,7 @@ h6,
 ::-webkit-scrollbar-thumb {
   background: #7f7f7f;
 } */
+
+#redX:hover {
+  cursor: pointer;
+}

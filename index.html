@@ -35,6 +35,16 @@
       gtag("js", new Date());
       gtag("config", "G-2466715FY8");
     </script>
+    <!-- GOOGLE ANALYTICS -->
+    <!-- Quicklink -->
+    <script src="https://unpkg.com/quicklink"></script>
+    <script>
+      window.addEventListener("load", () => {
+        quicklink.listen();
+        console.log("Quicklink Listening");
+      });
+    </script>
+    <!-- Quicklink -->
 
     <!-- https://bootstrapmade.com/myportfolio-bootstrap-portfolio-website-template/ -->
   </head>
@@ -334,7 +344,7 @@
 
             <!-- <div class="col-12 text-center"> -->
             <div class="d-flex justify-content-center align-items-center pt-xl-1 pt-4">
-              <a href="portfolio/Anthony Adam - Resume.pdf" target="_blank" class="readmore">Download Resume</a>
+              <a href="portfolio/resumes/Anthony Adam - Resume.pdf" target="_blank" class="readmore">Download Resume</a>
             </div>
             <!-- </div> -->
           </div>
@@ -381,10 +391,11 @@
       <div class="container">
         <div class="row">
           <div class="col custom-social text-center">
-            <a class="readmore" href="mailto:anthonyadam.psu@gmail.com"><span class="bi bi-envelope-fill"></span></a>
-            <a class="readmore" href="https://www.linkedin.com/in/anthony-adam-psu/" target="_blank"><span class="bi bi-linkedin"></span></a>
-            <a class="readmore" href="https://github.com/antadam127" target="_blank"><span class="bi bi-github"></span></a>
-            <a class="readmore" href="portfolio/Anthony Adam - Resume.pdf" target="_blank"><span class="bi bi-file-earmark-pdf-fill"></span></a>
+            <a title="Send Email" class="readmore" href="mailto:anthonyadam.psu@gmail.com"><span class="bi bi-envelope-fill"></span></a>
+            <a title="LinkedIn" class="readmore" href="https://www.linkedin.com/in/anthony-adam-psu/" target="_blank"><span class="bi bi-linkedin"></span></a>
+            <a title="Github" class="readmore" href="https://github.com/antadam127" target="_blank"><span class="bi bi-github"></span></a>
+            <a title="Download Resume" class="readmore" href="portfolio/resumes/Anthony Adam - Resume.pdf" target="_blank"><span class="bi bi-file-earmark-pdf-fill"></span></a>
+            <!-- <a title="View Resume" class="readmore" href="portfolio/resumes/Anthony Adam - Resume.html" target="_blank"><span class="bi bi-file-earmark-pdf-fill"></span></a> -->
           </div>
         </div>
       </div>
@@ -410,12 +421,5 @@
     <link defer href="https://api.mapbox.com/mapbox-gl-js/v2.10.0/mapbox-gl.css" rel="stylesheet" />
     <script defer src="https://api.mapbox.com/mapbox-gl-js/v2.10.0/mapbox-gl.js"></script>
     <script defer src="assets/js/map.js"></script>
-
-    <!-- Quicklink -->
-    <!-- <script src="https://unpkg.com/quicklink"></script>
-    <script>
-      // Not yet working
-      quicklink.listen();
-    </script> -->
   </body>
 </html>
