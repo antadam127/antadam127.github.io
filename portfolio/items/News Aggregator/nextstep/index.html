@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sentiment Analysis</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Sentiment Analysis</h1>
+        <div class="input-wrapper">
+            <label for="articles">Enter article URLs separated by commas:</label>
+            <textarea id="articles" rows="5"></textarea>
+            <button id="analyze-btn">Analyze Sentiment</button>
+        </div>
+        <div id="loader" class="loader"></div>
+        <div id="results" class="results"></div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@3.8.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/universal-sentence-encoder@4.2.0"></script>
+    <script src="script.js"></script>
+</body>
+</html>
