@@ -20,13 +20,22 @@ filters.forEach((e) => {
 });
 
 // Shuffle Portfolio Order
-function shuffle(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-        let j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
+// function shuffle(array) {
+//     for (let i = array.length - 1; i > 0; i--) {
+//         let j = Math.floor(Math.random() * (i + 1));
+//         [array[i], array[j]] = [array[j], array[i]];
+//     }
+// }
+// shuffle(portfolio);
+function shuffleWithSeed(arr) {
+    const seed = new Date().toISOString().slice(0, 10); // Get the current date in YYYY-MM-DD format
+    const random = new Math.seedrandom(seed); // Create a seeded random number generator
+    for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(random() * (i + 1)); // Generate a random index based on the seed
+        [arr[i], arr[j]] = [arr[j], arr[i]]; // Swap the elements at index i and j
     }
 }
-shuffle(portfolio);
+shuffleWithSeed(portfolio);
 
 // Add Portfolio Items
 portfolio.forEach((e, i) => {
