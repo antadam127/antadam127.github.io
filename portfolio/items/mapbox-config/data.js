@@ -8,6 +8,7 @@ const Mapbox_Light = [2, 'Light', 'mapbox://styles/mapbox/light-v11', 'dayBright
 const Mapbox_Dark = [3, 'Dark', 'mapbox://styles/mapbox/dark-v11', 'night'];
 const Mapbox_Satellite_Streets = [5, 'Satellite', 'mapbox://styles/mapbox/satellite-streets-v12'];
 const Layered_Satellite_Less_Labels = [11, 'Satellite (No City Labels)', 'mapbox://styles/mapbox-map-design/ckhqrf2tz0dt119ny6azh975y', 'space'];
+const Satellite_LocalNames_Minimal = [34, "Satellite Local", "mapbox://styles/antadam127/clfk38h5k00ay01nxcv5emfyl"];
 const Mapbox_Satellite_Clear = [4, 'Satellite (Clear)', 'mapbox://styles/mapbox/satellite-v9', 'space'];
 const Mapbox_Navigation_Day = [6, 'Navigation', 'mapbox://styles/mapbox/navigation-day-v1', 'dayBright'];
 const Mapbox_Navigation_Night = [7, 'Navigation (Night)', 'mapbox://styles/mapbox/navigation-night-v1', 'night'];
@@ -69,6 +70,7 @@ const allMapStyles = [
   Upside_Down_Web,
   Custom_Map,
   Woodcut_web,
+  Satellite_LocalNames_Minimal,
 ];
 
 // Radio Button Items

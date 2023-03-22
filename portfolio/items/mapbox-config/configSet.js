@@ -4,7 +4,7 @@ const config_blackMarble = {
   accessToken: "pk.eyJ1IjoiYW50YWRhbTEyNyIsImEiOiJjbDI2ZGJnN2wyaW5qM2JxZHVmZTJjNm8zIn0.4aMtEeYWx4hxIVKRrqsqWw",
 
   // Basic Funcationality
-  startingStyle: Layered_Satellite_Less_Labels, // random || style // Starting Style
+  startingStyle: Satellite_LocalNames_Minimal, // Layered_Satellite_Less_Labels, // random || style // Starting Style
   globeMode: true, // Globe (true) || Mercator (false) || 'naturalEarth', 'equalEarth', 'equirectangular', 'winkelTripel', 'lambertConformalConic', 'albers'
   renderWorldCopies: true, // Render Infinite Maps (Default: true) (Useful for zoomed out flat map visualization)
   hashMode: false, // Hash the URL
@@ -90,7 +90,7 @@ const config_blackMarble = {
   },
 
   // STYLE OPTIONS
-  fogStyle: "default", // 'none' || 'default': Changes w style || 'custom': fog is set directly by style || 'standard': Mapbox default (empty) || 'EXPLICIT': Explicit style
+  fogStyle: "space", // 'none' || 'default': Changes w style || 'custom': fog is set directly by style || 'standard': Mapbox default (empty) || 'EXPLICIT': Explicit style
   fogStyleOptions: {
     enableKeyboardFogToggling: false, // Enable Fog Toggle with " Shift + '\' " keyboard press
   },

@@ -465,6 +465,8 @@ function addSatellite() {
   // const arr4 = ['black-marble-userAdded', 'background', 'satellite', 'admin-1-boundary-bg', 'admin-0-boundary-bg', 'admin-1-boundary', 'admin-0-boundary', 'admin-0-boundary-disputed', 'settlement-major-label', 'settlement-minor-label'];
   // console.log(arr4);
   // for (const a of map.getStyle().layers.map(e => e.id).filter(item => !arr4.includes(item))) map.setLayoutProperty(a, 'visibility', 'none');
+
+  // addCityLabels();
 }
 
 // Building Type Colorizations
@@ -558,3 +560,28 @@ for (const cat in buildingCategroies) {
   );
 }
 buildingTypeColorization.push("#000");
+
+function addCityLabels() {
+  // // map.setStyle('mapbox://styles/antadam127/clfiuvoh6007y01pc36lmkuja');
+  // map.addSource('minimo-style-source', {
+  //   type: 'raster',
+  //   url: 'mapbox://styles/antadam127/clfiuvoh6007y01pc36lmkuja',
+  // });
+
+
+  // // Add only certain layers to the map
+  // map.addLayer({
+  //   id: 'layer1',
+  //   type: 'fill',
+  //   source: 'style-source',
+  //   'source-layer': 'layer1-source-layer'
+  // });
+
+  // map.addLayer({
+  //   id: 'layer2',
+  //   type: 'line',
+  //   source: 'style-source',
+  //   'source-layer': 'layer2-source-layer'
+  // });
+
+}
