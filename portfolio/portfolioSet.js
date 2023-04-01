@@ -45,7 +45,7 @@ const skills = [
     },
     {
         skill: 'Mapbox GL.js',
-        percent: 90,
+        percent: 96,
         link: 'https://www.mapbox.com/mapbox-gljs'
     },
     {

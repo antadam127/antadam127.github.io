@@ -584,6 +584,25 @@ h6,
   background: #7f7f7f;
 } */
 
-#redX:hover {
+#redX:hover,
+#mod3:hover {
   cursor: pointer;
+}
+
+.full-screen {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  z-index: 1000 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  padding: 25px !important;
+  box-sizing: border-box !important;
+  background-color: rgba(0, 0, 0, 0.8) !important;
+  overflow: auto !important;
+}
+.full-screen-wrapper.transition {
+  transition: all 0.3s ease-in-out !important;
 }
