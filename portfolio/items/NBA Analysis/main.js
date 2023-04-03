@@ -184,7 +184,7 @@ fetchNBAData().then((data) => {
 
     newArray = features.filter(
       (feature) =>
-        (start === 1960 && end === 2020 ? true : parseInt(feature.properties.draft_year) >= start && parseInt(feature.properties.draft_year) <= end) && (active ? feature.properties.season.slice(-2) === "22" : true)
+        (start === 1975 && end === 2020 ? true : parseInt(feature.properties.draft_year) >= start && parseInt(feature.properties.draft_year) <= end) && (active ? feature.properties.season.slice(-2) === "22" : true)
     );
     console.log("Data Changed - New Length: " + newArray.length);
     return {
@@ -192,7 +192,7 @@ fetchNBAData().then((data) => {
     };
   }
 
-  let draftLow = 1960;
+  let draftLow = 1975;
   let draftHigh = 2020;
   let isCurrent = false;
 
@@ -210,17 +210,17 @@ fetchNBAData().then((data) => {
     if (handle === 0 && parseInt(values[handle].slice(-2)) > 18 && parseInt(values[handle].slice(-2)) < 25) {
       yearSlider.noUiSlider.set([2018, draftHigh]);
       values[0] = "'18";
-    } else if (handle === 1 && parseInt(values[handle].slice(-2)) < 63 && parseInt(values[handle].slice(-2)) > 25) {
-      yearSlider.noUiSlider.set([draftLow, 1963]);
-      values[1] = "'63";
+    } else if (handle === 1 && parseInt(values[handle].slice(-2)) < 76 && parseInt(values[handle].slice(-2)) > 25) {
+      yearSlider.noUiSlider.set([draftLow, 1976]);
+      values[1] = "'76";
     }
     const yearLow = stringToYear(values[0]);
     const yearHigh = stringToYear(values[1]);
     if (yearLow !== draftLow || yearHigh !== draftHigh) {
       draftLow = yearLow;
       draftHigh = yearHigh;
-      document.getElementById("draft-low").innerHTML = yearLow === 1960 && yearHigh === 2020 ? "" : yearLow;
-      document.getElementById("draft-high").innerHTML = yearLow === 1960 && yearHigh === 2020 ? "Anytime" : "-" + yearHigh;
+      document.getElementById("draft-low").innerHTML = yearLow === 1975 && yearHigh === 2020 ? "" : yearLow;
+      document.getElementById("draft-high").innerHTML = yearLow === 1975 && yearHigh === 2020 ? "Anytime" : "-" + yearHigh;
       console.log("Updating draft years...");
       setArcs(changeArcData(isCurrent, draftLow, draftHigh));
     }
@@ -584,11 +584,11 @@ console.log("Deck.gl map initialized.");
 const yearSlider = document.getElementById("year-slider");
 noUiSlider.create(yearSlider, {
   range: {
-    min: 1960,
+    min: 1975,
     max: 2020,
   },
   step: 1,
-  start: [1960, 2020],
+  start: [1975, 2020],
   format: {
     to: function (value) {
       return "'" + Math.round(value).toString().substr(-2);
@@ -600,7 +600,7 @@ noUiSlider.create(yearSlider, {
   tooltips: true,
   pips: {
     mode: "count",
-    values: 7,
+    values: 10,
     density: 2,
     stepped: true,
   },
