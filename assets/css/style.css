@@ -104,6 +104,8 @@ h6,
   display: block;
   position: relative;
   overflow: hidden;
+
+  border-radius: 4px;
 }
 
 .item .item-wrap:after {
