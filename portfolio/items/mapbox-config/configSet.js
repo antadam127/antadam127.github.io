@@ -3078,6 +3078,18 @@ const allConfigSets = {
   "black-marble": config_blackMarble,
 };
 
+// SET MANUALLY
+// config = config_current_weather;
+config = config_natoMembers;
+config = config_countryPopulations;
+config = config_usaCountiesAndAdminOne;
+// config = config_urbanAreas;
+// config = config_stateCollegeDirections; // Must find a way to add geocoder or direction API only when needed
+config = config_building_heights; // Must find a way to add geocoder or direction API only when needed
+config = config_building_types; // Must find a way to add geocoder or direction API only when needed
+// config = config_blackMarble; // Add Minimo City Labels
+// ADD THE PSU LINKEDIN MAP
+
 // CHECK URL PARAMETERS
 (function setConfig() {
   const urlParams = new URLSearchParams(window.location.search);
@@ -3087,18 +3099,6 @@ const allConfigSets = {
     if (allConfigSets.hasOwnProperty(con)) config = allConfigSets[con];
   } else console.log('TEST CONFIG');
 })();
-
-// SET MANUALLY
-// config = config_current_weather;
-// config = config_natoMembers;
-// config = config_countryPopulations;
-// config = config_usaCountiesAndAdminOne;
-// config = config_urbanAreas;
-// config = config_stateCollegeDirections; // Must find a way to add geocoder or direction API only when needed
-// config = config_building_heights; // Must find a way to add geocoder or direction API only when needed
-// config = config_building_types; // Must find a way to add geocoder or direction API only when needed
-// config = config_blackMarble; // Add Minimo City Labels
-// ADD THE PSU LINKEDIN MAP
 
 // Set Manual Attributes
 // config.hashMode = true;

@@ -195,9 +195,11 @@ fetchNBAData().then((data) => {
   let draftLow = 1975;
   let draftHigh = 2020;
   let isCurrent = false;
+  searchInput.value = "";
 
   // Check Box
   const checkbox = document.getElementById("current-players-filter");
+  checkbox.checked = isCurrent;
   checkbox.addEventListener("change", () => {
     const current = checkbox.checked;
     isCurrent = current;
@@ -230,6 +232,8 @@ fetchNBAData().then((data) => {
 });
 
 function setArcs(data) {
+  const playerNames = data.features.map((feature) => feature.properties.player_name);
+
   const players = data;
   const arcs = createArcs(players);
   const collegeData = createCollegeData(players);
@@ -273,6 +277,8 @@ function setArcs(data) {
         document.getElementById("tooltip").style.display = "none";
         updateImage(false);
         updateArcs([]);
+        searchInput.value = "";
+        clearSearchIcon.classList.add('hidden');
       }
     },
   });
@@ -286,8 +292,8 @@ function setArcs(data) {
     const object = info.object;
     if (object) {
       const properties = object.properties;
-      tooltip.innerHTML = `<b>${properties.player_name}</b><br>Hometown: ${properties.birth_city}, ${properties.birth_state}<br>College: ${properties.college}<br>Team: ${getTeam(properties.team_abbreviation)[0]} ${properties.season ? `('${properties.season.slice(-2)})` : ""
-        }`;
+      tooltip.innerHTML = `<b>${properties.player_name}</b><br>Hometown: ${properties.birth_city}, ${properties.birth_state}<br>College: ${properties.college}<br>Team: ${getTeam(properties.team_abbreviation)[0]} ${properties.season ? `('${properties.season.slice(-2)})` : ""}`;
+      
       tooltip.style.display = "block";
       //   tooltip.style.left = cornerTooltip ? 6 + "px" : info.x + "px";
       //   tooltip.style.top = cornerTooltip ? 6 + "px" : info.y + "px";
@@ -393,6 +399,7 @@ function setArcs(data) {
         onClick: (info) => {
           clicked = false;
           homeOnHover(info);
+          searchInput.value = "";
           clicked = true;
         },
       }),
@@ -416,6 +423,7 @@ function setArcs(data) {
         onClick: (info) => {
           clicked = false;
           collegeOnHover(info);
+          searchInput.value = "";
           clicked = true;
         },
       }),
@@ -441,6 +449,7 @@ function setArcs(data) {
         onClick: (info) => {
           clicked = false;
           teamOnHover(info);
+          searchInput.value = "";
           clicked = true;
         },
       }),
@@ -483,6 +492,9 @@ function setArcs(data) {
         onClick: (info) => {
           clicked = false;
           arcOnHover(info);
+          moveList(info.object.properties.player_id);
+          searchInput.value = "";
+          clearSearchIcon.classList.add('hidden');
           clicked = true;
         },
       }),
@@ -550,9 +562,76 @@ function setArcs(data) {
       clicked = false;
       arcOnHover(info);
       clicked = true;
+      searchInput.value = "";
     });
     playerList.appendChild(listItem);
   });
+
+  // SEARCH
+  searchInput.addEventListener('input', handleSearchInput);
+  searchInput.addEventListener('focus', handleSearchInput);
+  function handleSearchInput(e) {
+    if (searchInput.value.length > 0) {
+      clearSearchIcon.classList.remove('hidden');
+    } else {
+      clearSearchIcon.classList.add('hidden');
+    }
+
+    const searchQuery = e.target.value;
+    // Clear previous search results
+    searchResults.innerHTML = '';
+
+    if (searchQuery.length === 0) {
+      // Hide search results dropdown if the input is empty
+      searchResults.classList.add('hidden');
+      return;
+    }
+
+    // Filter the player names based on the search query
+    const filteredPlayerNames = playerNames.filter((playerName) => {
+      const queryParts = searchQuery.toLowerCase().replace(/[^a-z\s]/g, '').split(/\s+/);
+      const playerNameNormalized = playerName.toLowerCase().replace(/[^a-z\s]/g, '');
+      const nameParts = playerNameNormalized.split(/\s+/);
+
+      // Check if all query parts are found in the player's name parts
+      return queryParts.every((queryPart) => nameParts.some((namePart) => namePart.includes(queryPart)));
+    });
+
+    // Show the search results dropdown
+    searchResults.classList.remove('hidden');
+
+    // Create and display the list items for the filtered player names
+    filteredPlayerNames.forEach((playerName) => {
+      const listItem = document.createElement('li');
+      listItem.textContent = playerName;
+      listItem.addEventListener('click', () => {
+        // Handle the click event for the search result item
+        // For example, you can highlight the clicked player in the list
+        searchInput.value = playerName;
+        console.log(`Clicked on: ${playerName}`);
+
+        clicked = false;
+        const info = { object: players.features.filter((player) => player.properties.player_name === playerName)[0] };
+        arcOnHover(info);
+        moveList(info.object.properties.player_id);
+        clicked = true;
+      });
+      searchResults.appendChild(listItem);
+    });
+
+    // Hide the search results dropdown if there are no filtered player names
+    if (filteredPlayerNames.length === 0) {
+      searchResults.classList.add('hidden');
+    }
+  }
+  function moveList(id) {
+    // Move the list to that player
+    const playerList = document.getElementById('player-list');
+    const playerListItem = Array.from(playerList.children).find((li) => li.getAttribute('data-player-id') === id);
+    if (playerListItem) {
+      playerListItem.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  }
 
   return updateArcs([]);
 }
@@ -609,3 +688,26 @@ function stringToYear(st) {
   const num = parseInt(st.slice(1, 3));
   return num + (num < 30 ? 2000 : 1900);
 }
+
+// SEARCH
+const searchInput = document.getElementById('search-input');
+const searchResults = document.getElementById('search-results');
+const clearSearchIcon = document.querySelector('.clear-search');
+searchInput.addEventListener('focus', () => {
+  if (searchInput.value.length > 0) {
+    searchResults.classList.remove('hidden');
+    clearSearchIcon.classList.remove('hidden');
+  } else {
+    clearSearchIcon.classList.add('hidden');
+  }
+
+});
+searchInput.addEventListener('blur', () => {
+  setTimeout(() => {
+    searchResults.classList.add('hidden');
+  }, 250); // Add a slight delay to allow for click events on the search results
+});
+clearSearchIcon.addEventListener('click', () => {
+  searchInput.value = '';
+  searchInput.dispatchEvent(new Event('input')); // Trigger the input event to update the search results
+});
