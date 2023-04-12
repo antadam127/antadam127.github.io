@@ -4,11 +4,13 @@
 /* Set Roboto as the default font */
 body {
   font-family: "Roboto", sans-serif;
-
   /* background: rgb(52, 217, 219);
   background: radial-gradient(circle, rgba(52, 217, 219, 0.395) 0%, rgba(35, 160, 161, 0.051) 100%); */
-
   /* background-image: linear-gradient(to right, #DECBA4, #3E5151); */
+}
+
+h1 {
+  color: #28a745;
 }
 
 /* PDF Input Row */
@@ -18,18 +20,24 @@ body {
   justify-content: center;
   border: 2px dashed #ccc;
   border-radius: 3px;
-  padding: 30px;
+  padding: 10px;
   cursor: pointer;
   transition: border-color 0.3s;
   background-color: #f8f9fa;
   position: relative;
+
+  flex-grow: 1;
+  height: 120px;
+  /* min-width: 105px; */
+  min-width: 320px;
+
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
 }
 
-/* .pdf-input:hover {
-  border-color: #888;
-} */
-.pdf-input:not(.links-hovered):hover {
-  border-color: #888;
+.pdf-input:hover {
+  border-color: #777;
 }
 
 /* PDF File Icon */
@@ -44,18 +52,11 @@ body {
 .from-url {
   text-decoration: none;
   transition: color 0.3s;
-  position: absolute;
-  bottom: 2px;
+  /* position: absolute; */
+  /* bottom: 2px; */
   font-size: 0.7rem;
   /* color: #4da0fa; */
   color: #212529;
-}
-
-.browse-computer {
-  left: 5px;
-}
-.from-url {
-  right: 5px;
 }
 
 .browse-computer:hover,
@@ -72,8 +73,10 @@ body {
   border-radius: 5px;
   /* margin-top: 20px; */
   border: 1px dotted #dee2e6;
-  height: calc(100vh - 360px); /* Adjust the height as needed, for example: 400px, 50%, etc. */
+  height: calc(100vh - 350px);
   overflow-y: auto;
+  min-height: 160px;
+  /* position: relative; */
 }
 
 .chat-message {
@@ -160,4 +163,147 @@ body {
 
 .send-btn i {
   font-size: 18px;
+}
+
+.pdf-row {
+  overflow-x: auto;
+}
+
+.pdf-container {
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+/* .pdf-input {
+  flex-grow: 1;
+} */
+
+.pdf-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid #ccc;
+  margin-right: 10px;
+  cursor: pointer;
+  border-radius: 3px;
+  position: relative;
+  width: 105px;
+  height: 120px;
+  transition: border-color 0.3s;
+
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
+}
+
+.pdf-item:hover {
+  border-color: #777;
+}
+
+.pdf-item.selected {
+  border-color: #e74c3c;
+  background-color: #fcfcfc;
+  transition: background-color 0.3s;
+}
+
+.pdf-item.selected i,
+.pdf-item.failed i,
+.pdf-item.failed .pdf-name {
+  color: #e74c3c;
+}
+
+.pdf-item.selected i:hover {
+  font-size: 58px;
+}
+
+.pdf-item .pdf-icon {
+  font-size: 48px;
+  transition: font-size 0.1s;
+}
+
+.spinner {
+  width: 90%;
+  position: absolute;
+  background-color: #fff;
+  top: 0;
+  /* display: block; */
+}
+
+.pdf-item .pdf-name {
+  /* margin-top: 5px; */
+  text-align: center;
+  font-size: 12px;
+  position: absolute;
+  bottom: 12px;
+  /* transition: color 0.1s; */
+}
+
+.pdf-item.selected .pdf-name,
+.pdf-item.loading .pdf-name {
+  color: #ccc;
+}
+
+.url-popup {
+  display: flex;
+  align-items: center;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.url-input {
+  flex-grow: 1;
+  border: none;
+  outline: none;
+  padding: 5px;
+  font-size: 12px;
+}
+
+.url-btn {
+  /* background-color: #007bff; */
+  background-color: #28a745;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  font-size: 14px;
+  padding: 5px 10px;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+
+.url-btn:hover {
+  /* background-color: #0069d9; */
+  background-color: #218838;
+}
+
+.input-error {
+  border: 1px solid #e74c3c;
+}
+
+.chat-container {
+  position: relative;
+}
+
+.chat-icons {
+  position: absolute;
+  top: 12px;
+  right: 15px;
+  display: flex;
+  gap: 10px;
+  background-color: transparent;
+  z-index: 10;
+}
+
+.chat-icons i {
+  cursor: pointer;
+  color: #808080;
+  font-size: 18px;
+}
+
+.chat-icons i:hover {
+  color: #5b5b5b;
 }
