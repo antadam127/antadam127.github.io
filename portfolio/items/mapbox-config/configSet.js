@@ -1310,6 +1310,220 @@ const config_natoMembers = {
     autoCycling: 1400, // false || NUM milliseconds // How many milliseconds between switching
   },
 };
+// NATO MEMBERS
+const config_italy = {
+  name: "Italy",
+  accessToken: "pk.eyJ1IjoiYW50YWRhbTEyNyIsImEiOiJjbDI2ZGJnN2wyaW5qM2JxZHVmZTJjNm8zIn0.4aMtEeYWx4hxIVKRrqsqWw",
+
+  // Basic Funcationality
+  startingStyle: Mapbox_Satellite_Clear, // Mapbox_Light, // North_Star_Web, // random || style // Starting Style
+  globeMode: true, // Globe (true) || Mercator (false) || 'naturalEarth', 'equalEarth', 'equirectangular', 'winkelTripel', 'lambertConformalConic', 'albers'
+  renderWorldCopies: true, // Render Infinite Maps (Default: true) (Useful for zoomed out flat map visualization)
+  hashMode: false, // Hash the URL
+  bounded: false, // false || bounds [[],[]] // Sets movement boundaries for user
+  mapOnClick: "", // '' || 'reset' || 'northUp' || 'coord' || 'cam' // Map Click Action
+  logoPosition: "bottom-left", // 'top/bottom-left/right' // Mapbox Logo Position
+  includeAttribution: true, // Include Attribution
+
+  // Starting Location
+  startingPos: {
+    center: [-34.02284, 62.22881],
+    zoom: 2.38,
+    pitch: 25.5,
+    bearing: 0.0,
+    startBounds: [[5.7382,35.8189],[20.1319,47.4761]], // false || [[],[]] // OVERRIDES STARTING pos/pitch/bearing/zoom // Starting boundaries (Ex: americaBounds)
+  },
+  showLocationHelper: false, // Show Location Helper
+
+  minzoom: 5, // min zoom // false || zoomLevel (Default: 0) (Always Show Buildings: 15.25)
+  maxzoom: false, // max zoom // false || zoomLevel (Default: 22)
+  maxpitch: false, // max pitch // false || pitchLevel (Default/Max: 85) (Optimized for labels and buildings: 60)
+
+  // Interactivity
+  interactive: true, // false for no interactivity at all
+  interactiveOptions: {
+    move: true, // true || false // Allow Movement
+    zoom: true, // true || false // Allow Zoom
+    rotate: true, // true || false // Allow Rotation
+    pitch: true, // true || false // Allow Pitch
+
+    cooperativeGestures: false, // Require Cmd + scroll to Zoom (Default: false)
+    zoomCenterLock: false, // false || true (default: false) // Lock zoom to center of map
+  },
+
+  // VIEW OPTIONS
+  searchbar: false, // Add Searchbar
+  searchbarOptions: {
+    placeholderText: "Search", // Place Holder Text
+    proximitySearch: false, // Prioritize results by general map area or search global every time
+    allowReverseGeocode: true, // Allow coordinate search
+
+    clearOnMapMove: true, // Clear when focus removed from search
+    searchMarker: true, // Add Search Marker
+
+    enableUserLocation: false, // Enable user location button
+    collapseBar: true, // Collapse when not in use
+    customLocation: false, // Customize location in CSS
+  },
+
+  styleSwitcher: false, // Add style swither radio buttons
+  styleSwitcherOptions: {
+    // 'styleOptions' list in data.js for convenience
+    enableKeyboardShortcuts: true, // Enable Clycling on 'Enter' and 'Shift + Enter' and Random on 'Backspace'
+  },
+
+  directionControl: "", // 'top-left', // '' || 'top/bottom-left/right' // Add Direction Control
+  navControl: "", //'top-right', // '' || 'top/bottom-left/right' // Add Navigation Control
+  geoControl: "", //'bottom-right', // '' || 'top/bottom-left/right' // Add Geolocation Control
+  scaleControl: "", //'bottom-left', // '' || 'top/bottom-left/right' // Add Scale Control
+
+  // STYLE OPTIONS
+  fogStyle: "default", // 'default': Changes w style, 'custom': fog is set directly by style, 'standard': Mapbox default (empty), OR 'EXPLICIT': Explicit style
+  fogStyleOptions: {
+    enableKeyboardFogToggling: false, // Enable Fog Toggle with " Shift + '\' " keyboard press
+  },
+
+  terrainMode: true, // Add 3D Terrain
+  terrainOptions: {
+    exaggeration: 2, // Terrain Exaggeration (Default: 1.5)
+  },
+
+  hillshading: false, // Add Hillshading
+  hillshadeOptions: {
+    overrideExistingHillshade: false, // Remove Existing Hillshade or Keep current
+  },
+
+  contours: false, // Add contours
+  contourOptions: {
+    overrideExistingContours: true, //Remove Existing Contours
+    removeLabels: false, // Remove Existing Contour Labels
+    forceOnTop: false, // Force Contours on Top
+    color: "#333", // Line Color (Default: '#877b59')
+    lineWidth: 1, // Line Width (Default: 1)
+    opacity: 1, // Line Opacity (Default: 1)
+  },
+
+  buildings3D: false, // Add 3D Buildings
+  buildingOptions: {
+    oppacity3D: 0.6, // 3D Building opacity (Default: 0.6)
+    insertBehindLabels: false, // Insert Behind labels
+    color: "#aaa", // Color (Default: '#aaa') (Alternate: '#d0b47c')
+    lightIntensity: 0.6, // 0-1 // (Default: 0.5)
+  },
+
+  satelliteFade: false, // Add Satellite Fade on Zoom
+  satelliteFadeOptions: {
+    satelliteMinzoom: 0.1, //14.5, // Min satellite zoom level
+    satelliteFadeamt: 0.1, // 1, // Fade amount for satellite
+    removeLabels: false, // Keep or Remove Labels (Default: false)
+    satelliteSaturation: -0.7, // -1.0 - 1.0 (Default: 0) // Saturation
+  },
+
+  bathymetry: false, // Add Ocean Bathymetry
+
+  // LAYERS
+  weather: false, // Add Weather
+  weatherOptions: {
+    // Documentation: 'https://openweathermap.org/api'
+    weatherAPIKey: "ecc25565b4fe8bc58f10225f90abb3cc",
+    fahrenheit: true, // Fahrenheit or Metric
+
+    showRadar: true, // Show Live Weather Radar
+
+    showTemp: true, // true || false || 'top/bottom-left/right'
+    hoverDropdown: true, // Activate dropdown on temp hover
+    hoverShowTarget: true, // Activate Target on hover
+
+    pulseDotOnMove: {
+      active: false, // Activate Pulsing dot
+      radius: 150, // Radius in px (Default: 100)
+      duration: 1000, // Duration in ms (Default: 1000)
+      continuous: false, // Continuous or not (Default: false)
+    },
+  },
+
+  streetview: false, // Add Mapillary Streetview
+  streetviewOptions: {
+    mapillaryAccessToken: "MLY|7987216781292167|74ae0d0cfe0d46fdcf0a9fb141634cce",
+    showImageOnHover: true, // Show image on hover
+  },
+
+  // SPIN
+  spin: {
+    startSpinning: false, // Start the Globe Spinning
+    enableToggle: false, // Enable Toggle on 'Enter'
+  },
+
+  // BOUNDARIES
+  tiles: {
+    timeZones: "mapbox://antadam127.142r7jdg",
+    countries: "mapbox://antadam127.7qjvpjmo",
+    adminOne: "mapbox://antadam127.5j1xrq5t",
+    usaCounties: "mapbox://antadam127.dxvrpiet",
+    urbanAreas: "mapbox://antadam127.bexpi1tg",
+    populatedPlaces: "mapbox://antadam127.czs3fwmt",
+  },
+  timeZones: {
+    enable: false, // Add Time Zones
+    timeZoneFills: true, // Fill Time Zones
+  },
+  countries: {
+    enable: true, // Enable countries
+    drawBoarders: true, // true || 'white' // Draw Boarders
+    zoomOnClick: false, // Zoom to Country on Click
+    highlightOnHover: false, // Highlight on Hover
+    showPopupOn: "", // 'hover' || 'click' || '' // Popup
+    popupInfo: "population", // 'population' || 'GDP' || 'economy' || 'income' || '' // **Optional** Shouldn't be used when Colorization or Extrude are on
+    countryColorization: "", // 'color7' || 'population' || 'GDP' || 'economy' || 'income' || '' // Colorization
+    countryOppacityZoomLevel: 3, // Zoom Oppacity
+    countryExtrude: "", // '' || 250000 || 'population' || 'GDP' || 'economy' || 'income' // Extrusion (number: flat, string: exp)
+    countryExtrudeOppacity: 1, // Country Extrude Oppacity
+    filter: ['ITA'], // false || [] || ['USA', 'FRA', 'DEU'] || nato // Only show country (3-Digit Codes)
+    filterBkgCol: "#080b15", // '#000' || '#080b15 // Filter Background Color
+  },
+  adminOne: {
+    enable: true, // Enable States and Provinces
+    drawBoarders: true, // Draw Boarders
+    zoomOnClick: false, // Zoom to Admin1 on Click
+    highlightOnHover: true, // Highlight on Hover
+    adminOneColorization: false, // false || true // Admin One Colorization
+    adminOneOppacityZoomLevel: 3.5, // Zoom Oppacity
+    adminOneExtrude: false, // false || 80000 || true // Extrusion
+    adminOneExtrudeOppacity: 0.85, // Admin One Extrude Oppacity
+    countryFilter: ['ITA'], // nato || ['USA', 'CAN', 'MEX'] || [] // Country Filter (3-Digit Codes)
+  },
+  usaCounties: {
+    enable: false, // Enable USA Counties
+    highlightOnHover: true, // Highlight on Hover
+    usaCountiesColorization: true, // false || true // Usa Counties Colorization
+    usaCountiesExtrude: true, // false || 80000 || true // Extrusion
+    fadeInZoomLevel: 2, //5.5, // Fade In Zoom Level (Default: 4)
+  },
+
+  // DATASET LAYERS
+  urbanAreas: {
+    enable: false, // Highlight Urban Areas
+    fillColor: "rgba(0,0,0,0.2)", // Fill Color ('clear' || 'rgba(0,0,0,0.3)' || '#e74c3c')
+    highlightOnHover: "clear", // false || true || 'clear' // Highlight on Hover
+    drawBoarders: true, // true || 'white' || false // Draw Boarders
+  },
+  populatedPlaces: {
+    enable: false, //  Enable populated places
+    highlightOnHover: true, // Highlight on Hover
+    radius: 1,
+    color: "#e74c3c", // '#333'
+    strokeWid: 1,
+    strokeCol: 1,
+  },
+
+  // BLUE PLANET
+  bluePlanet: {
+    enable: false, // Enable Blue Planet
+    startMonth: Math.floor(Math.random() * 12), // 1 - 12 (Default: 12) // Month of Imagery
+    enableCyclingOnKeypress: false, // Enable Cycle Rotation (Press Enter)
+    autoCycling: 1400, // false || NUM milliseconds // How many milliseconds between switching
+  },
+};
 
 // USA STATES
 const config_usaStates = {
@@ -3076,6 +3290,7 @@ const allConfigSets = {
   "building-heights": config_building_heights,
   "building-types": config_building_types,
   "black-marble": config_blackMarble,
+  "italy": config_italy,
 };
 
 // SET MANUALLY
@@ -3090,6 +3305,9 @@ config = config_building_types; // Must find a way to add geocoder or direction 
 // config = config_blackMarble; // Add Minimo City Labels
 // ADD THE PSU LINKEDIN MAP
 
+config = config_italy;
+
+
 // CHECK URL PARAMETERS
 (function setConfig() {
   const urlParams = new URLSearchParams(window.location.search);
@@ -3101,7 +3319,7 @@ config = config_building_types; // Must find a way to add geocoder or direction 
 })();
 
 // Set Manual Attributes
-// config.hashMode = true;
+config.hashMode = true;
 // config.showLocationHelper = true;
 
 // SET DOCUMENT TITLE

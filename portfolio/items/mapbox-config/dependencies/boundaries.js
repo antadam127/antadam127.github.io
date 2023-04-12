@@ -31,6 +31,7 @@ const colorPalletExtend = [
 const timeZonePallet = ["#ee9b00", "#ae2012", "#e9d8a6", "#a3a6ce"];
 const colorScales = [
   ["#eff3ff", "#08519c"],
+  ["#d7e1ee", "#991f17"],
   ["#fff", "#000"],
   ["#F5FFF4", "#646880"],
   [redBlue[9], redBlue[0]],
@@ -212,25 +213,25 @@ function addCountryData() {
   const fillColor =
     config.countries.countryColorization == "color7"
       ? [
-          "case",
-          ["==", ["get", "MAPCOLOR7"], 1],
-          colorPallet[(0 + off) % 7],
-          ["==", ["get", "MAPCOLOR7"], 2],
-          colorPallet[(1 + off) % 7],
-          ["==", ["get", "MAPCOLOR7"], 3],
-          colorPallet[(2 + off) % 7],
-          ["==", ["get", "MAPCOLOR7"], 4],
-          colorPallet[(3 + off) % 7],
-          ["==", ["get", "MAPCOLOR7"], 5],
-          colorPallet[(4 + off) % 7],
-          ["==", ["get", "MAPCOLOR7"], 6],
-          colorPallet[(5 + off) % 7],
-          ["==", ["get", "MAPCOLOR7"], 7],
-          colorPallet[(6 + off) % 7],
-          "#000",
-        ]
+        "case",
+        ["==", ["get", "MAPCOLOR7"], 1],
+        colorPallet[(0 + off) % 7],
+        ["==", ["get", "MAPCOLOR7"], 2],
+        colorPallet[(1 + off) % 7],
+        ["==", ["get", "MAPCOLOR7"], 3],
+        colorPallet[(2 + off) % 7],
+        ["==", ["get", "MAPCOLOR7"], 4],
+        colorPallet[(3 + off) % 7],
+        ["==", ["get", "MAPCOLOR7"], 5],
+        colorPallet[(4 + off) % 7],
+        ["==", ["get", "MAPCOLOR7"], 6],
+        colorPallet[(5 + off) % 7],
+        ["==", ["get", "MAPCOLOR7"], 7],
+        colorPallet[(6 + off) % 7],
+        "#000",
+      ]
       : config.countries.countryColorization
-      ? [
+        ? [
           "interpolate",
           ranges[config.countries.countryColorization].interpolation,
           ranges[config.countries.countryColorization].matchSet
@@ -241,9 +242,9 @@ function addCountryData() {
           ranges[config.countries.countryColorization].max,
           ranges[config.countries.countryColorization].reverseScale ? ranges.colorScale.light : ranges.colorScale.dark,
         ]
-      : config.countries.highlightOnHover
-      ? ["case", ["boolean", ["feature-state", "hover"], false], "rgba(0,0,0,0.2)", "rgba(0,0,0,0)"]
-      : "rgba(0,0,0,0)";
+        : config.countries.highlightOnHover
+          ? ["case", ["boolean", ["feature-state", "hover"], false], "rgba(0,0,0,0.2)", "rgba(0,0,0,0)"]
+          : "rgba(0,0,0,0)";
 
   map.addLayer({
     id: "country-fills-userAdded",
@@ -372,16 +373,16 @@ function addCountryData() {
         paint: {
           "fill-extrusion-height": isNaN(config.countries.countryExtrude)
             ? [
-                "interpolate",
-                ranges[config.countries.countryExtrude].extrudeInterpolation,
-                ranges[config.countries.countryExtrude].matchSet
-                  ? ranges[config.countries.countryExtrude].matchSet
-                  : ["get", ranges[config.countries.countryExtrude].tag],
-                ranges[config.countries.countryExtrude].extrudeMin,
-                ranges[config.countries.countryExtrude].reverseScale ? ranges[config.countries.countryExtrude].extrudeMaxHeight : 0,
-                ranges[config.countries.countryExtrude].extrudeMax,
-                ranges[config.countries.countryExtrude].reverseScale ? 0 : ranges[config.countries.countryExtrude].extrudeMaxHeight,
-              ]
+              "interpolate",
+              ranges[config.countries.countryExtrude].extrudeInterpolation,
+              ranges[config.countries.countryExtrude].matchSet
+                ? ranges[config.countries.countryExtrude].matchSet
+                : ["get", ranges[config.countries.countryExtrude].tag],
+              ranges[config.countries.countryExtrude].extrudeMin,
+              ranges[config.countries.countryExtrude].reverseScale ? ranges[config.countries.countryExtrude].extrudeMaxHeight : 0,
+              ranges[config.countries.countryExtrude].extrudeMax,
+              ranges[config.countries.countryExtrude].reverseScale ? 0 : ranges[config.countries.countryExtrude].extrudeMaxHeight,
+            ]
             : config.countries.countryExtrude,
           "fill-extrusion-opacity": [
             "interpolate",
@@ -438,14 +439,17 @@ function addCountryData() {
       if (isNaN(config.countries.countryExtrude) && config.countries.countryColorization != config.countries.countryExtrude)
         popupLabels =
           popupLabels +
-          `<div style="font-family: 'Oswald',sans-serif; text-align:${align};">${config.countries.countryExtrude}:  ${
-            config.countries.countryExtrude == "population" ? "" : "$"
+          `<div style="font-family: 'Oswald',sans-serif; text-align:${align};">${config.countries.countryExtrude}:  ${config.countries.countryExtrude == "population" ? "" : "$"
           }${props[ranges[config.countries.countryExtrude].tag].toLocaleString("en-US")} <small>(extrusion)</small></div>`;
 
     let countryNameHTML = "";
     if (true) countryNameHTML = `<div style="font-family: 'Oswald',sans-serif; font-size:larger; text-align:center;">${props.ADMIN}</div>`;
 
-    return `<img onerror="this.onerror=null; this.src='https://upload.wikimedia.org/wikipedia/commons/2/2f/Missing_flag.png'" src="https://countryflagsapi.com/png/${props.ADM0_A3}" alt="${props.ABBREV}" width="${imgWid}"/>${countryNameHTML}${popupLabels}`;
+    // return `<img onerror="this.onerror=null; this.src='https://upload.wikimedia.org/wikipedia/commons/2/2f/Missing_flag.png'" src="https://countryflagsapi.com/png/${props.ADM0_A3}" alt="${props.ABBREV}" width="${imgWid}"/>${countryNameHTML}${popupLabels}`;
+    // return `<img onerror="this.onerror=null; this.src='https://upload.wikimedia.org/wikipedia/commons/2/2f/Missing_flag.png'" src="https://flagcdn.com/h120/${props.ISO_A2_EH.toLowerCase()}.png" alt="${props.ABBREV}" width="${imgWid}"/>${countryNameHTML}${popupLabels}`;
+    // return `<img id="flagImg" src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Missing_flag.png" alt="${props.ABBREV}" width="${imgWid}" onload="(function() { const flagUrl = 'https://flagcdn.com/h120/${props.ISO_A2_EH.toLowerCase()}.png'; const img = new Image(); img.onload = () => { document.getElementById('flagImg').src = img.src; }; img.onerror = () => {}; img.src = flagUrl; })()"/>${countryNameHTML}${popupLabels}`;
+    // return `<img id="flagImg-${props.ISO_A2_EH}" src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Missing_flag.png" alt="${props.ABBREV}" width="${imgWid}" onload="(function() { const flagUrl = 'https://flagcdn.com/h120/${props.ISO_A2_EH.toLowerCase()}.png'; const img = new Image(); img.onload = () => { if (document.getElementById('flagImg-${props.ISO_A2_EH}')) { document.getElementById('flagImg-${props.ISO_A2_EH}').src = img.src; } }; img.onerror = () => {}; img.src = flagUrl; })()"/>${countryNameHTML}${popupLabels}`;
+    return `<div class="fi fi-${props.ISO_A2_EH.toLowerCase()}" style="width: ${imgWid}px; height: ${imgWid * (3 / 4)}px; margin-left: 3px; margin-right: 3px; margin-bottom: 3px;" ></div>${countryNameHTML}${popupLabels}`;
     // return `<h1>${feature.properties.ADMIN}</h1>`;
   }
   // Set up mouse
@@ -577,14 +581,14 @@ function addAdminOneData() {
         "fill-extrusion-color":
           config.adminOne.highlightOnHover && config.adminOne.adminOneColorization
             ? [
-                "case",
-                ["boolean", ["feature-state", "hover"], false],
-                highlightRed,
-                ["to-color", ["at", ["%", ["+", off, ["get", "ne_id"]], 13], ["literal", colorPalletExtend]]],
-              ]
+              "case",
+              ["boolean", ["feature-state", "hover"], false],
+              highlightRed,
+              ["to-color", ["at", ["%", ["+", off, ["get", "ne_id"]], 13], ["literal", colorPalletExtend]]],
+            ]
             : config.adminOne.adminOneColorization
-            ? ["to-color", ["at", ["%", ["+", off, ["get", "ne_id"]], 13], ["literal", colorPalletExtend]]]
-            : fillColor,
+              ? ["to-color", ["at", ["%", ["+", off, ["get", "ne_id"]], 13], ["literal", colorPalletExtend]]]
+              : fillColor,
       },
     });
   }
@@ -599,7 +603,7 @@ function addAdminOneData() {
         // Click
         const feature = e.features[0];
         // console.log(feature.properties);
-        console.log(feature.properties.woe_id);
+        console.log(feature.properties);
         if (config.adminOne.zoomOnClick) {
           map.flyTo({
             center: [feature.properties.longitude, feature.properties.latitude],
@@ -668,8 +672,8 @@ function addUSACounties() {
         config.usaCounties.highlightOnHover
           ? ["case", ["boolean", ["feature-state", "hover"], false], 1.2, 1]
           : config.usaCounties.usaCountiesColorization
-          ? 1
-          : 0.8,
+            ? 1
+            : 0.8,
       ],
       "fill-outline-color": "#333333",
       "fill-color": config.usaCounties.usaCountiesColorization
@@ -695,14 +699,14 @@ function addUSACounties() {
         "fill-extrusion-color":
           config.usaCounties.highlightOnHover && config.usaCounties.usaCountiesColorization
             ? [
-                "case",
-                ["boolean", ["feature-state", "hover"], false],
-                highlightRed,
-                ["to-color", ["at", ["%", ["+", off, ["get", "NE_ID"]], 13], ["literal", colorPalletExtend]]],
-              ]
+              "case",
+              ["boolean", ["feature-state", "hover"], false],
+              highlightRed,
+              ["to-color", ["at", ["%", ["+", off, ["get", "NE_ID"]], 13], ["literal", colorPalletExtend]]],
+            ]
             : config.usaCounties.usaCountiesColorization
-            ? ["to-color", ["at", ["%", ["+", off, ["get", "NE_ID"]], 13], ["literal", colorPalletExtend]]]
-            : fillColor,
+              ? ["to-color", ["at", ["%", ["+", off, ["get", "NE_ID"]], 13], ["literal", colorPalletExtend]]]
+              : fillColor,
       },
     });
   }

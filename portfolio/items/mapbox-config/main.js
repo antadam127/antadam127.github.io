@@ -108,8 +108,15 @@ if (config.mapCursor) {
 
 // Search bar
 if (config.searchbar) {
-  if (!config.searchbarOptions.customLocation) map.addControl(createSearchbar(), "top-right");
-  else createCustomGeocoder();
+  // Add the dependencies
+  $.when(
+    $.getScript('https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.min.js'),
+    $('<link>', { rel: 'stylesheet', type: 'text/css', href: 'https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.css' }).appendTo('head')
+  ).done(() => {
+    console.log('Geocoder resources loaded.');
+    if (!config.searchbarOptions.customLocation) map.addControl(createSearchbar(), "top-right");
+    else createCustomGeocoder();
+  });
 }
 
 // Controls

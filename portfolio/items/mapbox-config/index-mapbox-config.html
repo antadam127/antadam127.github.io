@@ -57,22 +57,34 @@
 
     <!-- ^^ NEEDS CONFIRMATION ^^ -->
 
+    <!-- FLAGS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icons/6.6.6/css/flag-icons.min.css" integrity="sha512-uvXdJud8WaOlQFjlz9B15Yy2Au/bMAvz79F7Xa6OakCl2jvQPdHD0hb3dEqZRdSwG4/sknePXlE7GiarwA/9Wg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
     <!-- USER ADDED -->
     <link href="css/style.css" rel="stylesheet" />
     <link href="css/corners.css" rel="stylesheet" />
 
     <!-- GOOGLE ANALYTICS -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-2466715FY8"></script>
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag("js", new Date());
-      gtag("config", "G-2466715FY8");
-    </script>
-    <!-- GOOGLE ANALYTICS -->
-  </head>
+      // Add "?developer=true" to skip loading Google Analytics
+      (function () {
+      if (new URLSearchParams(window.location.search).get("developer") !== "true") {
+        const script = document.createElement("script");
+        script.async = true;
+        script.src = "https://www.googletagmanager.com/gtag/js?id=G-2466715FY8";
+        document.head.appendChild(script);
+        window.dataLayer = window.dataLayer || [];
+        function gtag() {
+          dataLayer.push(arguments);
+        }
+        gtag("js", new Date());
+        gtag("config", "G-2466715FY8");
+        console.log("Google Analytics loaded");
+      } else console.log("Google Analytics skipped (developer mode)");
+    })();
+  </script>
+  <!-- GOOGLE ANALYTICS -->
+</head>
 
   <body>
     <div id="map"></div>

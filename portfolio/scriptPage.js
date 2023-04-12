@@ -52,7 +52,9 @@ $(document).ready(function () {
 
     if (p.main) {
         if (p.main.type == 'iframe') {
-            $('#main-content').append(`<iframe id="iframe-content" defer src="${p.main.src}" frameborder="0" style="border-radius: 0 0 6px 6px; width: 100%; height: 100%"></iframe>`);
+            let iframeSrc = p.main.src;
+            if (new URLSearchParams(window.location.search).get("developer") === "true") iframeSrc = iframeSrc + '&developer=true'; // Add Developer Mode
+            $('#main-content').append(`<iframe id="iframe-content" defer src="${iframeSrc}" frameborder="0" style="border-radius: 0 0 6px 6px; width: 100%; height: 100%"></iframe>`);
         } else if (p.main.type == 'script') { }
     }
     $('#mod5').append(p.title2);
