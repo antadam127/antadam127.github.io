@@ -29,6 +29,7 @@ filters.forEach((e) => {
 // shuffle(portfolio);
 function shuffleWithSeed(arr) {
     const seed = new Date().toISOString().slice(0, 10); // Get the current date in YYYY-MM-DD format
+    console.log(seed);
     const random = new Math.seedrandom(seed); // Create a seeded random number generator
     for (let i = arr.length - 1; i > 0; i--) {
         const j = Math.floor(random() * (i + 1)); // Generate a random index based on the seed
