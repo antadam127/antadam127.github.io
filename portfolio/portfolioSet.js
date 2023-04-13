@@ -205,6 +205,20 @@ const portfolio = [
             src: 'items/NBA Analysis/index.html?iframe=true',
         }
     },
+    {
+        id: 'openai',
+        title: 'OpenAI PDF Reader & Chatbot',
+        title2: 'OpenAI  API PDF Reader',
+        tags: ['Web/Dev', 'AI'],
+        desc: "This project was inspired by MARCH MADNESS. I found it interesting to compare NBA Players' Hometowns, Colleges, and most recent NBA Teams to view the players' paths across the country.",
+        desc2: 'This project utilizes Deck.GL, which is a very powerful GIS visualization tool. Deck.gl is an open source project, originally sponsored by Uber. It has some of the most advanced capabilities in the industry. While this visualization is interesting, Deck.GL is certainly capable of much more. Python was also used to scrape data from the web and combine sources to achieve a workable dataset.',
+        skills: ['Javascript', 'OpenAI', 'API Management', 'HTML'],
+        externalSite: 'items/gpt chatbot/index.html',
+        main: {
+            type: 'iframe', // 'iframe', 'script'
+            src: 'items/gpt chatbot/index.html?iframe=true',
+        }
+    },
 ];
 
 portfolio.forEach(e => {

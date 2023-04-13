@@ -26,12 +26,13 @@ let sampleQuestions = [
     'Why do isolated islands have such diverse bird species?',
     'What defines consciousness, and can machines attain it?',
     'How does morality differ across cultures and why?',
+    'What are the member states of NATO?',
 ];
 
 function addPdf() {
-    const pdfName = 'test_pdf_gpt_filename.pdf';
+    const pdfName = Math.random() > 0.5 ? 'test_pdf_GPT_filename.pdf' : 'test_pdf.pdf';
     let pdfAbrv = pdfName;
-    const len = 14;
+    const len = 16;
     if (pdfName.length > len) pdfAbrv = pdfName.slice(0, len - 6) + "..." + pdfName.slice(-3);
 
     // Create PDF item
@@ -80,12 +81,11 @@ function addPdf() {
                     alertUser();
                 }, 200);
             } else {
-                getAIResponse(`PDF Ready: You can now ask me questions related to ${pdfName}`, true);
+                getAIResponse(`PDF Ready: You can now ask me questions related to "${pdfName}"`, true);
             }
         }
         if (!badPDF) alertUser();
 
-        // Add event listener for showing the remove dropdown
         pdfItem.addEventListener('click', () => {
             pdfItem.querySelector('i').classList.toggle(failed ? 'bi-x-circle' : 'bi-file-earmark-pdf');
             pdfItem.querySelector('i').classList.toggle('bi-trash');
@@ -101,6 +101,7 @@ function addPdf() {
                 e.preventDefault();
                 e.stopPropagation();
                 pdfItem.remove();
+                getAIResponse(`PDF Removed: "${pdfName}"`, true);
             }
         });
 
@@ -131,7 +132,7 @@ fromUrl.addEventListener('click', (e) => {
 // chatInput.placeholder = sampleQuestions[Math.floor(Math.random() * sampleQuestions.length)];
 function setPlaceholderText() {
     const question = sampleQuestions[Math.floor(Math.random() * sampleQuestions.length)];
-    const delayBetweenChars = 20; // Delay between typing each character in milliseconds
+    const delayBetweenChars = 10; // Delay between typing each character in milliseconds
 
     let charIndex = 0;
     chatInput.placeholder = ''; // Clear the current placeholder
@@ -151,7 +152,7 @@ setPlaceholderText();
 // Add a message to the chat area
 let allChats = [];
 function addChatMessage(sender, message) {
-    allChats.push({ role: sender, content: message });
+    if (sender !== 'alert') allChats.push({ role: sender, content: message });
 
     const messageElement = document.createElement('div');
     const messageClass = sender === 'user' ? 'user-message' : sender === 'bot' ? 'bot-message' : 'alert-message';
@@ -187,13 +188,21 @@ function getAIResponse(explicitResponse, instant) {
     addChatMessage(instant ? 'alert' : 'bot', '...');
 
     async function getResponse() {
-        const response = allChats.length < 2 || explicitResponse ? explicitResponse : await fetchOpenAI(allChats);
+        let response = allChats.length < 2 || explicitResponse ? explicitResponse : await fetchOpenAI(allChats);
+        if (response === 'error') {
+            explicitResponse = 'There is an error with the OpenAI API. Please try again later.';
+            response = explicitResponse;
+            instant = true;
+            allChats.pop();
+            allChats.pop();
+            chatArea.lastElementChild.remove();
+            addChatMessage('alert', 'Error');
+        } else if (!instant) allChats[allChats.length - 1].content = response;
         // console.log(response);
         const htmlText = instant ? response : response.replace(/\n/g, '<br>');
         // console.log(htmlText);
         const responseWords = instant ? htmlText.split('') : htmlText.split(' ');
-        allChats[allChats.length - 1].content = response;
-        
+
         // Set Sample Questions
         console.log('LENGTH:', allChats.length);
         if (allChats.length > 1) setSampleQuestions();
@@ -225,7 +234,7 @@ function getAIResponse(explicitResponse, instant) {
         chatArea.lastElementChild.querySelector('.chat-text').innerHTML = ''; // Remove the three dots
         addWord(); // Start populating the chatbot response
     }
-        
+
     getResponse();
     // Simulate a 3-second delay for chatbot response
     // setTimeout(getResponse, instant ? 0 : 200 + Math.random() * 2800);
@@ -303,6 +312,8 @@ function decodeHash() {
             return chatArray;
         } catch (error) {
             console.error('Error decoding hash:', error);
+            if (totalTokens[1] !== 0) totalTokens[1] -= 2;
+            if (totalTokens[1] < 0) totalTokens[1] = 0;
             return [];
         }
     } else {
@@ -457,6 +468,7 @@ function resetChat() {
 }
 
 // OPENAI API
+const OPEN_AI_API_KEY = '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';
 let totalTokens = [0, 0];
 const tokenThreshold = 3400;
 async function fetchOpenAI(arr, prmpt) {
@@ -468,7 +480,7 @@ async function fetchOpenAI(arr, prmpt) {
         model: 'text-davinci-003',
         prompt: fullPrompt,
         temperature: 0.7,
-        max_tokens: 256,
+        max_tokens: 2000, // 512, // 256,
         top_p: 1,
         frequency_penalty: 0,
         presence_penalty: 0,
@@ -478,22 +490,27 @@ async function fetchOpenAI(arr, prmpt) {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': 'Bearer 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',
+            'Authorization': `Bearer ${OPEN_AI_API_KEY}`,
         },
         body: JSON.stringify(data),
     });
 
-    const json = await response.json();
-    console.log(json.usage)
-    totalTokens[0] = json.usage.total_tokens;
+    try {
+        const json = await response.json();
+        console.log(json.usage)
+        totalTokens[0] = json.usage.total_tokens;
 
-    const text = json.choices[0].text.trim();
-    // console.log(text);
+        const text = json.choices[0].text.trim();
+        // console.log(text);
 
-    const startIndex = text.toLowerCase().indexOf('bot:');
-    const returnText = startIndex !== -1 ? text.substring(startIndex + 'bot:'.length) : text;
+        const startIndex = text.toLowerCase().indexOf('bot:');
+        const returnText = startIndex !== -1 ? text.substring(startIndex + 'bot:'.length) : text;
 
-    return returnText.trim();
+        return returnText.trim();
+    } catch (error) {
+        console.log('Error Handled In Script:', error);
+        return 'error';
+    }
 }
 
 // Function to get the chat history
@@ -515,12 +532,15 @@ function getPrePrompt(arr) {
 
 // Get more relavent placeholder questions
 async function setSampleQuestions() {
-    const history = allChats.slice(totalTokens[1] === 0 ? 1 : arr.length - (totalTokens[1] - 1), allChats.length).map(chat => `${chat.role}: ${chat.content}`).join('\n');
-    const prompt = history + `\n\nThe previous was a conversation between a human 'user' and an AI assistant 'bot'. DO NOT ACT AS IF YOU ARE APART OF THIS CONVERSATION. You are a third party reviewer whose only job is to provide a list of results. You will review this conversation, based on this conversation you will come up with 10 relavent questions that the user might be interested in. Six questions should be on topics related to or adjacent to those found throughout the conversation. Two questions should be random questions about new unrelated topics that the user might not have thought of and would be interested in based on their conversation. Two quesitons should combine two or more differnet topics into one question. Each question should be insightful and above all inspire wonder. Do not repeat any question that has already been asked in the conversation. Format these qestions in a single line seperated by the '&' delimeter. Include a question mark and capitalize the first letter for each question. (example response: 'question1?&question2?&question3?&question4?') (example response: 'What is the most populous country in the world?&How many elements are on the periodic table?&How much does the average person weigh?&What is the longest river in the world?')`;
+    const numberOfResponsesToLookAt = 16;
+    console.log(allChats.length, 'RESPONSES LOOKED AT:', numberOfResponsesToLookAt * 2, allChats.length <= numberOfResponsesToLookAt * 2 ? 'Reading ALL' : 'Reading only part');
+    const history = allChats.slice(allChats.length <= numberOfResponsesToLookAt * 2 ? 1 : allChats.length - numberOfResponsesToLookAt * 2, allChats.length).map(chat => `${chat.role}: ${chat.content}`).join('\n');
+    // const history = allChats.slice(totalTokens[1] === 0 ? 1 : allChats.length - (totalTokens[1] - 1), allChats.length).map(chat => `${chat.role}: ${chat.content}`).join('\n');
+    const prompt = history + `\n\nThe previous was a conversation between a human 'user' and an AI assistant 'bot'. DO NOT ACT AS IF YOU ARE APART OF THIS CONVERSATION. You are a third party reviewer whose only job is to provide a list of results on one line. You will review this conversation, based on this conversation you will come up with 10 relavent questions that the user might be interested in. Six questions should be on topics related or adjacent to topics found throughout the conversation that should spark further curiosity on the topic. Two questions should be random questions about new related topics that the user might not have thought of and would be interested in based on their conversation. Two quesitons should combine two or more differnet topics into one question. Each question should be insightful and above all inspire wonder. DO NOT repeat any question that has already been asked in the conversation. Format these qestions in a single line seperated by the '&' delimeter. Include a question mark and capitalize the first letter for each question. (example response: 'question1?&question2?&question3?&question4?') (example response: 'What is the most populous country in the world?&How many elements are on the periodic table?&How much does the average person weigh?&What is the longest river in the world?')`;
     // console.log(prompt);
     const results = await fetchOpenAI('questions', prompt);
     // console.log(results);
-    sampleQuestions = results.split('&');
+    if (results !== 'error') sampleQuestions = results.split('&');
     // console.log('Sample Questions Updated');
     console.log(sampleQuestions);
 }

@@ -608,3 +608,7 @@ h6,
 .full-screen-wrapper.transition {
   transition: all 0.3s ease-in-out !important;
 }
+
+.full-screen .shadow-wrap {
+  height: 100% !important;
+}

@@ -11,8 +11,15 @@ body {
 
 h1 {
   color: #28a745;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.4rem; /* Adjust this value for smaller screens */
 }
 
+@media (min-width: 768px) { /* The 'md' breakpoint in Bootstrap 4 */
+  h1 {
+    font-size: 2rem; /* Adjust this value for larger screens */
+  }
+}
 /* PDF Input Row */
 .pdf-input {
   display: flex;
@@ -27,7 +34,8 @@ h1 {
   position: relative;
 
   flex-grow: 1;
-  height: 120px;
+  /* height: 120px; */
+  height: 100px;
   /* min-width: 105px; */
   min-width: 320px;
 
@@ -76,7 +84,7 @@ h1 {
   border: 1px dotted #dee2e6;
   height: calc(100vh - 350px);
   overflow-y: auto;
-  min-height: 160px;
+  min-height: 120px;
   /* position: relative; */
 }
 
@@ -190,8 +198,10 @@ h1 {
   cursor: pointer;
   border-radius: 3px;
   position: relative;
-  width: 105px;
-  height: 120px;
+  /* height: 120px; */
+  /* width: 105px; */
+  height: 100px;
+  width: 86px;
   transition: border-color 0.3s;
   transition: width 0.3s;
 
@@ -217,11 +227,11 @@ h1 {
 }
 
 .pdf-item.selected i:hover {
-  font-size: 58px;
+  font-size: 52px;
 }
 
 .pdf-item .pdf-icon {
-  font-size: 48px;
+  font-size: 42px;
   transition: font-size 0.1s;
 }
 
@@ -236,7 +246,7 @@ h1 {
 .pdf-item .pdf-name {
   /* margin-top: 5px; */
   text-align: center;
-  font-size: 12px;
+  font-size: 10px;
   position: absolute;
   bottom: 12px;
   transition: font-size 0.3s;
