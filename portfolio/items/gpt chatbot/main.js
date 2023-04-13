@@ -8,21 +8,25 @@ const chatArea = document.querySelector('.chat-area');
 const pdfContainer = document.querySelector('.pdf-container');
 
 // Samples
-const sampleQuestions = [
+let sampleQuestions = [
     'What are the highest-grossing movies of all time?',
-    'What are the top-rated movies on IMDb?',
-    'Can you recommend a good action movie?',
-    'What is the most iconic movie quote?',
-    'Who won the Best Actor Oscar last year?'
+    'What are the top five most populous countries in the world?',
+    'How many elements are on the periodic table?',
+    'How much does the average person weigh?',
+    'What is the longest river in the world?',
+    'What is the smallest country in the world?',
+    'How many countries make up the United Nations?',
+    'How many moons does Jupiter have?',
+    'What is the hottest planet in our solar system?',
+    'What is the highest mountain in the world?',
+    'What is the smallest mammal in the world?',
+    'How many languages are spoken in the world?',
+    'What are the most complex organisms on Earth?',
+    'What were the key factors that led to the rise and fall of ancient civilizations?',
+    'Why do isolated islands have such diverse bird species?',
+    'What defines consciousness, and can machines attain it?',
+    'How does morality differ across cultures and why?',
 ];
-const sampleResponses = [
-    'I really enjoyed watching The Shawshank Redemption. The story is so powerful. I really enjoyed watching The Shawshank Redemption. The story is so powerful. I really enjoyed watching The Shawshank Redemption. The story is so powerful.',
-    'My favorite movie is The Godfather. The acting and plot are fantastic. I really enjoyed watching The Shawshank Redemption. The story is so powerful. I really enjoyed watching The Shawshank Redemption. The story is so powerful.',
-    'Inception is a great movie that really makes you think.',
-    'One of the best animated movies I have seen is Spirited Away.',
-    'Have you seen The Dark Knight? The performance by Heath Ledger as the Joker is outstanding. I really enjoyed watching The Shawshank Redemption. The story is so powerful.'
-];
-
 
 function addPdf() {
     const pdfName = 'test_pdf_gpt_filename.pdf';
@@ -36,15 +40,15 @@ function addPdf() {
     // pdfItem.style.width = 0;
     // pdfItem.style.width = '105px';
     pdfItem.classList.add('init');
-    setTimeout(() => {pdfItem.classList.remove('init');}, 1);
+    setTimeout(() => { pdfItem.classList.remove('init'); }, 1);
     pdfItem.innerHTML = `
       <img class="spinner" src="../../../assets/img/spinner.svg" alt="Loading spinner">
       <i class="bi bi-file-earmark-pdf pdf-icon init"></i>
       <div class="pdf-name init">${pdfAbrv}</div>
       <div style="font-size: 8px;">&nbsp;</div>
     `;
-    setTimeout(() => {pdfItem.querySelector('i').classList.remove('init');}, 300);
-    setTimeout(() => {pdfItem.querySelector('.pdf-name').classList.remove('init');}, 1);
+    setTimeout(() => { pdfItem.querySelector('i').classList.remove('init'); }, 300);
+    setTimeout(() => { pdfItem.querySelector('.pdf-name').classList.remove('init'); }, 1);
 
     // Add the PDF item to the PDF container
     pdfContainer.appendChild(pdfItem);
@@ -161,7 +165,7 @@ function addChatMessage(sender, message) {
     const textElement = document.createElement('div');
     const chatClass = sender === 'user' ? 'user-text' : sender === 'bot' ? 'bot-text' : 'alert-text';
     textElement.classList.add('chat-text', chatClass);
-    textElement.textContent = message;
+    textElement.innerHTML = message;
     messageElement.appendChild(textElement);
 
     chatArea.appendChild(messageElement);
@@ -182,36 +186,49 @@ function getAIResponse(explicitResponse, instant) {
     // Add chatbot response
     addChatMessage(instant ? 'alert' : 'bot', '...');
 
-    // Simulate a 3-second delay for chatbot response
-    setTimeout(() => {
-        // Get a random response
-        const response = explicitResponse ? explicitResponse : sampleResponses[Math.floor(Math.random() * sampleResponses.length)];
-        const responseWords = instant ? response.split('') : response.split(' ');
+    async function getResponse() {
+        const response = allChats.length < 2 || explicitResponse ? explicitResponse : await fetchOpenAI(allChats);
+        // console.log(response);
+        const htmlText = instant ? response : response.replace(/\n/g, '<br>');
+        // console.log(htmlText);
+        const responseWords = instant ? htmlText.split('') : htmlText.split(' ');
         allChats[allChats.length - 1].content = response;
+        
+        // Set Sample Questions
+        console.log('LENGTH:', allChats.length);
+        if (allChats.length > 1) setSampleQuestions();
         updateHash();
 
         // Populate chatbot response one word at a time
         let wordIndex = 0;
         const minDelay = 0;
-        const maxDelay = 250;
+        const maxDelay = responseWords.length < 100 ? 250 : responseWords.length < 150 ? 225 : responseWords.length < 200 ? 200 : 175;
+        console.log('delay:', maxDelay, responseWords.length);
         const addWord = () => {
+            const wasOnBottom = chatArea.scrollHeight - chatArea.scrollTop <= chatArea.clientHeight + 50;
             if (wordIndex < responseWords.length) {
-                const currentText = chatArea.lastElementChild.querySelector('.chat-text').textContent;
-                chatArea.lastElementChild.querySelector('.chat-text').textContent = currentText + (instant ? '' : ' ') + responseWords[wordIndex];
+                const currentText = chatArea.lastElementChild.querySelector('.chat-text').innerHTML;
+                chatArea.lastElementChild.querySelector('.chat-text').innerHTML = currentText + (instant ? '' : ' ') + responseWords[wordIndex];
                 wordIndex++;
+                if (wasOnBottom) chatArea.scrollTo({ top: chatArea.scrollHeight, behavior: 'smooth' });
                 setTimeout(addWord, instant ? 7 : (minDelay + Math.random() * (maxDelay - minDelay))); // Slight random variations between the timing of each word
             } else {
                 chatbotResponding = false;
                 setTimeout(setPlaceholderText, 1000); // Set a new placeholder text after 1 second
                 enterButton.classList.remove('bi-chat-dots-fill');
                 enterButton.classList.add('bi-arrow-right-circle-fill');
-                chatArea.scrollTo({ top: chatArea.scrollHeight, behavior: 'smooth' });
+                if (wasOnBottom) chatArea.scrollTo({ top: chatArea.scrollHeight, behavior: 'smooth' });
+                // chatArea.scrollTo({ top: chatArea.scrollHeight, behavior: 'smooth' });
             }
         };
 
-        chatArea.lastElementChild.querySelector('.chat-text').textContent = ''; // Remove the three dots
+        chatArea.lastElementChild.querySelector('.chat-text').innerHTML = ''; // Remove the three dots
         addWord(); // Start populating the chatbot response
-    }, instant ? 0 : 200 + Math.random() * 2800);
+    }
+        
+    getResponse();
+    // Simulate a 3-second delay for chatbot response
+    // setTimeout(getResponse, instant ? 0 : 200 + Math.random() * 2800);
 }
 
 // Send chat message
@@ -234,7 +251,17 @@ sendBtn.addEventListener('click', sendChatMessage);
 // Chat input enter key event
 chatInput.addEventListener('keypress', (e) => {
     if (e.key === 'Enter') {
+        e.preventDefault();
         sendChatMessage();
+    }
+    if (e.key === " " && chatInput.value.trim() === "") {
+        e.preventDefault();
+        chatInput.value = chatInput.placeholder;
+    }
+});
+chatInput.addEventListener("input", () => {
+    if (chatInput.value === "") {
+        setPlaceholderText();
     }
 });
 
@@ -302,7 +329,7 @@ function initializeMessages() {
 }
 
 // Initialize
-const initialPrompt = 'Hi, I\'m a chatbot. I can answer questions about the PDFs you upload.';
+const initialPrompt = 'Hi, I\'m a chatbot. I can answer questions about the PDFs you upload or help you with anything else.';
 function init() {
     allChats = decodeHash();
 
@@ -427,4 +454,73 @@ function resetChat() {
     updateHash();
     chatArea.innerHTML = '';
     getAIResponse(initialPrompt);
+}
+
+// OPENAI API
+let totalTokens = [0, 0];
+const tokenThreshold = 3400;
+async function fetchOpenAI(arr, prmpt) {
+    const url = 'https://api.openai.com/v1/completions';
+    const fullPrompt = arr === 'questions' ? prmpt : getPrePrompt(arr);
+    // console.log(fullPrompt);
+
+    const data = {
+        model: 'text-davinci-003',
+        prompt: fullPrompt,
+        temperature: 0.7,
+        max_tokens: 256,
+        top_p: 1,
+        frequency_penalty: 0,
+        presence_penalty: 0,
+    };
+
+    const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer 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',
+        },
+        body: JSON.stringify(data),
+    });
+
+    const json = await response.json();
+    console.log(json.usage)
+    totalTokens[0] = json.usage.total_tokens;
+
+    const text = json.choices[0].text.trim();
+    // console.log(text);
+
+    const startIndex = text.toLowerCase().indexOf('bot:');
+    const returnText = startIndex !== -1 ? text.substring(startIndex + 'bot:'.length) : text;
+
+    return returnText.trim();
+}
+
+// Function to get the chat history
+function getPrePrompt(arr) {
+    if (totalTokens[0] > tokenThreshold) {
+        totalTokens[1] = totalTokens[1] === 0 ? arr.length - 1 : totalTokens[1] - 1;
+        console.log('OVER')
+    } else {
+        if (totalTokens[1] !== 0) totalTokens[1] += 1;
+        console.log('UNDER');
+    }
+    console.log(totalTokens, arr.length);
+
+    const pre = `user: Hello, who are you?\nbot: Hi, I am an AI assistant. How can I help you today?\n`
+    const history = pre + arr.slice(totalTokens[1] === 0 ? 1 : arr.length - (totalTokens[1] - 1), -1).map(chat => chat.role !== 'alert' ? `${chat.role}: ${chat.content}` : '').join('\n');
+    const preprompt = `The following is a conversation between a human 'user' and an AI assistant 'bot'. The assistant is helpful, creative, and clever.\n\n` + history;
+    return preprompt;
+}
+
+// Get more relavent placeholder questions
+async function setSampleQuestions() {
+    const history = allChats.slice(totalTokens[1] === 0 ? 1 : arr.length - (totalTokens[1] - 1), allChats.length).map(chat => `${chat.role}: ${chat.content}`).join('\n');
+    const prompt = history + `\n\nThe previous was a conversation between a human 'user' and an AI assistant 'bot'. DO NOT ACT AS IF YOU ARE APART OF THIS CONVERSATION. You are a third party reviewer whose only job is to provide a list of results. You will review this conversation, based on this conversation you will come up with 10 relavent questions that the user might be interested in. Six questions should be on topics related to or adjacent to those found throughout the conversation. Two questions should be random questions about new unrelated topics that the user might not have thought of and would be interested in based on their conversation. Two quesitons should combine two or more differnet topics into one question. Each question should be insightful and above all inspire wonder. Do not repeat any question that has already been asked in the conversation. Format these qestions in a single line seperated by the '&' delimeter. Include a question mark and capitalize the first letter for each question. (example response: 'question1?&question2?&question3?&question4?') (example response: 'What is the most populous country in the world?&How many elements are on the periodic table?&How much does the average person weigh?&What is the longest river in the world?')`;
+    // console.log(prompt);
+    const results = await fetchOpenAI('questions', prompt);
+    // console.log(results);
+    sampleQuestions = results.split('&');
+    // console.log('Sample Questions Updated');
+    console.log(sampleQuestions);
 }
