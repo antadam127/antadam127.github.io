@@ -233,16 +233,32 @@ chatInput.addEventListener('keypress', (e) => {
 });
 
 // Deal with the Hash
-function updateHash() {
+const hashMode = false;
+if (!hashMode) {
+    window.addEventListener('hashchange', () => {
+        console.log('Hash changed');
+        const base64String = window.location.hash.substring(1);
+        if (base64String) {
+            chatArea.innerHTML = '';
+            init();
+        }
+    });
+}
+
+function updateHash(returnHash) {
+    if (!hashMode && !returnHash) return;
     const msgpack = msgpack5();
     const binaryData = msgpack.encode(allChats);
     const base64String = btoa(String.fromCharCode.apply(null, binaryData));
+    if (returnHash) return base64String;
     window.location.hash = base64String;
 }
 
 function decodeHash() {
     const base64String = window.location.hash.substring(1);
+    if (!hashMode && (window.location.href.endsWith('#') || base64String)) window.location.hash = '';
     if (base64String) {
+        console.log('Decoding hash...')
         try {
             const binaryData = new Uint8Array(
                 atob(base64String)
@@ -257,6 +273,7 @@ function decodeHash() {
             return [];
         }
     } else {
+        console.log('No hash...')
         return [];
     }
 }
@@ -379,6 +396,20 @@ document.addEventListener('DOMContentLoaded', function () {
 
 document.getElementById('share-icon').addEventListener('click', () => {
     console.log('Share button clicked');
+    // Copy URL to clipboard
+    let hashUrl = window.location.href;
+    if (!hashMode) {
+        const hash = updateHash(true);
+        hashUrl = `${window.location.href.split('#')[0]}#${hash}`;
+    }
+    navigator.clipboard.writeText(hashUrl).then(() => {
+        // Show toast
+        const toastElement = document.getElementById('toast');
+        const toast = new bootstrap.Toast(toastElement);
+        toast.show();
+    }).catch((error) => {
+        console.error('Error copying URL to clipboard:', error);
+    });
 });
 
 document.getElementById('clear-icon').addEventListener('click', () => {

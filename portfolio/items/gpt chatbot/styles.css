@@ -61,8 +61,9 @@ h1 {
 
 .browse-computer:hover,
 .from-url:hover {
-  color: #007bff;
-  /* color: #000; */
+  text-decoration: underline;
+  /* color: #007bff; */
+  color: #090a0b;
 }
 
 /* Chat Area */
