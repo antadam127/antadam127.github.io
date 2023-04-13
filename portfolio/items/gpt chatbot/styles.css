@@ -193,6 +193,7 @@ h1 {
   width: 105px;
   height: 120px;
   transition: border-color 0.3s;
+  transition: width 0.3s;
 
   -webkit-user-select: none; /* Safari */
   -ms-user-select: none; /* IE 10 and IE 11 */
@@ -238,12 +239,20 @@ h1 {
   font-size: 12px;
   position: absolute;
   bottom: 12px;
-  /* transition: color 0.1s; */
+  transition: font-size 0.3s;
 }
 
 .pdf-item.selected .pdf-name,
 .pdf-item.loading .pdf-name {
   color: #ccc;
+}
+
+.pdf-item.init {
+  width: 0;
+}
+.pdf-icon.init,
+.pdf-name.init {
+  font-size: 0;
 }
 
 .url-popup {

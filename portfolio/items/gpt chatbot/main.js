@@ -33,12 +33,18 @@ function addPdf() {
     // Create PDF item
     const pdfItem = document.createElement('div');
     pdfItem.classList.add('pdf-item');
+    // pdfItem.style.width = 0;
+    // pdfItem.style.width = '105px';
+    pdfItem.classList.add('init');
+    setTimeout(() => {pdfItem.classList.remove('init');}, 1);
     pdfItem.innerHTML = `
       <img class="spinner" src="../../../assets/img/spinner.svg" alt="Loading spinner">
-      <i class="bi bi-file-earmark-pdf pdf-icon"></i>
-      <div class="pdf-name">${pdfAbrv}</div>
+      <i class="bi bi-file-earmark-pdf pdf-icon init"></i>
+      <div class="pdf-name init">${pdfAbrv}</div>
       <div style="font-size: 8px;">&nbsp;</div>
     `;
+    setTimeout(() => {pdfItem.querySelector('i').classList.remove('init');}, 300);
+    setTimeout(() => {pdfItem.querySelector('.pdf-name').classList.remove('init');}, 1);
 
     // Add the PDF item to the PDF container
     pdfContainer.appendChild(pdfItem);
