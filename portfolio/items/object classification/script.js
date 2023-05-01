@@ -100,7 +100,7 @@ function predictWebcam() {
                 // p.style = 'margin-left: ' + (multiplier * predictions[n].bbox[0]) + 'px; margin-top: '
                 //     + (multiplier * predictions[n].bbox[1] - 10) + 'px; width: '
                 //     + (multiplier * predictions[n].bbox[2] - 10) + 'px; top: 0; left: 0;';
-                p.style = 'margin-left: ' + ((multiplier * predictions[n].bbox[2] - 10) - multiplier * predictions[n].bbox[0]) + 'px; margin-top: '
+                p.style = 'margin-right: ' + (multiplier * predictions[n].bbox[0]) + 'px; margin-top: '
                     + (multiplier * predictions[n].bbox[1] - 10) + 'px; width: '
                     + (multiplier * predictions[n].bbox[2] - 10) + 'px; top: 0; left: 0;';
 
@@ -110,7 +110,7 @@ function predictWebcam() {
                 //     + (multiplier * predictions[n].bbox[1]) + 'px; width: '
                 //     + (multiplier * predictions[n].bbox[2]) + 'px; height: '
                 //     + (multiplier * predictions[n].bbox[3]) + 'px;';
-                highlighter.style = 'left: ' + ((multiplier * predictions[n].bbox[2]) - multiplier * predictions[n].bbox[0]) + 'px; top: '
+                highlighter.style = 'right: ' + (multiplier * predictions[n].bbox[0]) + 'px; top: '
                     + (multiplier * predictions[n].bbox[1]) + 'px; width: '
                     + (multiplier * predictions[n].bbox[2]) + 'px; height: '
                     + (multiplier * predictions[n].bbox[3]) + 'px;';
