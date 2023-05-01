@@ -43,7 +43,7 @@ function enableCam(event) {
             video.width = 640 * multiplier;
             video.height = 480 * multiplier;
             if (hMult > vMult) {
-                liveView.style = `left: ${(window.innerWidth - (640 * multiplier))/2}px`;
+                liveView.style = `left: ${(window.innerWidth - (640 * multiplier)) / 2}px`;
             } else liveView.style = 'left: 0';
         }
         setMult();
@@ -96,13 +96,21 @@ function predictWebcam() {
                 p.innerText = predictions[n].class + ' - with '
                     + Math.round(parseFloat(predictions[n].score) * 100)
                     + '% confidence.';
-                p.style = 'margin-left: ' + (multiplier * predictions[n].bbox[0]) + 'px; margin-top: '
+
+                // p.style = 'margin-left: ' + (multiplier * predictions[n].bbox[0]) + 'px; margin-top: '
+                //     + (multiplier * predictions[n].bbox[1] - 10) + 'px; width: '
+                //     + (multiplier * predictions[n].bbox[2] - 10) + 'px; top: 0; left: 0;';
+                p.style = 'margin-left: ' + ((multiplier * predictions[n].bbox[2] - 10) - multiplier * predictions[n].bbox[0]) + 'px; margin-top: '
                     + (multiplier * predictions[n].bbox[1] - 10) + 'px; width: '
                     + (multiplier * predictions[n].bbox[2] - 10) + 'px; top: 0; left: 0;';
 
                 const highlighter = document.createElement('div');
                 highlighter.setAttribute('class', 'highlighter');
-                highlighter.style = 'left: ' + (multiplier * predictions[n].bbox[0]) + 'px; top: '
+                // highlighter.style = 'left: ' + (multiplier * predictions[n].bbox[0]) + 'px; top: '
+                //     + (multiplier * predictions[n].bbox[1]) + 'px; width: '
+                //     + (multiplier * predictions[n].bbox[2]) + 'px; height: '
+                //     + (multiplier * predictions[n].bbox[3]) + 'px;';
+                highlighter.style = 'left: ' + ((multiplier * predictions[n].bbox[2]) - multiplier * predictions[n].bbox[0]) + 'px; top: '
                     + (multiplier * predictions[n].bbox[1]) + 'px; width: '
                     + (multiplier * predictions[n].bbox[2]) + 'px; height: '
                     + (multiplier * predictions[n].bbox[3]) + 'px;';

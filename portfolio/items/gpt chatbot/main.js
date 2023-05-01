@@ -6,6 +6,7 @@ const chatInput = document.querySelector('.chat-input');
 const sendBtn = document.querySelector('.send-btn');
 const chatArea = document.querySelector('.chat-area');
 const pdfContainer = document.querySelector('.pdf-container');
+const hiddenFileInput = document.getElementById('hiddenFileInput');
 
 // Samples
 let sampleQuestions = [
@@ -29,11 +30,13 @@ let sampleQuestions = [
     'What are the member states of NATO?',
 ];
 
-function addPdf() {
-    const pdfName = Math.random() > 0.5 ? 'test_pdf_GPT_filename.pdf' : 'test_pdf.pdf';
+async function addPdf(file) {
+    // const pdfName = Math.random() > 0.5 ? 'test_pdf_GPT_filename.pdf' : 'test_pdf.pdf';
+    const pdfName = file ? file.name : 'test_pdf_GPT_filename.pdf';
     let pdfAbrv = pdfName;
-    const len = 16;
+    const len = 14;
     if (pdfName.length > len) pdfAbrv = pdfName.slice(0, len - 6) + "..." + pdfName.slice(-3);
+    if (pdfName.length > len) console.log('Too long. New Name: ', pdfAbrv);
 
     // Create PDF item
     const pdfItem = document.createElement('div');
@@ -58,9 +61,13 @@ function addPdf() {
     const pdfRow = pdfContainer.parentElement.parentElement;
     pdfRow.scrollTo({ left: pdfRow.scrollWidth - pdfRow.clientWidth, behavior: 'smooth' });
 
+
+    // Get the file ready
     pdfItem.classList.add('loading');
-    let failed = Math.random() > 0.96;
-    setTimeout(() => {
+    // let failed = Math.random() > 0.96;
+    let failed = false;
+
+    function settlePDFLoading() {
         pdfItem.classList.remove('loading');
         pdfItem.querySelector('img').remove();
         if (failed) {
@@ -69,7 +76,13 @@ function addPdf() {
             pdfItem.querySelector('i').classList.add('bi-x-circle');
         }
         setEventListeners(failed);
-    }, 500 + Math.random() * 3500);
+    }
+    if (!file) setTimeout(settlePDFLoading, 500 + Math.random() * 3500); // Simulate loading
+    else {
+        const pdfPages = await convertPdfToText(file);
+        settlePDFLoading();
+        return pdfPages;
+    }
 
 
     function setEventListeners(badPDF) {
@@ -110,13 +123,14 @@ function addPdf() {
 
 // Browse from computer
 browseComputer.addEventListener('click', () => {
-    addPdf();
+    hiddenFileInput.click();
+    // addPdf();
 });
 
 // Click Drop PDF
-pdfInput.addEventListener('click', () => {
-    addPdf();
-});
+// pdfInput.addEventListener('click', () => {
+//     addPdf(); // Development purposes
+// });
 
 // From URL
 let showingURLPopup = false;
@@ -127,6 +141,78 @@ fromUrl.addEventListener('click', (e) => {
     showingURLPopup = true;
 });
 
+// Handle PDF Input
+hiddenFileInput.addEventListener('change', async (event) => {
+    const file = event.target.files[0];
+    if (file.type === 'application/pdf') {
+        console.log('File Selected');
+        processPdfFile(file);
+    } else {
+        console.log('Please select a valid PDF file.');
+    }
+});
+
+// Handle Drag and Drop
+let dragCounter = 0;
+pdfInput.addEventListener('dragenter', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    dragCounter++;
+    pdfInput.classList.add('file-hover');
+});
+
+pdfInput.addEventListener('dragleave', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    dragCounter--;
+    if (dragCounter === 0) {
+        pdfInput.classList.remove('file-hover');
+    }
+});
+pdfInput.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+});
+pdfInput.addEventListener('drop', async (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    dragCounter = 0;
+    pdfInput.classList.remove('file-hover');
+    // Handle the dropped file here
+    const file = e.dataTransfer.files[0];
+    if (file.type === 'application/pdf') {
+        console.log('File Dropped');
+        processPdfFile(file);
+    } else {
+        console.log('Please drop a valid PDF file.');
+    }
+});
+
+// Convert PDF to Text
+async function convertPdfToText(file) {
+    const pdf = await pdfjsLib.getDocument(URL.createObjectURL(file)).promise;
+    const numPages = pdf.numPages;
+    const pageTexts = [];
+
+    for (let pageNum = 1; pageNum <= numPages; pageNum++) {
+        const page = await pdf.getPage(pageNum);
+        const textContent = await page.getTextContent();
+        const pageText = textContent.items.map((item) => item.str).join(' ');
+        pageTexts.push(pageText);
+    }
+    // const pdfText = pageTexts.join('\n\n');
+    // console.log(pdfText);
+    return pageTexts;
+}
+
+// Handle the Files
+async function processPdfFile(file) {
+    const pdfPages = await addPdf(file);
+    // const pdfPages = await convertPdfToText(file);
+    // Now you can work with the pdfPages array inside this function.
+    // For example, you can log the pages:
+    console.log(pdfPages, 'OUTER');
+}
 
 // Set random placeholder text for chat input
 // chatInput.placeholder = sampleQuestions[Math.floor(Math.random() * sampleQuestions.length)];
