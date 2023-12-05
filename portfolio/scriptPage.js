@@ -51,11 +51,13 @@ $(document).ready(function () {
     // } else $('#mod3').addClass('external-button-greyed');
 
     if (p.main) {
-        if (p.main.type == 'iframe') {
+        if (p.main.type === 'iframe') {
             let iframeSrc = p.main.src;
             if (new URLSearchParams(window.location.search).get("developer") === "true") iframeSrc = iframeSrc + '&developer=true'; // Add Developer Mode
             $('#main-content').append(`<iframe id="iframe-content" defer src="${iframeSrc}" frameborder="0" style="border-radius: 0 0 6px 6px; width: 100%; height: 100%"></iframe>`);
-        } else if (p.main.type == 'script') { }
+        } else {
+            $('#main-content').append(`<div frameborder="0" style="border-radius: 0 0 6px 6px; width: 100%; height: 100%"> ${p.main.src} </div>`);
+        }
     }
     $('#mod5').append(p.title2);
     if (p.tags) p.tags.forEach((t, i) => $('#mod6').append(`<span class="text-muted">${i == 0 ? '' : ', '}${t}</span>`));
@@ -64,11 +66,14 @@ $(document).ready(function () {
 
     // Set Up Red X
     $('#redX').click(function () {
-        // document.getElementById('iframe-content').contentWindow.location.reload();
-        const iframe = document.getElementById('iframe-content');
-        iframe.contentWindow.document.open();
-        iframe.contentWindow.document.write(`<button onclick="window.location.href = '${p.main.src}';">Reload</button>`);
-        iframe.contentWindow.document.close();
-
+        if (p.main.type === 'iframe') {
+            // document.getElementById('iframe-content').contentWindow.location.reload();
+            const iframe = document.getElementById('iframe-content');
+            iframe.contentWindow.document.open();
+            iframe.contentWindow.document.write(`<button onclick="window.location.href = '${p.main.src}';">Reload</button>`);
+            iframe.contentWindow.document.close();
+        } else {
+            $('#main-content').empty();
+        }
     });
 });
