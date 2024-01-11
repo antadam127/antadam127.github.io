@@ -35,6 +35,8 @@ function enableCam(event) {
 
     // FOR FULLSCREEN
     if (fullscreenMode) {
+        document.getElementById('background').style.visibility = 'visible';
+        document.getElementById('background').style.opacity = 1;
         liveView.classList.add('fullscreen');
         function setMult() {
             const hMult = window.innerWidth / 640;
@@ -100,7 +102,7 @@ function predictWebcam() {
                 // p.style = 'margin-left: ' + (multiplier * predictions[n].bbox[0]) + 'px; margin-top: '
                 //     + (multiplier * predictions[n].bbox[1] - 10) + 'px; width: '
                 //     + (multiplier * predictions[n].bbox[2] - 10) + 'px; top: 0; left: 0;';
-                p.style = 'margin-right: ' + (multiplier * predictions[n].bbox[0]-20) + 'px; margin-top: '
+                p.style = 'margin-right: ' + (multiplier * predictions[n].bbox[0]+(liveView.offsetWidth - video.width)) + 'px; margin-top: '
                     + (multiplier * predictions[n].bbox[1] - 10) + 'px; width: '
                     + (multiplier * predictions[n].bbox[2] - 10) + 'px; top: 0; right: 0;';
 
@@ -110,7 +112,7 @@ function predictWebcam() {
                 //     + (multiplier * predictions[n].bbox[1]) + 'px; width: '
                 //     + (multiplier * predictions[n].bbox[2]) + 'px; height: '
                 //     + (multiplier * predictions[n].bbox[3]) + 'px;';
-                highlighter.style = 'right: ' + (multiplier * predictions[n].bbox[0]-20) + 'px; top: '
+                highlighter.style = 'right: ' + (multiplier * predictions[n].bbox[0]+(liveView.offsetWidth - video.width)) + 'px; top: '
                     + (multiplier * predictions[n].bbox[1]) + 'px; width: '
                     + (multiplier * predictions[n].bbox[2]) + 'px; height: '
                     + (multiplier * predictions[n].bbox[3]) + 'px;';

@@ -15,6 +15,7 @@ $(document).ready(function () {
     $('#mod2').append(p.desc);
 
     if (p.externalSite) $('#mod9').append(`<a href="${p.externalSite}" target="_blank" class="readmore">Visit Site</a>`);
+    if (p.externalSite2) $('#mod9').append(`<br><br><a href="${p.externalSite2}" target="_blank" class="readmore">Alternate Link</a>`);
     $('#mod3').addClass('external-button');
     function toggleFullscreen() {
         $(".full-screen-wrapper").toggleClass("full-screen");

@@ -1,16 +1,20 @@
-let enhanced = false;
-if (true) {
+if (true && document.getElementById("map")) {
+  let enhanced = false; // Rotating Globe ( will turn off if mobile device detected )
+
+
   // let cachedMap = sessionStorage.getItem("map");
   // console.log(cachedMap);
   let moveonhover = true;
 
   window.addEventListener("load", () => {
-    // CHECK FOR MOBILE
-    var isMobile = navigator.userAgent.toLowerCase().match(/mobile/i);
-    console.log(isMobile ? "Mobile Detected" : "Mobile Not Detected");
-    if (isMobile) enhanced = false;
-    console.log(enhanced ? "Displaying Enhanced Map" : "Displaying Basic Map");
-    console.log('(map not optimized)');
+    if (enhanced) {
+      // CHECK FOR MOBILE
+      var isMobile = navigator.userAgent.toLowerCase().match(/mobile/i);
+      console.log(isMobile ? "Mobile Detected" : "Mobile Not Detected");
+      if (isMobile) enhanced = false;
+      console.log(enhanced ? "Displaying Enhanced Map" : "Displaying Basic Map");
+    // console.log('(map not optimized)');
+  }
 
     // ADD MAP
     mapboxgl.accessToken = "pk.eyJ1IjoiYW50YWRhbTEyNyIsImEiOiJjbDI2ZGJnN2wyaW5qM2JxZHVmZTJjNm8zIn0.4aMtEeYWx4hxIVKRrqsqWw";

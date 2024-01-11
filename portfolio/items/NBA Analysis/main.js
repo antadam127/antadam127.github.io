@@ -640,6 +640,7 @@ console.log("Initializing deck.gl map...");
 const deckgl = new deck.DeckGL({
   container: "container",
   mapboxApiAccessToken: MAPBOX_ACCESS_TOKEN,
+  mapStyle: 'mapbox://styles/mapbox/dark-v10',
   initialViewState: {
     latitude: 42, // 39.5,
     longitude: -90, // -98.35,

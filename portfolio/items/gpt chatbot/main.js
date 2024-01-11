@@ -28,6 +28,46 @@ let sampleQuestions = [
     'What defines consciousness, and can machines attain it?',
     'How does morality differ across cultures and why?',
     'What are the member states of NATO?',
+
+    'Who are the Nobel Prize winners in Physics for the past five years?',
+    'What are the major factors contributing to climate change?',
+    'How many recognized species of insects exist on Earth?',
+    'What are the primary causes of deforestation globally?',
+    'What are the most widely spoken languages in the business world?',
+    'How do black holes form, and what happens inside them?',
+    'What are the leading theories on the origin of life on Earth?',
+    'What is the current unemployment rate in the largest economy?',
+    'How do advancements in artificial intelligence impact job markets?',
+    'What are the key components of a sustainable urban infrastructure?',
+    'What factors contribute to the rise and fall of stock market prices?',
+    'What are the key differences between classical and quantum physics?',
+    'How does the human brain process and store memories?',
+    'What are the main challenges in achieving global food security?',
+    'What are the potential long-term effects of antibiotic overuse?',
+    'How do cultural and societal norms influence individual behavior?',
+    'What are the latest breakthroughs in renewable energy technology?',
+    'What are the key elements of successful intercultural communication?',
+    'How do emerging technologies impact privacy and data security?',
+    'What are the main drivers of income inequality in modern societies?',
+
+    "What if shadows were doorways to parallel worlds?",
+    "Could our dreams be glimpses of alternate realities?",
+    "Do colors look the same to everyone?",
+    "Is time just a human-made concept?",
+    "Could plants have a collective consciousness?",
+    "What if we could communicate with animals?",
+    "Are we alone in the universe?",
+    "Can technology ever understand human emotions?",
+    "What if laughter was a universal language?",
+    "Do our thoughts create ripples in the world?",
+    "Could we exist in more than three dimensions?",
+    "Is reality just a shared illusion?",
+    "Can music convey emotions across species?",
+    "What if gravity suddenly disappeared?",
+    "Could memories be transferred between minds?",
+    "Do numbers have inherent meanings?",
+    "What if we could see beyond the visible spectrum?",
+    "Are dreams a window into the subconscious?",
 ];
 
 async function addPdf(file) {
@@ -354,6 +394,14 @@ chatInput.addEventListener('keypress', (e) => {
         chatInput.value = chatInput.placeholder;
     }
 });
+// Chat Input Tab Event
+chatInput.onkeydown = (e) => {
+    if (e.keyCode === 9 && chatInput.value.trim() === "") {
+        e.preventDefault();
+        chatInput.value = chatInput.placeholder;
+    }
+}
+
 chatInput.addEventListener("input", () => {
     if (chatInput.value === "") {
         setPlaceholderText();
@@ -554,16 +602,23 @@ function resetChat() {
 }
 
 // OPENAI API
-const OPEN_AI_API_KEY = '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';
+// https://platform.openai.com/usage
+// const OPEN_AI_API_KEY = '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';
+const OPEN_AI_API_KEY = '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'
 let totalTokens = [0, 0];
 const tokenThreshold = 3400;
 async function fetchOpenAI(arr, prmpt) {
     const url = 'https://api.openai.com/v1/completions';
+    // const url = 'https://api.openai.com/v1/chat/completions';
     const fullPrompt = arr === 'questions' ? prmpt : getPrePrompt(arr);
     // console.log(fullPrompt);
 
     const data = {
-        model: 'text-davinci-003',
+        // model: 'text-davinci-003',
+        // model: 'davinci-002',
+        // model: 'babbage-002',
+        model: 'gpt-3.5-turbo-instruct',
+        // model: 'gpt-3.5-turbo',
         prompt: fullPrompt,
         temperature: 0.7,
         max_tokens: 2000, // 512, // 256,

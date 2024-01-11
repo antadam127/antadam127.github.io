@@ -23,7 +23,7 @@ const config_blackMarble = {
     // startBounds: americaBounds, // false || [[],[]] // OVERRIDES STARTING pos/pitch/bearing/zoom // Starting boundaries (Ex: americaBounds)
     center: [globePos, 35],
     // zoom: 2.3,
-    zoom: 1.4,
+    zoom: 1.6,
     pitch: 0.0,
     bearing: 0.0,
   },
@@ -285,7 +285,7 @@ const config_rotateGlobe = {
   showLocationHelper: false, // Show Location Helper
 
   // Interactivity
-  interactive: false, // false for no interactivity at all
+  interactive: true, // false for no interactivity at all
   interactiveOptions: {
     move: true, // true || false // Allow Movement
     zoom: true, // true || false // Allow Zoom
@@ -394,6 +394,10 @@ const config_rotateGlobe = {
   // SPIN
   spin: {
     startSpinning: true, // Start the Globe Spinning
+    secondsPerRevolution: 120, // (Default: 120) Complete a revolution every X seconds at low zoom levels
+    maxSpinZoom: 5, // (Default: 5) No spinning past X zoom level
+    slowSpinZoom: 3, // (Default: 3) Start slowing spin speed past level X
+
     enableToggle: true, // Enable Toggle on 'Enter'
   },
 
@@ -484,8 +488,9 @@ const config_rotateBluePlanet = {
   // Starting Location
   startingPos: {
     // center: [68, 35],
-    center: [globePos, 35],
-    zoom: 2.3,
+    // center: [globePos, 35],
+    center: [75, 35],
+    zoom: 2.1, // 2.3,
     pitch: 0.0,
     bearing: 0.0,
     startBounds: false, // false || [[],[]] // OVERRIDES STARTING pos/pitch/bearing/zoom // Starting boundaries (Ex: americaBounds)
@@ -493,14 +498,14 @@ const config_rotateBluePlanet = {
   showLocationHelper: false, // Show Location Helper
 
   // Interactivity
-  interactive: false, // false for no interactivity at all
+  interactive: true, // false for no interactivity at all
   interactiveOptions: {
     move: true, // true || false // Allow Movement
     zoom: true, // true || false // Allow Zoom
-    rotate: true, // true || false // Allow Rotation
-    pitch: true, // true || false // Allow Pitch
+    rotate: false, // true || false // Allow Rotation
+    pitch: false, // true || false // Allow Pitch
 
-    cooperativeGestures: false, // Require Cmd + scroll to Zoom (Default: false)
+    cooperativeGestures: true, // Require Cmd + scroll to Zoom (Default: false)
   },
 
   // VIEW OPTIONS
@@ -602,6 +607,10 @@ const config_rotateBluePlanet = {
   // SPIN
   spin: {
     startSpinning: true, // Start the Globe Spinning
+    secondsPerRevolution: 1024, // (Default: 120) Complete a revolution every X seconds at low zoom levels
+    maxSpinZoom: 5, // (Default: 5) No spinning past X zoom level
+    slowSpinZoom: 3, // (Default: 3) Start slowing spin speed past level X
+
     enableToggle: true, // Enable Toggle on 'Enter'
   },
 
@@ -3318,8 +3327,8 @@ config = config_italy;
   } else console.log('TEST CONFIG');
 })();
 
-// Set Manual Attributes
-config.hashMode = true;
+// Set Manual Attributes (REMEMBER TO RESET)
+// config.hashMode = true;
 // config.showLocationHelper = true;
 
 // SET DOCUMENT TITLE
