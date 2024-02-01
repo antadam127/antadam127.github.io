@@ -16,7 +16,7 @@ const Moonlight = [8, 'Moonlight', 'mapbox://styles/antadam127/cl4yfem29005b15p9
 const Moonlight_No_Labels = [9, 'Moonlight (Clear)', 'mapbox://styles/antadam127/cl4yjh0sd000115mnv3lowqwo', 'space'];
 const Mapbox_Bathymetry = [14, 'Bathymetry', 'mapbox://styles/antadam127/cl5klbztx001g14jh6d0v0l6r', 'dayBright'];
 const Clear_Light = [15, 'Clear', 'mapbox://styles/antadam127/cl5ks9bcj002314rofs0vpzdq', 'dayBright'];
-const North_Star_Web = [16, 'North Star', 'mapbox://styles/antadam127/cl5m6b2dd004q15pe5lcymeft'];
+const North_Star_Web = [16, 'North Star', 'mapbox://styles/antadam127/cl5m6b2dd004q15pe5lcymeft', 'dayBright'];
 const Mineral_Web = [17, 'Mineral', 'mapbox://styles/antadam127/cl5m6bsvi003516nyf96gv0v7'];
 const Cali_Terrain_Web = [18, 'Cali Terrain', 'mapbox://styles/antadam127/cl5m6exed000914pbecmiw3jh', 'space'];
 const Le_Shine_Web = [19, 'Le Shine', 'mapbox://styles/antadam127/cl5m6f4he008914ptbtszn1pm'];
@@ -34,16 +34,20 @@ const Satellite_Saturated_Clear = [30, 'Satellite Saturated (Clear)', 'mapbox://
 const Upside_Down_Web = [31, 'Upside Down', 'mapbox://styles/antadam127/cl5m7cd48000514s241wjk1jq', 'night'];
 const Custom_Map = [32, 'My Custom', 'mapbox://styles/antadam127/cl5m8oyet006514l1mwq008sm', 'custom'];
 const Woodcut_web = [33, "Woodcut", "mapbox://styles/antadam127/cl6bet4gc000014kzwvpfo4w6"];
+const Mapbox_Dark_With_Terrain = [35, 'Dark With Terrain', 'mapbox://styles/mapbox/dark-v8', 'night'];
+const Mapbox_Navigation_More_Clear = [36, 'Navigation More Clear', 'mapbox://styles/antadam127/clryi80p3017f01p10qoo5uty'];
 
 const allMapStyles = [
   Mapbox_Streets,
   Mapbox_Outdoors,
   Mapbox_Light,
   Mapbox_Dark,
+  Mapbox_Dark_With_Terrain,
   Mapbox_Satellite_Clear,
   Mapbox_Satellite_Streets,
   Mapbox_Navigation_Day,
   Mapbox_Navigation_Night,
+  Mapbox_Navigation_More_Clear,
   Moonlight,
   Moonlight_No_Labels,
   Layered_Outdoors_No_Hillshading,

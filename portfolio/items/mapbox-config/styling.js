@@ -28,7 +28,8 @@ function setFogStyle(style) {
         if (s.length > 3) {
           if (s[3] === "custom") return;
           else map.setFog(fogStyles[s[3]]);
-        } else map.setFog(fogStyles["standard"]);
+        } else return;
+        // } else map.setFog(fogStyles["standard"]);
         return;
       }
     }

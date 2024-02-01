@@ -1,4 +1,5 @@
 // combined-script.js
+// ADD THIS: ?developer=true OR ?......&developer=true
 (function () {
     // window.addEventListener("load", () => console.log("Google Analytics: " + document.title));
     // console.log("Google Analytics: " + document.title)

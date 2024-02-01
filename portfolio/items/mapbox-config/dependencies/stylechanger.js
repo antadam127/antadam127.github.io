@@ -35,6 +35,7 @@ function addStyleSwitcher() {
     console.log('Style Switcher Initialized');
 }
 
+// FIX STYLE SWITCHER USE WITH ENTER KEY
 function nextStyle(dir) {
     let radioStyles = styleOptions;
     if (styleOptions[0] === -1) {
