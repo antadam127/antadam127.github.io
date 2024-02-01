@@ -1,11 +1,15 @@
 const consoleLog = false; // MOD
 
+// const centerCoords = [-97.01958, 38.66197]
+// const centerCoords = [-100, 30];
+const centerCoords = [-72.69, 41.77];
+
 // Create the Map
 mapboxgl.accessToken = "pk.eyJ1IjoiYW50YWRhbTEyNyIsImEiOiJjbDI2ZGJnN2wyaW5qM2JxZHVmZTJjNm8zIn0.4aMtEeYWx4hxIVKRrqsqWw";
 const map = new mapboxgl.Map({
     container: "map-a",
     style: "mapbox://styles/antadam127/clryi80p3017f01p10qoo5uty",
-    logoPosition: 'bottom-left',
+    // logoPosition: 'bottom-left',
     customAttribution: `<a title="Anthony Adam" href="https://www.linkedin.com/in/anthony-adam-psu/" target="_blank">
     <svg width="16px" height="16px" viewBox="2 4 48 48" style="vertical-align: middle;">
         <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -15,8 +19,10 @@ const map = new mapboxgl.Map({
 
     // center: [-97.01958, 38.66197],
     // zoom: 3.9,
-    bounds: [[-123.2168, 25.0310], [-70.8223, 49.5204]],
+    // bounds: [[-123.2168, 25.0310], [-70.8223, 49.5204]],
     // maxBounds: [[-123.2168, 25.0310], [-70.8223, 49.5204]],
+    center: centerCoords,
+    zoom: 6,
 
     interactive: false,
     // dragPan: true,
@@ -30,15 +36,12 @@ const map = new mapboxgl.Map({
     // keyboard: false,
 });
 
-// const centerCoords = [-97.01958, 38.66197]
-const centerCoords = [-100, 30];
-
-let timeoutId;
+// Define Vars
+let timeoutId, dest;
 let targetDist = 0; // Start 0
 let bearing = 0; // Start 0
 let outBounds = true; // Start true
 let canMove = false; // Start false
-
 // Event listener for mousemove (only movement over the map)
 map.on('mousemove', (event) => {
     // Get the center coordinates of the div
@@ -48,7 +51,7 @@ map.on('mousemove', (event) => {
 
     // SET VALUES
     const moveMaxDistPixels = (divRect.width < divRect.height ? divRect.width : divRect.height) / 2; // 275; // MOD: the pixel radius of the mouse movement
-    const targetMaxDistMiles = 800; // MOD: the mile radius of target movement
+    const targetMaxDistMiles = 150; // 800; // MOD: the mile radius of target movement
 
     // Get mouse coordinates
     const mouseX = event.point.x;
@@ -71,7 +74,7 @@ map.on('mousemove', (event) => {
     const point = turf.point(centerCoords);
     if (withinBounds) bearing = degrees + 90;
     const destination = turf.destination(point, targetDist, bearing, { units: 'miles' });
-
+    dest = destination;
 
     const dur = 150; // 100; // MOD: the duration of the movement that occurs when mouse first enters circle
     if (withinBounds && outBounds) {
@@ -81,7 +84,11 @@ map.on('mousemove', (event) => {
         canMove = destination;
         // Allow for movement when the above ease ends, unless...
         timeoutId = setTimeout(() => {
-            if (consoleLog) console.log('IN ONCE - CAN MOVE');
+            const dd = turf.distance(canMove, dest, { units: 'miles' });
+            if (consoleLog) console.log('IN ONCE - CAN MOVE', dd.toFixed(2));
+            // Move the map to the current target if the target has not been interupted and mouse movement has occured after original set destination, any movement during the following ease will take over and set the map to that location
+            map.easeTo({ center: dest.geometry.coordinates, duration: 360 }); // 25 // 3000 // MOD: the arbitrary time that the secondary ease function should take to reset the location in the event that the mouse is withing the mileRadiusMultiplier radius and is not in the exact spot as its previous destination
+            // map.setCenter(dest.geometry.coordinates);
             canMove = 'move';
         }, dur + 1);
     }
@@ -108,8 +115,6 @@ map.on('mousemove', (event) => {
     } else outBounds = false;
     // If withinBounds and canMove then physically move the center of the map to the correct location
     if (withinBounds && canMove === 'move') map.setCenter(destination.geometry.coordinates);
-
-
 });
 // Event listener for mouse out (fired when mouse leaves the map) (might also fire if leaves the layer? problems occured when using markers and mouse went over marker)
 map.on('mouseout', (event) => {
@@ -145,53 +150,53 @@ function resetMap() {
 
 
 // map.on('load', () => {
-    // var lineStrings = turf.randomLineString(25, {bbox: [-180, -90, 180, 90]})
-    // console.log(lineStrings)
+// var lineStrings = turf.randomLineString(25, {bbox: [-180, -90, 180, 90]})
+// console.log(lineStrings)
 
-    // var linestring1 = turf.lineString([[-24, 63], [-23, 60], [-25, 65], [-20, 69]], { name: 'line 1' });
-    // var linestring2 = turf.lineString([[-14, 43], [-13, 40], [-15, 45], [-10, 49]], { name: 'line 2' });
-    // console.log(linestring1)
-
-
+// var linestring1 = turf.lineString([[-24, 63], [-23, 60], [-25, 65], [-20, 69]], { name: 'line 1' });
+// var linestring2 = turf.lineString([[-14, 43], [-13, 40], [-15, 45], [-10, 49]], { name: 'line 2' });
+// console.log(linestring1)
 
 
 
 
 
-    // setTimeout(()=>{map.panBy([1000,0])},3000);
 
-    // panBy with an animation of 5 seconds.
-    // map.panBy([-1025, 38], { duration: 5000 });
-    // map.panBy([1025, 38]);
-    // map.panTo([-74, 38]);
-    // map.zoomTo(8);
-    // map.zoomTo(8, {
-    //     duration: 2000,
-    //     offset: [100, 50]
-    // });
-    // map.fitBounds([[-79, 43], [-73, 45]], {
-    //     padding: { padding: 10, linear: false }
-    // });
-    // map.easeTo({center: [-114, 38], zoom: 9, duration: 5000});
-    // map.easeTo({
-    //     center: [-114, 38],
-    //     zoom: 9,
-    //     speed: 0.2,
-    //     curve: 1,
-    //     duration: 5000,
-    //     easing(t) {
-    //         return t;
-    //     }
-    // });
-    // map.flyTo({center:[-114, 38]});
-    // setTimeout(()=>{map.flyTo({center:[-114, 38]})},6000);
-    // map.flyTo({
-    //     center: [-114, 38],
-    //     zoom: 9,
-    //     speed: 0.2,
-    //     curve: 1,
-    //     easing(t) {
-    //         return t;
-    //     }
-    // });
+
+// setTimeout(()=>{map.panBy([1000,0])},3000);
+
+// panBy with an animation of 5 seconds.
+// map.panBy([-1025, 38], { duration: 5000 });
+// map.panBy([1025, 38]);
+// map.panTo([-74, 38]);
+// map.zoomTo(8);
+// map.zoomTo(8, {
+//     duration: 2000,
+//     offset: [100, 50]
+// });
+// map.fitBounds([[-79, 43], [-73, 45]], {
+//     padding: { padding: 10, linear: false }
+// });
+// map.easeTo({center: [-114, 38], zoom: 9, duration: 5000});
+// map.easeTo({
+//     center: [-114, 38],
+//     zoom: 9,
+//     speed: 0.2,
+//     curve: 1,
+//     duration: 5000,
+//     easing(t) {
+//         return t;
+//     }
+// });
+// map.flyTo({center:[-114, 38]});
+// setTimeout(()=>{map.flyTo({center:[-114, 38]})},6000);
+// map.flyTo({
+//     center: [-114, 38],
+//     zoom: 9,
+//     speed: 0.2,
+//     curve: 1,
+//     easing(t) {
+//         return t;
+//     }
+// });
 // });

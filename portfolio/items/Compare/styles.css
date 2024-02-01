@@ -5,10 +5,12 @@ body {
 .mapboxgl-ctrl-attrib-inner {
     color: black;
 }
-.row > div {
-  border: 2px solid #3498db; /* Border color */
+
+
+/* .row > div { */
+  /* border: 2px solid #3498db; Border color */
   /* background-color: #62d0eb; Background color */
-}
+/* } */
 /* .overflow-scroll {
   overflow-y: auto;
   max-height: 100%;
