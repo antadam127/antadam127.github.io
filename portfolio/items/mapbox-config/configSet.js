@@ -3316,6 +3316,11 @@ config = config_building_types; // Must find a way to add geocoder or direction 
 
 config = config_italy;
 
+config = config_styleSwitcher;
+
+config = config_usaCountiesAndAdminOne;
+config.globeMode = true;
+
 
 // CHECK URL PARAMETERS
 (function setConfig() {
@@ -3329,7 +3334,7 @@ config = config_italy;
 
 // Set Manual Attributes (REMEMBER TO RESET)
 // config.hashMode = true;
-// config.showLocationHelper = true;
+config.showLocationHelper = true;
 
 // SET DOCUMENT TITLE
 if (config.name) document.title = config.name;

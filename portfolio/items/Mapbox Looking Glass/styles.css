@@ -1,0 +1,7 @@
+body {
+  background-color: #2a2a2a;
+  color: #f4f4f4;
+}
+.mapboxgl-ctrl-attrib-inner {
+    color: black;
+}

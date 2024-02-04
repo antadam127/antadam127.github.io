@@ -35,28 +35,84 @@
     <div id="container"></div>
 
     <script type="module">
-      const width = 928;
-      const height = 600;
+      // d3.json("https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json").then((data) => {
+      d3.json("https://cdn.jsdelivr.net/npm/world-atlas@2/countries-50m.json").then((data) => {
+        // const width = 928;
+        const width = 600;
+        const height = 600;
 
-      const svg = d3.select("#container").append("svg").attr("width", width).attr("height", height);
+        const svg = d3.select("#container").append("svg").attr("width", width).attr("height", height);
 
-      const projection = d3
-        .geoMercator()
-        // .geoEqualEarth()
-        .scale(140)
-        .translate([width / 2, height / 1.4]);
-      const path = d3.geoPath(projection);
+        // const projection = d3
+        //   // .geoMercator()
+        //   .geoOrthographic()
+        //   // .geoEqualEarth()
+        //   // .geoAiry()
+        //   // .geoAlbers()
+        //   // .scale(140)
+        //   // .translate([width / 2, height / 1.4])
+        //   .translate([width / 2, height / 2])
+        //   // .center([40, -72])
+        //   // .angle(30)
+        //   .rotate([90, 0, 0]);
+        const lat = 0;
+        // const lon = -90;
+        const projection = d3
+          .geoOrthographic()
+          // .geoMercator()
+          .center([0, lat]) // GPS of location to zoom on
+          .scale(250) // This is like the zoom
+          .rotate([0, lat, 0])
+          .translate([width / 2, height / 2]);
+        // .translate([width / 2, height / 2 - Math.sin((lat * Math.PI) / 180) * (height / 2)]);
 
-      // Show Graticule
-      if (false) {
-        const graticule = d3.geoGraticule();
-        svg.append("path").datum(graticule).attr("class", "graticule").attr("d", path);
-      }
+        // const projection = d3
+        //   .geoOrthographic()
+        //   .scale(9)
+        //   .translate([width / 2, height / 2])
+        //   .clipAngle(90)
+        //   .precision(0.6);
 
-      const g = svg.append("g");
+        const path = d3.geoPath(projection);
+        // let path = d3.geoPath().projection(projection);
 
-      d3.json("https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json").then((data) => {
+        // Show Graticule
+        if (false) {
+          const graticule = d3.geoGraticule();
+          svg.append("path").datum(graticule).attr("class", "graticule").attr("d", path);
+        }
+
+        const g = svg.append("g");
+
         const countries = topojson.feature(data, data.objects.countries);
+        countries.features = countries.features.filter((d) => {
+          return true;
+          return ["Norway"].includes(d.properties.name);
+        });
+
+        // let country = countries.features.find((e) => e.properties.name === "Norway");
+        // if (country) {
+        //   console.log(country);
+        // }
+
+        // const bounds = path.bounds(country);
+        // projection.scale(
+        //   0.9 /
+        //     Math.max(
+        //       (bounds[1][0] - bounds[0][0]) / width,
+        //       (bounds[1][1] - bounds[0][1]) / height
+        //     )
+        // );
+        // path = path.projection(projection);
+
+        // projection.rotate([MousePosition.x + 30 / 60, -(MousePosition.y - 0.25), 0]);
+        projection.rotate([15, -66, 0]);
+        // projection.center([-72,40])
+
+        // projection.fitSize(
+        //   [width, height],
+        //   countries.features.find((e) => e.properties.name === "Norway")
+        // );
 
         g.selectAll("path").data(countries.features).enter().append("path").attr("class", "country").attr("d", path);
       });
