@@ -1,9 +1,11 @@
-const europeCenter = [5.478, 52.691];
+// const europeCenter = [5.478, 52.691];
+const europeCenter = [4, 52.5];
 
 mapboxgl.accessToken = "pk.eyJ1IjoiYW50YWRhbTEyNyIsImEiOiJjbDI2ZGJnN2wyaW5qM2JxZHVmZTJjNm8zIn0.4aMtEeYWx4hxIVKRrqsqWw";
 const mapB = new mapboxgl.Map({
     container: "map-b",
-    style: "mapbox://styles/antadam127/cls4bem1m021801qsbfme3pus",
+    // style: "mapbox://styles/antadam127/cls4bem1m021801qsbfme3pus",
+    style: 'mapbox://styles/antadam127/cls8ptavf02kg01p21olffbwq', // Blank Map
     // logoPosition: 'bottom-left',
     // customAttribution: `<a title="Anthony Adam" href="https://www.linkedin.com/in/anthony-adam-psu/" target="_blank">
     // <svg width="16px" height="16px" viewBox="2 4 48 48" style="vertical-align: middle;">
@@ -16,7 +18,7 @@ const mapB = new mapboxgl.Map({
     // center: [-97.01958, 38.66197],
     center: europeCenter,
     // center: [13, 52],
-    zoom: 1,
+    // zoom: 1,
     // bounds: [[-45.6609, 28.7565], [69.2504, 72.7065]],
     // bounds: [[-123.2168, 25.0310], [-70.8223, 49.5204]],
     // maxBounds: [[-123.2168, 25.0310], [-70.8223, 49.5204]],
@@ -26,27 +28,105 @@ const mapB = new mapboxgl.Map({
 });
 
 // const europe = [[-55.630, 26.626], [65.473, 73.048]];
-// mapB.on('load', e => {
-//     console.log('load')
-// });
-mapB.on('style.load', e => {
+mapB.on('style.load', (e) => {
     // console.log(e);
     // console.log(mapB.getStyle().layers);
     // console.log(mapB.getStyle().sources);
-    console.log(mapB.getLayer('country-boundaries'));
-    console.log(mapB.getFilter('country-boundaries'));
-    // map.setFilter('country-boundaries', null);
-    console.log(mapB.getFilter('country-boundaries'));
+    // console.log(mapB.getLayer('country-boundaries'));
+    // console.log(mapB.getFilter('country-boundaries'));
+    // mapB.setFilter('country-boundaries', null);
+    // console.log(mapB.getFilter('country-boundaries'));
 
-    resetZoom();
+    resetZoomB();
 });
 mapB.on('resize', (e) => {
-    console.log('resize');
-    resetZoom();
+    // console.log('resize');
+    resetZoomB();
 });
-
-function resetZoom() {
+function resetZoomB() {
     mapB.setCenter(europeCenter);
     const z = 1.12376 + 0.00295701 * document.getElementById('map-b').getBoundingClientRect().width;
     mapB.setZoom(z);
 }
+
+let hoveredPolygonId = null;
+mapB.on('load', () => {
+    mapB.addSource("countries", {
+        type: 'vector',
+        url: 'mapbox://antadam127.7qjvpjmo'
+    });
+
+    mapB.addLayer({
+        id: "country-fills-userAdded",
+        source: "countries",
+        "source-layer": "ne_10m_admin_0_countries-0a88vy",
+        type: "fill",
+        paint: {
+            "fill-color": '#f99080',
+            'fill-opacity': [
+                'case',
+                ['boolean', ['feature-state', 'hover'], false],
+                1,
+                0
+            ]
+        },
+    });
+    mapB.addLayer({
+        id: "country-outlines-userAdded",
+        source: "countries",
+        "source-layer": "ne_10m_admin_0_countries-0a88vy",
+        type: "line",
+        paint: {
+            "line-color": '#fff',
+            "line-opacity": 1,
+            "line-width": ["interpolate", ["linear"], ["zoom"], 4, 1, 8, 4],
+        },
+    });
+
+    mapB.setFilter('country-fills-userAdded', ['all', ['==', 'CONTINENT', 'Europe'], ['!=', 'ISO_A3', 'RUS']]);
+    mapB.setFilter('country-outlines-userAdded', ['all', ['==', 'CONTINENT', 'Europe'], ['!=', 'ISO_A3', 'RUS']]);
+
+    mapB.on('mousemove', 'country-fills-userAdded', (e) => {
+        if (e.features.length > 0) {
+            if (hoveredPolygonId !== null) {
+                mapB.setFeatureState(
+                    { source: 'countries', sourceLayer: 'ne_10m_admin_0_countries-0a88vy', id: hoveredPolygonId },
+                    { hover: false }
+                );
+            }
+            hoveredPolygonId = e.features[0].id;
+            mapB.setFeatureState(
+                { source: 'countries', sourceLayer: 'ne_10m_admin_0_countries-0a88vy', id: hoveredPolygonId },
+                { hover: true }
+            );
+        }
+    });
+    mapB.on('mouseleave', 'country-fills-userAdded', () => {
+        if (hoveredPolygonId !== null) {
+            mapB.setFeatureState(
+                { source: 'countries', sourceLayer: 'ne_10m_admin_0_countries-0a88vy', id: hoveredPolygonId },
+                { hover: false }
+            );
+        }
+        hoveredPolygonId = null;
+    });
+
+    mapB.on('click', 'country-fills-userAdded', (e) => {
+        // console.log(e.features[0].properties);
+        mapCsetCountry(e.features[0].properties.ISO_A2_EH);
+    });
+
+
+    // TEMP COUNTRY CENTERS
+    // const markers = [];
+    // for (const c of europeanCountriesA2) {
+    //     console.log(c)
+    //     if (boundingBoxAndCenters.hasOwnProperty(c)) {
+    //         markers.push(new mapboxgl.Marker()
+    //             .setLngLat(boundingBoxAndCenters[c][2])
+    //             .addTo(mapB));
+    //     }
+    // }
+    // TEMP COUNTRY CENTERS
+
+});

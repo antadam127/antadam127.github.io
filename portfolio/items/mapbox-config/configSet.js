@@ -3319,7 +3319,7 @@ config = config_italy;
 config = config_styleSwitcher;
 
 config = config_usaCountiesAndAdminOne;
-config.globeMode = true;
+config.globeMode = false;
 
 
 // CHECK URL PARAMETERS
@@ -3332,9 +3332,9 @@ config.globeMode = true;
   } else console.log('TEST CONFIG');
 })();
 
-// Set Manual Attributes (REMEMBER TO RESET)
+// Set Manual Attributes (!!!!REMEMBER TO RESET!!!!)
 // config.hashMode = true;
-config.showLocationHelper = true;
+// config.showLocationHelper = true;
 
 // SET DOCUMENT TITLE
 if (config.name) document.title = config.name;

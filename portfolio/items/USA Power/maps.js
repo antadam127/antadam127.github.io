@@ -1,13 +1,20 @@
-const consoleLog = true; // MOD
+// GLOBAL USED FOR BOTH Map.js FILES
+const consoleLog = false; // MOD
+const reducePerformace = false; // MOD: default false (remember this is directly setting the location instead of using an easing function so keeping it on might actually feel more responsive, more testing needed on other cpus)
+const europeanCountries = ["ALB", "AND", "ARM", "AUT", "BLR", "BEL", "BIH", "BGR", "HRV", "CYP", "CZE", "DNK", "EST", "FRO", "FIN", "FRA", "GEO", "DEU", "GIB", "GRC", "HUN", "ISL", "IRL", "IMN", "ITA", "XKX", "LVA", "LIE", "LTU", "LUX", "MKD", "MLT", "MDA", "MCO", "MNE", "NLD", "NOR", "POL", "PRT", "ROU", "RUS", "SMR", "SRB", "SVK", "SVN", "ESP", "SWE", "CHE", "TUR", "UKR", "GBR", "VAT"];
+const europeanCountriesA2 = ["AL", "AD", "AM", "AT", "BY", "BE", "BA", "BG", "HR", "CY", "CZ", "DK", "EE", "FO", "FI", "FR", "GE", "DE", "GI", "GR", "HU", "IS", "IE", "IM", "IT", "XK", "LV", "LI", "LT", "LU", "MK", "MT", "MD", "MC", "ME", "NL", "NO", "PL", "PT", "RO", "RU", "SM", "RS", "SK", "SI", "ES", "SE", "CH", "TR", "UA", "GB", "VA"];
+// GLOBAL USED FOR BOTH Map.js FILES
+
 
 // const centerCoords = [-97.01958, 38.66197]
 // const centerCoords = [-100, 30];
-// const centerCoords = [-72.69, 41.77];
-const centerCoords = [-39.6111, 35.4959];
+// const centerCoords = [-72.69, 41.77]; // CT
+const centerCoords = [-77.803, 40.875]; // PA
+// const centerCoords = [-39.6111, 35.4959];
 
 // Create the Map
 mapboxgl.accessToken = "pk.eyJ1IjoiYW50YWRhbTEyNyIsImEiOiJjbDI2ZGJnN2wyaW5qM2JxZHVmZTJjNm8zIn0.4aMtEeYWx4hxIVKRrqsqWw";
-const map = new mapboxgl.Map({
+const mapA = new mapboxgl.Map({
     container: "map-a",
     style: "mapbox://styles/antadam127/clryi80p3017f01p10qoo5uty",
     // logoPosition: 'bottom-left',
@@ -21,20 +28,32 @@ const map = new mapboxgl.Map({
 
     // center: [-97.01958, 38.66197],
     // zoom: 3.9,
+
     // bounds: [[-123.2168, 25.0310], [-70.8223, 49.5204]],
     // maxBounds: [[-123.2168, 25.0310], [-70.8223, 49.5204]],
-    center: centerCoords,
-    zoom: 6,
 
+    center: centerCoords,
+    // zoom: 6,
+    zoom: 5,
+
+    
     interactive: false, // dragPan: true, // scrollZoom: false, // doubleClickZoom: false, // boxZoom: false, // dragRotate: false, // pitchWithRotate: false, // touchPitch: false, // touchZoomRotate: false, // keyboard: false,
+    // scrollZoom: false,
+    // doubleClickZoom: false,
+    // boxZoom: false,
+    // dragRotate: false,
+    // pitchWithRotate: false,
+    // touchPitch: false,
+    // touchZoomRotate: false,
+    // keyboard: false,
 });
 
 // function resetZoom() {
-//     map.setZoom(0.183121 + 0.00285062 * document.getElementById('map-a').getBoundingClientRect().width);
+//     mapA.setZoom(0.183121 + 0.00285062 * document.getElementById('map-a').getBoundingClientRect().width);
 // }
 // resetZoom();
 
-map.on('style.load', (event) => {
+if (true) mapA.on('style.load', (event) => {
     // Define Vars
     let timeoutId, dest;
     let targetDist = 0; // Start 0
@@ -47,30 +66,29 @@ map.on('style.load', (event) => {
     function resizeValues() {
         // Get the center coordinates of the div
         divRect = document.getElementById('map-a').getBoundingClientRect();
-        console.log(divRect.width);
         divCenterX = divRect.width / 2;
         divCenterY = divRect.height / 2;
         // SET VALUES
         moveMaxDistPixels = (divRect.width < divRect.height ? divRect.width : divRect.height) / 2; // MOD: the pixel radius of the mouse movement
 
         // SET MILE RADIUS
-        // targetMaxDistMiles = 150; // 800; // MOD: the mile radius of target movement
-        targetMaxDistMiles = 2000; // 800; // MOD: the mile radius of target movement
+        targetMaxDistMiles = 150; // 800; // MOD: the mile radius of target movement
+        // targetMaxDistMiles = 2000; // 800; // MOD: the mile radius of target movement
 
         // SET ZOOM LEVEL
-        map.setZoom(0.183121 + 0.00285062 * document.getElementById('map-a').getBoundingClientRect().width); // Show Full Earth Zoom Level
+        // mapA.setZoom(0.183121 + 0.00285062 * document.getElementById('map-a').getBoundingClientRect().width); // Show Full Earth Zoom Level
 
     }
     resizeValues();
 
     // Event listener for map resize
-    map.on('resize', (event) => {
+    mapA.on('resize', (event) => {
         if (consoleLog) console.log('MAP RESIZED');
         resizeValues();
     });
 
     // Event listener for mousemove (only movement over the map)
-    map.on('mousemove', (event) => {
+    mapA.on('mousemove', (event) => {
         // Get mouse coordinates
         const mouseX = event.point.x;
         const mouseY = event.point.y;
@@ -98,10 +116,11 @@ map.on('style.load', (event) => {
         if (withinBounds && outBounds) {
             if (consoleLog) console.log('IN ONCE');
             // Move the map to the target point, likely on the edge, when the mouse first enters circle
-            // map.easeTo({ center: destination.geometry.coordinates, duration: dur });
-            map.easeTo({
+            // mapA.easeTo({ center: destination.geometry.coordinates, duration: dur });
+            mapA.easeTo({
                 center: destination.geometry.coordinates,
-                duration: dur, easing(t) {
+                duration: dur,
+                easing(t) {
                     return easeOutBack(null, t, 0, 1, 1);
                 }
             });
@@ -113,9 +132,11 @@ map.on('style.load', (event) => {
                 if (consoleLog) console.log('IN ONCE - CAN MOVE');
                 // Move the map to the current target if the target has not been interupted and mouse movement has occured after original set destination, any movement during the following ease will take over and set the map to that location
                 // DO NOT NEED THIS ANYMORE because if standard moving is done with an ease function it will by default smoothly transition to its target
-                // map.easeTo({ center: dest.geometry.coordinates, duration: 36 }); // 25 // 3000 // MOD: the arbitrary time that the secondary ease function should take to reset the location in the event that the mouse is withing the mileRadiusMultiplier radius and is not in the exact spot as its previous destination
-                // map.panTo(dest.geometry.coordinates);
-                // map.setCenter(dest.geometry.coordinates);
+                if (reducePerformace) {
+                    mapA.easeTo({ center: dest.geometry.coordinates, duration: 80 }); // 25 // 3000 // MOD: the arbitrary time that the secondary ease function should take to reset the location in the event that the mouse is withing the mileRadiusMultiplier radius and is not in the exact spot as its previous destination
+                    // mapA.panTo(dest.geometry.coordinates);
+                    // mapA.setCenter(dest.geometry.coordinates);
+                }
                 canMove = 'move';
             }, dur + 1);
         }
@@ -124,7 +145,7 @@ map.on('style.load', (event) => {
             const d = turf.distance(canMove, destination, { units: 'miles' });
             // if (consoleLog) console.log('CHECKING DIST:', d.toFixed(2));
             // ...unless, If the distance is too great then snap the map directly to the mouses location and allow for movement, also clear the timeout to prevent canMove from being change out of turn
-            const mileRadiusMultiplier = 0.45; // 0.33; // MOD: the multiplier applied to the radius of miles that interupts the above easing function and snaps the mouse location, arbitrary value
+            const mileRadiusMultiplier = reducePerformace ? 0.25 : 0.45; // 0.33; // MOD: the multiplier applied to the radius of miles that interupts the above easing function and snaps the mouse location, arbitrary value
             if (d > targetMaxDistMiles * mileRadiusMultiplier) {
                 if (consoleLog) console.log('INTERUPTING - CAN MOVE');
                 if (timeoutId) clearTimeout(timeoutId);
@@ -144,23 +165,22 @@ map.on('style.load', (event) => {
 
         // If withinBounds and canMove then physically move the center of the map to the correct location
         if (withinBounds && canMove === 'move') {
-            // console.log('MOVING');
-            const reducePerformace = false;
+            // if (consoleLog) console.log('MOVING');
             if (!reducePerformace) {
-                map.easeTo({
+                mapA.easeTo({
                     center: destination.geometry.coordinates,
-                    duration: 25,
+                    duration: 25, // MOD: the duration used for all basic movement. Not much testing done on this
                     easing(t) {
-                        return easeOutExpo(null, t, 0, 1, 1);
+                        return easeOutExpo(null, t, 0, 1, 1); // MOD: the easing function for basic movement 
                     }
                 });
-            } else map.setCenter(destination.geometry.coordinates);
+            } else mapA.setCenter(destination.geometry.coordinates);
         }
     });
     // Event listener for mouse out (fired when mouse leaves the map) (might also fire if leaves the layer? problems occured when using markers and mouse went over marker)
-    map.on('mouseout', (event) => {
+    mapA.on('mouseout', (event) => {
         // Once the mouse leaves the circle (and is not within the map rectangle) clear the canMove timeout and reset the map
-        // map.setCenter(centerCoords);
+        // mapA.setCenter(centerCoords);
         if (!outBounds) {
             if (consoleLog) console.log('OUT ONCE (B)');
             if (timeoutId) clearTimeout(timeoutId);
@@ -168,20 +188,16 @@ map.on('style.load', (event) => {
             resetMap();
         }
     });
-    // Helper function to translate mapbox easing requirement to my easing format
-    function easeFuncTranslate(t) {
-        return easeOutElastic(null, t, 0, 1, 1); // MOD: the easing function used to return map to the center
-    }
     function resetMap() {
         // Reset the map to the center coordinates using the specialized bounce ease function
-        // map.flyTo({ center: centerCoords });
-        // map.easeTo({ center: centerCoords });
-        // map.panTo(centerCoords);
-        map.easeTo({
+        // mapA.flyTo({ center: centerCoords });
+        // mapA.easeTo({ center: centerCoords });
+        // mapA.panTo(centerCoords);
+        mapA.easeTo({
             center: centerCoords,
             duration: 750, // MOD: the time to return the map to the center
             easing(t) {
-                return easeFuncTranslate(t);
+                return easeOutElastic(null, t, 0, 1, 1); // MOD: the easing function used to return map to the center
             }
         });
     }
@@ -190,7 +206,7 @@ map.on('style.load', (event) => {
 
 
 
-// map.on('load', () => {
+// mapA.on('load', () => {
 // var lineStrings = turf.randomLineString(25, {bbox: [-180, -90, 180, 90]})
 // console.log(lineStrings)
 
@@ -204,7 +220,7 @@ map.on('style.load', (event) => {
 
 
 
-// setTimeout(()=>{map.panBy([1000,0])},3000);
+// setTimeout(()=>{mapA.panBy([1000,0])},3000);
 
 // panBy with an animation of 5 seconds.
 // map.panBy([-1025, 38], { duration: 5000 });

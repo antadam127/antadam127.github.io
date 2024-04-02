@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset='utf-8' />
+  <title>Feature State Testing</title>
+  <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+  <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.46.0/mapbox-gl.js'></script>
+  <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.46.0/mapbox-gl.css' rel='stylesheet' />
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+    }
+
+    #map {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 100%;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id='map'></div>
+  <script>
+    mapboxgl.accessToken = 'pk.eyJ1IjoicmV5ZW10bSIsImEiOiJjaml1ZnZkazkxdTB1M2tueDNtYTN5YjB0In0.WGFZ_p-iwjQ_UYnvypMg_A'
+    var map = new mapboxgl.Map({
+      container: 'map',
+      style: {
+        "version": 8,
+        "name": "blank",
+        "sources": {
+          "empty": {
+            "type": "vector",
+            "url": ""
+          }
+        },
+        "layers": [{
+          "id": "background",
+          "type": "background",
+          "paint": {
+            "background-color": "#1d1f20"
+          }
+        }]
+      },
+      center: [-82, 39],
+      zoom: 6,
+      debug: 2
+    });
+    var hoveredStateId = null;
+
+    map.on('load', function () {
+      map.addSource("counties", {
+        "type": "vector",
+        "url": "mapbox://reyemtm.28b260nr"
+      });
+
+      // The feature-state dependent fill-opacity expression will render the hover effect
+      //  when a feature's hover state is set to true.
+      map.addLayer({
+        "id": "fill",
+        "type": "fill",
+        "source": "counties",
+        "source-layer": "us_counties-8xelrv",
+        "layout": {},
+        "paint": {
+          "fill-color": ["case", ["boolean", ["feature-state", "hover"], false], "firebrick","whitesmoke"],
+          "fill-opacity": ["case", ["boolean", ["feature-state", "hover"], false],
+            1,
+            0.5
+          ],
+          "fill-outline-color": "white"
+        }
+      });
+
+      // When the user moves their mouse over the counties-fill layer, we'll update the 
+      // feature state for the feature under the mouse.
+      map.on("mousemove", "fill", function (e) {
+        if (e.features.length > 0) {
+          console.log(e.features[0])
+          if (hoveredStateId) {
+            map.setFeatureState({
+              source: 'counties',
+              sourceLayer: "us_counties-8xelrv",
+              id: hoveredStateId
+            }, {
+              hover: false
+            });
+          }
+          hoveredStateId = e.features[0].id;
+          map.setFeatureState({
+            source: 'counties',
+            sourceLayer: "us_counties-8xelrv",
+            id: hoveredStateId
+          }, {
+            hover: true
+          });
+        }
+      });
+    });
+  </script>
+
+</body>
+
+</html>
