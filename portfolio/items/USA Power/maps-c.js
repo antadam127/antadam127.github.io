@@ -60,7 +60,7 @@ mapC.on('load', () => {
         const r = divRect.width / 2;
         const h = 1.414 * r;
         bboxPadding = h - r;
-        console.log('bboxPadding:', bboxPadding);
+        console.log('Setting bboxPadding:', bboxPadding);
     }
     setbbBoxPadding();
     // Event listener for map resize
@@ -103,10 +103,8 @@ mapC.on('load', () => {
         },
     });
 
-    // const filt = ['==', 'ISO_A3', 'DEU'];
-    // const filt = ['==', 'ISO_A3', 'CZE'];
-    // const filt = ['==', 'ISO_A3', 'SVK'];
-    mapCsetCountry('CZ');
+    // mapCsetCountry('CZ');
+    mapCsetCountry('');
 });
 
 const markersB = []; // TEMP
@@ -114,59 +112,77 @@ function mapCsetCountry(newCountry) {
     const filt = ['==', 'ISO_A2_EH', newCountry];
     mapC.setFilter('country-fills-userAdded', filt);
     mapC.setFilter('country-outlines-userAdded', filt);
-    mapC.fitBounds([
-        [boundingBoxAndCenters[newCountry][1][0], boundingBoxAndCenters[newCountry][1][1]],
-        [boundingBoxAndCenters[newCountry][1][2], boundingBoxAndCenters[newCountry][1][3]]
-    ],
+    const adj = 4; // The adjustment for the bounding boxes to add padding on the sides
+    if (!boundingBoxAndCenters.hasOwnProperty(newCountry)) {
+        startMapAGlobeMode();
+        return;
+    }
+    globeMode = false;
+    const bounds = [
+        [boundingBoxAndCenters[newCountry][1][0] - adj, boundingBoxAndCenters[newCountry][1][1] - adj],
+        [boundingBoxAndCenters[newCountry][1][2] + adj, boundingBoxAndCenters[newCountry][1][3] + adj]
+    ];
+    mapC.fitBounds(bounds,
         {
-            // padding: 200,
-            padding: { top: 200, bottom: 200, left: 200, right: 200 },
+            padding: 0,
+            // padding: 200, // Padding doesn't work for larger countries for some reason
             animate: false
         }
     );
     console.log('Fitting Bounds:', newCountry, "Zoom Level:", mapC.getZoom());
-    // mapA.setZoom(mapC.getZoom());
-    mapA.zoomTo(mapC.getZoom(), {
-        duration: 200,
+
+    setMapACenter(Object.keys(stateBoundingBoxAndCenters)[(Math.floor(Math.random() * 50))], true); // Gonna get rid of this
+    // mapA.zoomTo(mapC.getZoom(), { // 
+    //     duration: 200,
+    // });
+    mapA.easeTo({
+        center: centerCoords,
+        zoom: mapC.getZoom(),
+        // duration: 500,
+        // easing(t) {
+        //     return t;
+        // }
     });
 
 
 
-    // TEMP JUST TO MOVE THE MAP TO THE COUNTRY TO SHOW THAT THE SIZING IS CORRECT
-    setTimeout(() => {
-        mapA.panTo(boundingBoxAndCenters[newCountry][2],
-            // { duration: 5000 }
-        );
-    },
-        205);
-    // TEMP JUST TO MOVE THE MAP TO THE COUNTRY TO SHOW THAT THE SIZING IS CORRECT
-    
+
+
+    // // TEMP JUST TO MOVE THE MAP TO THE COUNTRY TO SHOW THAT THE SIZING IS CORRECT
+    // setTimeout(() => {
+    //     mapA.panTo(boundingBoxAndCenters[newCountry][2],
+    //         // { duration: 5000 }
+    //     );
+    // },
+    //     205);
+    // // TEMP JUST TO MOVE THE MAP TO THE COUNTRY TO SHOW THAT THE SIZING IS CORRECT
+
     // TEMP SHOW BOUNDING BOXES
-    if (true) {
+    if (false) {
         for (const m of markersB) m.remove();
         markersB.push(new mapboxgl.Marker({ scale: 0.3 })
-            .setLngLat([boundingBoxAndCenters[newCountry][1][0], boundingBoxAndCenters[newCountry][1][1]])
+            .setLngLat([boundingBoxAndCenters[newCountry][1][0] - adj, boundingBoxAndCenters[newCountry][1][1] - adj])
             .addTo(mapC));
         markersB.push(new mapboxgl.Marker({ scale: 0.3 })
-            .setLngLat([boundingBoxAndCenters[newCountry][1][2], boundingBoxAndCenters[newCountry][1][3]])
+            .setLngLat([boundingBoxAndCenters[newCountry][1][2] + adj, boundingBoxAndCenters[newCountry][1][3] + adj])
             .addTo(mapC));
         markersB.push(new mapboxgl.Marker({ scale: 0.3 })
-            .setLngLat([boundingBoxAndCenters[newCountry][1][0], boundingBoxAndCenters[newCountry][1][3]])
+            .setLngLat([boundingBoxAndCenters[newCountry][1][0] - adj, boundingBoxAndCenters[newCountry][1][3] + adj])
             .addTo(mapC));
         markersB.push(new mapboxgl.Marker({ scale: 0.3 })
-            .setLngLat([boundingBoxAndCenters[newCountry][1][2], boundingBoxAndCenters[newCountry][1][1]])
+            .setLngLat([boundingBoxAndCenters[newCountry][1][2] + adj, boundingBoxAndCenters[newCountry][1][1] - adj])
             .addTo(mapC));
         markersB.push(new mapboxgl.Marker({ scale: 0.3 })
-            .setLngLat([boundingBoxAndCenters[newCountry][1][0], boundingBoxAndCenters[newCountry][1][1]])
+            .setLngLat([boundingBoxAndCenters[newCountry][1][0] - adj, boundingBoxAndCenters[newCountry][1][1] - adj])
             .addTo(mapB));
         markersB.push(new mapboxgl.Marker({ scale: 0.3 })
-            .setLngLat([boundingBoxAndCenters[newCountry][1][2], boundingBoxAndCenters[newCountry][1][3]])
+            .setLngLat([boundingBoxAndCenters[newCountry][1][2] + adj, boundingBoxAndCenters[newCountry][1][3] + adj])
             .addTo(mapB));
         markersB.push(new mapboxgl.Marker({ scale: 0.3 })
-            .setLngLat([boundingBoxAndCenters[newCountry][1][0], boundingBoxAndCenters[newCountry][1][3]])
+            .setLngLat([boundingBoxAndCenters[newCountry][1][0] - adj, boundingBoxAndCenters[newCountry][1][3] + adj])
             .addTo(mapB));
         markersB.push(new mapboxgl.Marker({ scale: 0.3 })
-            .setLngLat([boundingBoxAndCenters[newCountry][1][2], boundingBoxAndCenters[newCountry][1][1]])
+            .setLngLat([boundingBoxAndCenters[newCountry][1][2] + adj, boundingBoxAndCenters[newCountry][1][1] - adj])
             .addTo(mapB));
     }
     // TEMP SHOW BOUNDING BOXES

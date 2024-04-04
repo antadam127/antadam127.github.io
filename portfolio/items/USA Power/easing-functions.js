@@ -1,3 +1,4 @@
+// Random site for demonstration: https://andrewraycode.github.io/easing-utils/gh-pages/
 function swing(x, t, b, c, d) {
     return $.easing[$.easing.def](x, t, b, c, d);
 }

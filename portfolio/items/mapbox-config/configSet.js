@@ -3319,7 +3319,7 @@ config = config_italy;
 config = config_styleSwitcher;
 
 config = config_usaCountiesAndAdminOne;
-config.globeMode = false;
+// config.globeMode = false;
 
 
 // CHECK URL PARAMETERS

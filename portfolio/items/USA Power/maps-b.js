@@ -25,6 +25,7 @@ const mapB = new mapboxgl.Map({
     // zoom: 6,
 
     interactive: false, // dragPan: true, // scrollZoom: false, // doubleClickZoom: false, // boxZoom: false, // dragRotate: false, // pitchWithRotate: false, // touchPitch: false, // touchZoomRotate: false, // keyboard: false,
+    // projection: 'mercator', // COMMENT OUT
 });
 
 // const europe = [[-55.630, 26.626], [65.473, 73.048]];

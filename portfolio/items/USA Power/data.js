@@ -1,9 +1,62 @@
+
 // TO DO / ISSUES
+
+// Need to nail down starting zoom or bounds so that just fills the circle
+// Make data files excel files so I can have a cell at the end that is a concat cell that transforms them to json objects?
 // Some countries' bounding boxes don't want to cooperate with padding! WTF
 // No Kosovo Center
 // Change border width in map A and map C to a larger value and an offset is happening
 // Remember to set the amount that the user can move the map on Map A proportional to the zoom level. Higher zooms require more movement
+// If possible I want to increase the effect of the globe in the viewport. Will need to reproject. 
+// Add min and max width/heights for dive
+// Change box shadow with relation to zoom?
+
 // TO DO / ISSUES
+
+// Define Styles
+const Mapbox_Streets = [0, 'Street', 'mapbox://styles/mapbox/streets-v12'];
+const Mapbox_Outdoors = [1, 'Outdoors', 'mapbox://styles/mapbox/outdoors-v12', 'day'];
+const Layered_Outdoors_No_Hillshading = [10, 'Topography', 'mapbox://styles/mapbox/cjaudgl840gn32rnrepcb9b9g', 'day'];
+const Layered_Hillshading_Demo = [12, 'Terrain', 'mapbox://styles/antadam127/cl5gh13uw000515mqv9y7emit', 'day'];
+const Layered_Contour_Demo = [13, 'Contours', 'mapbox://styles/antadam127/cl5gh49id002315o52g9q0fq3', 'day'];
+const Mapbox_Light = [2, 'Light', 'mapbox://styles/mapbox/light-v11', 'dayBright'];
+const Mapbox_Dark = [3, 'Dark', 'mapbox://styles/mapbox/dark-v11', 'night'];
+const Mapbox_Satellite_Streets = [5, 'Satellite', 'mapbox://styles/mapbox/satellite-streets-v12'];
+const Layered_Satellite_Less_Labels = [11, 'Satellite (No City Labels)', 'mapbox://styles/mapbox-map-design/ckhqrf2tz0dt119ny6azh975y', 'space'];
+const Satellite_LocalNames_Minimal = [34, "Satellite Local", "mapbox://styles/antadam127/clfk38h5k00ay01nxcv5emfyl"];
+const Mapbox_Satellite_Clear = [4, 'Satellite (Clear)', 'mapbox://styles/mapbox/satellite-v9', 'space'];
+const Mapbox_Navigation_Day = [6, 'Navigation', 'mapbox://styles/mapbox/navigation-day-v1', 'dayBright'];
+const Mapbox_Navigation_Night = [7, 'Navigation (Night)', 'mapbox://styles/mapbox/navigation-night-v1', 'night'];
+const Moonlight = [8, 'Moonlight', 'mapbox://styles/antadam127/cl4yfem29005b15p9ltlrd9oy', 'space'];
+const Moonlight_No_Labels = [9, 'Moonlight (Clear)', 'mapbox://styles/antadam127/cl4yjh0sd000115mnv3lowqwo', 'space'];
+const Mapbox_Bathymetry = [14, 'Bathymetry', 'mapbox://styles/antadam127/cl5klbztx001g14jh6d0v0l6r', 'dayBright'];
+const Clear_Light = [15, 'Clear', 'mapbox://styles/antadam127/cl5ks9bcj002314rofs0vpzdq', 'dayBright'];
+const North_Star_Web = [16, 'North Star', 'mapbox://styles/antadam127/cl5m6b2dd004q15pe5lcymeft', 'dayBright'];
+const Mineral_Web = [17, 'Mineral', 'mapbox://styles/antadam127/cl5m6bsvi003516nyf96gv0v7'];
+const Cali_Terrain_Web = [18, 'Cali Terrain', 'mapbox://styles/antadam127/cl5m6exed000914pbecmiw3jh', 'space'];
+const Le_Shine_Web = [19, 'Le Shine', 'mapbox://styles/antadam127/cl5m6f4he008914ptbtszn1pm'];
+const Standard_Textured_Web = [20, 'Standard Textured', 'mapbox://styles/antadam127/cl5m67jod001f15mm3uvnq0bf', 'day'];
+const Minimo_Web = [21, 'Minimo', 'mapbox://styles/antadam127/cl5m69f5b003214ninu2bpe0c'];
+const Frank_Web = [22, 'Frank', 'mapbox://styles/antadam127/cl5m671b1004a14owdr6m5j4s'];
+const Bubble_Web = [23, 'Bubble', 'mapbox://styles/antadam127/cl5m66hm9000816l6gb6q0l7z', 'sunset'];
+const Blueprint_Web = [24, 'Blueprint', 'mapbox://styles/antadam127/cl5m668v5003416nyp7lt28i7', 'space'];
+const Pencil_Web = [25, 'Pencil', 'mapbox://styles/antadam127/cl5m730r3001514mkb8xhqolh'];
+const Treasure_Web = [26, 'Treasure', 'mapbox://styles/antadam127/cl5m7488u008a14ptci3cqfqh', 'sunset'];
+const Decimal_Web = [27, 'Decimal', 'mapbox://styles/antadam127/cl5m74tqa003616ny2ijuen33', 'space'];
+const Eighties_Web = [28, "80's 8-Bit", 'mapbox://styles/antadam127/cl5m75zlm004b14ow9jmzhy2e', 'space'];
+const Picture_Book_Web = [29, 'Picture Book', 'mapbox://styles/antadam127/cl5m7birl003314nildoyar2q', 'dayBright'];
+const Satellite_Saturated_Clear = [30, 'Satellite Saturated (Clear)', 'mapbox://styles/antadam127/cl5n09zdb009b14ptd5u9o4m0', 'space'];
+const Upside_Down_Web = [31, 'Upside Down', 'mapbox://styles/antadam127/cl5m7cd48000514s241wjk1jq', 'night'];
+const Custom_Map = [32, 'My Custom', 'mapbox://styles/antadam127/cl5m8oyet006514l1mwq008sm', 'custom'];
+const Woodcut_web = [33, "Woodcut", "mapbox://styles/antadam127/cl6bet4gc000014kzwvpfo4w6"];
+const Mapbox_Dark_With_Terrain = [35, 'Dark With Terrain', 'mapbox://styles/mapbox/dark-v8', 'night'];
+const Mapbox_Navigation_More_Clear = [36, 'Navigation More Clear', 'mapbox://styles/antadam127/clryi80p3017f01p10qoo5uty'];
+
+
+const americaBounds = [
+    [-124.786, 24.528], // southwestern corner
+    [-66.871, 49.388], // northeastern corner
+];
 
 const boundingBoxAndCenters = {
     "AF": ["Afghanistan", [60.53, 29.32, 75.16, 38.49], [66.59216131095278, 34.13402601376932]],
@@ -179,4 +232,58 @@ const boundingBoxAndCenters = {
     "ZA": ["South Africa", [16.34, -34.82, 32.83, -22.09], [24.75252746489084, -28.5536193067973]],
     "ZM": ["Zambia", [21.89, -17.96, 33.49, -8.24], [27.75521363430896, -13.1628329531862]],
     "ZW": ["Zimbabwe", [25.26, -22.27, 32.85, -15.51], [29.717829640720844, -18.9270012198147]],
+};
+
+const stateBoundingBoxAndCenters = {
+    'AL': ['Alabama', [-88.4745951503515, 30.222501133601334, -84.89247974539745, 35.008322669916694], [-86.8287, 32.7794]],
+    'AK': ['Alaska', [-179.13657211802118, 51.229087747767466, 179.77488070600702, 71.352561], [-152.2782, 64.0685]],
+    'AZ': ['Arizona', [-114.8128344705447, 31.332406253852533, -109.04483902389023, 37.0039183311733], [-111.6602, 34.2744]],
+    'AR': ['Arkansas', [-94.61946646626465, 33.00413641175411, -89.65547287402873, 36.49965029279292], [-92.4426, 34.8938]],
+    'CA': ['California', [-124.41060660766607, 32.5342307609976, -114.13445790587905, 42.00965914828148], [-119.4696, 37.1841]],
+    'CO': ['Colorado', [-109.05919619986199, 36.99275055519555, -102.04212644366443, 41.00198213121131], [-105.5478, 38.9972]],
+    'CT': ['Connecticut', [-73.72618613336134, 40.98480093739937, -71.78796737717377, 42.050894013430124], [-72.7273, 41.6219]],
+    'DE': ['Delaware', [-75.7900301793018, 38.45143390982909, -75.05063561675617, 39.8388153101431], [-75.505, 38.9896]],
+    'DC': ['District of Columbia', [-77.11806895668957, 38.79162154730547, -76.90988990509905, 38.99435963428633], [-77.0147, 38.9101]],
+    'FL': ['Florida', [-87.63470035600356, 24.51490854927549, -80.03257567895679, 31.000809213282125], [-82.4497, 28.6305]],
+    'GA': ['Georgia', [-85.60674924999249, 30.35909162440624, -80.84375612136121, 35.000591132701324], [-83.4426, 32.6415]],
+    'HI': ['Hawaii', [-160.24970712717126, 18.91727560534605, -154.80833743387433, 22.23238695135951], [-156.3737, 20.2927]],
+    'ID': ['Idaho', [-117.24278650376503, 41.988182656016555, -111.04407577795777, 49.00068691035909], [-114.613, 44.3509]],
+    'IL': ['Illinois', [-91.51472716237161, 36.97041500324003, -87.4947178902789, 42.508772828518275], [-89.1965, 40.0417]],
+    'IN': ['Indiana', [-88.09771928109281, 37.77191769456694, -84.78480092560925, 41.760531838008376], [-86.2816, 39.8942]],
+    'IA': ['Iowa', [-96.63306039630396, 40.37830479583795, -90.14002756307562, 43.50012771146711], [-93.496, 42.0751]],
+    'KS': ['Kansas', [-102.05289432564325, 36.99275055519555, -94.59075211432113, 40.0028957110471], [-98.3804, 38.4937]],
+    'KY': ['Kentucky', [-89.57291911219112, 36.49707311372113, -81.96720514115141, 39.14641319952199], [-85.3021, 37.5347]],
+    'LA': ['Louisiana', [-94.04159013340133, 28.929616299252984, -88.81557807968079, 33.01959948618486], [-91.9968, 31.0689]],
+    'ME': ['Maine', [-71.08446575455754, 43.059430090190894, -66.9819027206272, 47.459533825428245], [-69.2428, 45.3695]],
+    'MD': ['Maryland', [-79.48700299202991, 37.91709878227782, -75.05063561675617, 39.72284225191251], [-76.7909, 39.055]],
+    'MA': ['Massachusetts', [-73.507239199792, 41.23908260581605, -69.92871308883089, 42.88675909238091], [-71.8083, 42.2596]],
+    'MI': ['Michigan', [-90.416403200532, 41.696102361213605, -82.4158668902689, 48.190593622126215], [-85.4102, 44.3467]],
+    'MN': ['Minnesota', [-97.23965108111081, 43.49926865177651, -89.4903653503535, 49.384686592055914], [-94.3053, 46.2807]],
+    'MS': ['Mississippi', [-91.64394174611746, 30.180407208762084, -88.09771928109281, 34.99543677455774], [-89.6678, 32.7364]],
+    'MO': ['Missouri', [-95.76804054400543, 35.99538225441254, -89.09913230512305, 40.613687151061505], [-92.458, 38.3566]],
+    'MT': ['Montana', [-116.05114089810897, 44.35832834237342, -104.04136319773197, 49.00154597004969], [-109.6333, 47.0527]],
+    'NE': ['Nebraska', [-104.05213107971079, 40.00031853197531, -95.30861091290913, 43.001014031230305], [-99.7951, 41.5378]],
+    'NV': ['Nevada', [-120.00654287832877, 35.00145019239192, -114.04113626206261, 42.0019276110661], [-116.6312, 39.3289]],
+    'NH': ['New Hampshire', [-72.55607629166292, 42.696906900759004, -70.70400059130591, 45.30587118110181], [-71.5811, 43.6805]],
+    'NJ': ['New Jersey', [-75.56031536375363, 38.928212038110374, -73.8948829510295, 41.357632843118424], [-74.6728, 40.1907]],
+    'NM': ['New Mexico', [-109.04842831788318, 31.332406253852533, -103.0004679397794, 37.00048209241092], [-106.1126, 34.4071]],
+    'NY': ['New York', [-79.7633786294863, 40.502009391283906, -71.85616396303963, 45.01550900568005], [-75.5268, 42.9538]],
+    'NC': ['North Carolina', [-84.32178200052, 33.85116926668266, -75.45981513195132, 36.5881334409244], [-79.3877, 35.5557]],
+    'ND': ['North Dakota', [-104.04854178571784, 45.934702874618736, -96.55768522245222, 49.00068691035909], [-100.4659, 47.4501]],
+    'OH': ['Ohio', [-84.82069386553866, 38.40504468653686, -80.52071966199662, 41.97787393972939], [-82.7937, 40.2862]],
+    'OK': ['Oklahoma', [-103.00405723377233, 33.61664597114971, -94.43282317863178, 37.002200211792115], [-97.4943, 35.5889]],
+    'OR': ['Oregon', [-124.55417836738366, 41.99161889477894, -116.46390970729706, 46.26801803457034], [-120.5583, 43.9336]],
+    'PA': ['Pennsylvania', [-80.52071966199662, 39.720265072840725, -74.69529551145511, 42.269954234532335], [-77.7996, 40.8781]],
+    'RI': ['Rhode Island', [-71.85975325703257, 41.15145851737517, -71.12035869448694, 42.019108804878044], [-71.5562, 41.6762]],
+    'SC': ['South Carolina', [-83.34908332843328, 32.03425802107021, -78.53942937789378, 35.21535605535055], [-80.8964, 33.9169]],
+    'SD': ['South Dakota', [-104.05930966769667, 42.484719157181566, -96.43564922669226, 45.9450115909059], [-100.2263, 44.4443]],
+    'TN': ['Tennessee', [-90.3087243807438, 34.98255087919878, -81.64775797577975, 36.67833470843708], [-86.3505, 35.858]],
+    'TX': ['Texas', [-106.64719063660635, 25.840437651866516, -93.5175532104321, 36.50050935248352], [-99.3312, 31.4757]],
+    'UT': ['Utah', [-114.05190414404143, 36.99790491333913, -109.04124972989729, 42.0019276110661], [-111.6703, 39.3055]],
+    'VT': ['Vermont', [-73.43904261392613, 42.726973989929895, -71.49364526975269, 45.01550900568005], [-72.6658, 44.0687]],
+    'VA': ['Virginia', [-83.67570908179081, 36.540885157941574, -75.24086819838197, 39.46598340442404], [-78.8537, 37.5215]],
+    'WA': ['Washington', [-124.73364306703067, 45.54383071539715, -116.9161607504075, 49.00240502974029], [-120.4472, 47.3826]],
+    'WV': ['West Virginia', [-82.63840311783117, 37.2015020600106, -77.72107034750347, 40.63859988208881], [-80.6227, 38.6409]],
+    'WI': ['Wisconsin', [-92.88942676166761, 42.49159163470634, -86.82351991359913, 47.07725226311263], [-89.9941, 44.6243]],
+    'WY': ['Wyoming', [-111.05843295392954, 40.995109653686534, -104.05213107971079, 45.006059349083486], [-107.5512, 42.9957]],
 };

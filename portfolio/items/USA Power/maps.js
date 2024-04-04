@@ -3,20 +3,23 @@ const consoleLog = false; // MOD
 const reducePerformace = false; // MOD: default false (remember this is directly setting the location instead of using an easing function so keeping it on might actually feel more responsive, more testing needed on other cpus)
 const europeanCountries = ["ALB", "AND", "ARM", "AUT", "BLR", "BEL", "BIH", "BGR", "HRV", "CYP", "CZE", "DNK", "EST", "FRO", "FIN", "FRA", "GEO", "DEU", "GIB", "GRC", "HUN", "ISL", "IRL", "IMN", "ITA", "XKX", "LVA", "LIE", "LTU", "LUX", "MKD", "MLT", "MDA", "MCO", "MNE", "NLD", "NOR", "POL", "PRT", "ROU", "RUS", "SMR", "SRB", "SVK", "SVN", "ESP", "SWE", "CHE", "TUR", "UKR", "GBR", "VAT"];
 const europeanCountriesA2 = ["AL", "AD", "AM", "AT", "BY", "BE", "BA", "BG", "HR", "CY", "CZ", "DK", "EE", "FO", "FI", "FR", "GE", "DE", "GI", "GR", "HU", "IS", "IE", "IM", "IT", "XK", "LV", "LI", "LT", "LU", "MK", "MT", "MD", "MC", "ME", "NL", "NO", "PL", "PT", "RO", "RU", "SM", "RS", "SK", "SI", "ES", "SE", "CH", "TR", "UA", "GB", "VA"];
-// GLOBAL USED FOR BOTH Map.js FILES
 
+const usaCenter = [-97.01958, 38.66197] // US Center
 
-// const centerCoords = [-97.01958, 38.66197]
-// const centerCoords = [-100, 30];
-// const centerCoords = [-72.69, 41.77]; // CT
-const centerCoords = [-77.803, 40.875]; // PA
-// const centerCoords = [-39.6111, 35.4959];
+let globeZoom = 2.25;
+let centerCoords = usaCenter;
+// let centerCoords = [-100, 30];
+// let centerCoords = [-72.69, 41.77]; // CT
+// let centerCoords = [-77.803, 40.875]; // PA
+// let centerCoords = [-39.6111, 35.4959];
 
 // Create the Map
 mapboxgl.accessToken = "pk.eyJ1IjoiYW50YWRhbTEyNyIsImEiOiJjbDI2ZGJnN2wyaW5qM2JxZHVmZTJjNm8zIn0.4aMtEeYWx4hxIVKRrqsqWw";
 const mapA = new mapboxgl.Map({
     container: "map-a",
     style: "mapbox://styles/antadam127/clryi80p3017f01p10qoo5uty",
+    // style: Layered_Satellite_Less_Labels[2],
+    projection: 'globe',
     // logoPosition: 'bottom-left',
     // customAttribution: `<a title="Anthony Adam" href="https://www.linkedin.com/in/anthony-adam-psu/" target="_blank">
     // <svg width="16px" height="16px" viewBox="2 4 48 48" style="vertical-align: middle;">
@@ -26,18 +29,18 @@ const mapA = new mapboxgl.Map({
     // </svg>Anthony Adam</a>`,
     attributionControl: false,
 
-    // center: [-97.01958, 38.66197],
-    // zoom: 3.9,
-
-    // bounds: [[-123.2168, 25.0310], [-70.8223, 49.5204]],
-    // maxBounds: [[-123.2168, 25.0310], [-70.8223, 49.5204]],
-
     center: centerCoords,
-    // zoom: 6,
-    zoom: 5,
+    // zoom: 1.75,
+    // zoom: 2.25,
+    zoom: 0,
 
-    
-    interactive: false, // dragPan: true, // scrollZoom: false, // doubleClickZoom: false, // boxZoom: false, // dragRotate: false, // pitchWithRotate: false, // touchPitch: false, // touchZoomRotate: false, // keyboard: false,
+    // bounds: [[180,90],[-180,-20]],
+
+    // bounds: americaBounds,
+    // maxBounds: americaBounds,
+
+
+    // interactive: false, // dragPan: true, // scrollZoom: false, // doubleClickZoom: false, // boxZoom: false, // dragRotate: false, // pitchWithRotate: false, // touchPitch: false, // touchZoomRotate: false, // keyboard: false,
     // scrollZoom: false,
     // doubleClickZoom: false,
     // boxZoom: false,
@@ -53,7 +56,10 @@ const mapA = new mapboxgl.Map({
 // }
 // resetZoom();
 
+let globeMode = true;
+let targetMaxDistMiles;
 if (true) mapA.on('style.load', (event) => {
+    mapA.setFog();
     // Define Vars
     let timeoutId, dest;
     let targetDist = 0; // Start 0
@@ -62,7 +68,8 @@ if (true) mapA.on('style.load', (event) => {
     let canMove = false; // Start false
 
     // Values that will be set on start and reset on a resize
-    let divRect, divCenterX, divCenterY, moveMaxDistPixels, targetMaxDistMiles;
+    // let divRect, divCenterX, divCenterY, moveMaxDistPixels, targetMaxDistMiles;
+    let divRect, divCenterX, divCenterY, moveMaxDistPixels;
     function resizeValues() {
         // Get the center coordinates of the div
         divRect = document.getElementById('map-a').getBoundingClientRect();
@@ -70,21 +77,38 @@ if (true) mapA.on('style.load', (event) => {
         divCenterY = divRect.height / 2;
         // SET VALUES
         moveMaxDistPixels = (divRect.width < divRect.height ? divRect.width : divRect.height) / 2; // MOD: the pixel radius of the mouse movement
-
-        // SET MILE RADIUS
-        targetMaxDistMiles = 150; // 800; // MOD: the mile radius of target movement
-        // targetMaxDistMiles = 2000; // 800; // MOD: the mile radius of target movement
-
-        // SET ZOOM LEVEL
-        // mapA.setZoom(0.183121 + 0.00285062 * document.getElementById('map-a').getBoundingClientRect().width); // Show Full Earth Zoom Level
-
     }
     resizeValues();
-
     // Event listener for map resize
     mapA.on('resize', (event) => {
         if (consoleLog) console.log('MAP RESIZED');
         resizeValues();
+        setGlobeZoom();
+        if (globeMode) mapA.setZoom(globeZoom);
+    });
+
+    // SET INIT GLOBE ZOOM
+    function setGlobeZoom() {
+        // 533.9140625, 1.703 | 671.15625, 2.023 | 482.21875, 1.558 | 363.7734375, 1.141
+        globeZoom = 0.002853 * document.getElementById('map-a').getBoundingClientRect().width + 0.16;
+    }
+    setGlobeZoom();
+    mapA.setZoom(globeZoom);
+
+    // SET MILE RADIUS
+    function setTargetMaxDistBasedOffMapBounds() {
+        const bounds = mapA.getBounds();
+        const ne = turf.point([bounds._ne.lng, bounds._ne.lat]);;
+        const sw = turf.point([bounds._sw.lng, bounds._sw.lat]);;
+        const d = turf.distance(ne, sw, { units: 'miles' });
+        targetMaxDistMiles = 0.2911 * d - 158; // MOD: the mile radius of target movement // d => targetMaxDist || 4000 => 1000 | 1360 => 225 | 1000 => 125 | 2200 => 500 | 1200 => 200
+        if (globeMode) targetMaxDistMiles = 6500; // 6500 lets user go all the way around globe in initial set up
+        console.log('Map Zoom Changed, Current d/Target Miles:', d, targetMaxDistMiles);
+    }
+    setTargetMaxDistBasedOffMapBounds(); // Initial setting of value
+    // Listen for a zoom change
+    mapA.on('zoomend', () => {
+        setTargetMaxDistBasedOffMapBounds();
     });
 
     // Event listener for mousemove (only movement over the map)
@@ -105,6 +129,7 @@ if (true) mapA.on('style.load', (event) => {
 
         // Calculate the mile distance it should be away from
         if (withinBounds) targetDist = easeInOutCubic(null, mouseDist, 0, targetMaxDistMiles, moveMaxDistPixels); // MOD: the easing function used to translate mouse distance to mile distance
+        // if (withinBounds) targetDist = easeInOutQuart(null, mouseDist, 0, targetMaxDistMiles, moveMaxDistPixels); // MOD: the easing function used to translate mouse distance to mile distance
 
         // Create Destination point with Turf
         const point = turf.point(centerCoords);
@@ -112,7 +137,8 @@ if (true) mapA.on('style.load', (event) => {
         const destination = turf.destination(point, targetDist, bearing, { units: 'miles' });
         dest = destination;
 
-        const dur = 150; // 100; // MOD: the duration of the movement that occurs when mouse first enters circle
+        // const dur = 150; // 100; // MOD: the duration of the movement that occurs when mouse first enters circle
+        const dur = targetMaxDistMiles > 5000 ? 300 : 150; // 100; // MOD: the duration of the movement that occurs when mouse first enters circle
         if (withinBounds && outBounds) {
             if (consoleLog) console.log('IN ONCE');
             // Move the map to the target point, likely on the edge, when the mouse first enters circle
@@ -195,13 +221,52 @@ if (true) mapA.on('style.load', (event) => {
         // mapA.panTo(centerCoords);
         mapA.easeTo({
             center: centerCoords,
-            duration: 750, // MOD: the time to return the map to the center
+            duration: targetMaxDistMiles > 5000 ? 1250 : 750, // MOD: the time to return the map to the center
             easing(t) {
                 return easeOutElastic(null, t, 0, 1, 1); // MOD: the easing function used to return map to the center
             }
         });
     }
 });
+
+function startMapAGlobeMode() {
+    globeMode = true;
+    centerCoords = usaCenter;
+    mapA.easeTo({
+        center: centerCoords,
+        zoom: globeZoom,
+    });
+
+}
+
+// TEMP change center?
+// mapA.on('click', (e) => {
+//     const coords = [e.lngLat.lng, e.lngLat.lat];
+//     centerCoords = coords;
+//     mapA.panTo(centerCoords);
+// });
+
+// SET CENTER AND HIGHLIGHT STATE/METRO
+function setMapACenter(stateOrMetroCode, noMove) {
+    const coords = stateBoundingBoxAndCenters[stateOrMetroCode][2];
+    centerCoords = coords;
+    // Movement
+    if (!noMove) {
+        mapA.panTo(centerCoords);
+        // mapA.easeTo({
+        //     center: centerCoords,
+        //     duration: 750, // MOD
+        //     easing(t) {
+        //         return easeOutElastic(null, t, 0, 1, 1); // MOD
+        //     }
+        // });
+    }
+
+    // Highlight selected state/metro
+}
+
+
+
 
 
 
