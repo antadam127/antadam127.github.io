@@ -1,6 +1,7 @@
 
 // TO DO / ISSUES
 
+// SIZE IS BROKEN??? Check Iceland over Wyoming vs truesizeof.com ALSO Norway
 // Need to nail down starting zoom or bounds so that just fills the circle
 // Make data files excel files so I can have a cell at the end that is a concat cell that transforms them to json objects?
 // Some countries' bounding boxes don't want to cooperate with padding! WTF

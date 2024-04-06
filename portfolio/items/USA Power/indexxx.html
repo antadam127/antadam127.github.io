@@ -1,17 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Scrollable List with Selection Highlight</title>
     <style>
-      body {
-        background-color: #202020;
-        color: #f4f4f4;
-      }
+        .list-group-item.active {
+            background-color: #007bff;
+            color: #fff;
+        }
     </style>
-  </head>
-  <body>
-    
-  </body>
+</head>
+
+<body>
+    <div class="container mt-5">
+        <div class="list-group" id="nameList" style="max-height: 200px; overflow-y: scroll;">
+            <a href="#" class="list-group-item list-group-item-action">John</a>
+            <a href="#" class="list-group-item list-group-item-action">Doe</a>
+            <a href="#" class="list-group-item list-group-item-action">Jane</a>
+            <a href="#" class="list-group-item list-group-item-action">Smith</a>
+            <a href="#" class="list-group-item list-group-item-action">Alice</a>
+            <a href="#" class="list-group-item list-group-item-action">Bob</a>
+            <a href="#" class="list-group-item list-group-item-action">Emily</a>
+            <a href="#" class="list-group-item list-group-item-action">Michael</a>
+            <a href="#" class="list-group-item list-group-item-action">Sarah</a>
+            <a href="#" class="list-group-item list-group-item-action">David</a>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const listItems = document.querySelectorAll('.list-group-item');
+
+        listItems.forEach(item => {
+            item.addEventListener('click', () => {
+                listItems.forEach(li => li.classList.remove('active'));
+                item.classList.add('active');
+            });
+        });
+    </script>
+</body>
+
 </html>

@@ -1,6 +1,6 @@
 // GLOBAL USED FOR BOTH Map.js FILES
 const consoleLog = false; // MOD
-const reducePerformace = false; // MOD: default false (remember this is directly setting the location instead of using an easing function so keeping it on might actually feel more responsive, more testing needed on other cpus)
+const reducePerformace = true; // SHOULD STAY TRUE (Currently broken in full mode) MOD: default false (remember this is directly setting the location instead of using an easing function so keeping it on might actually feel more responsive, more testing needed on other cpus)
 const europeanCountries = ["ALB", "AND", "ARM", "AUT", "BLR", "BEL", "BIH", "BGR", "HRV", "CYP", "CZE", "DNK", "EST", "FRO", "FIN", "FRA", "GEO", "DEU", "GIB", "GRC", "HUN", "ISL", "IRL", "IMN", "ITA", "XKX", "LVA", "LIE", "LTU", "LUX", "MKD", "MLT", "MDA", "MCO", "MNE", "NLD", "NOR", "POL", "PRT", "ROU", "RUS", "SMR", "SRB", "SVK", "SVN", "ESP", "SWE", "CHE", "TUR", "UKR", "GBR", "VAT"];
 const europeanCountriesA2 = ["AL", "AD", "AM", "AT", "BY", "BE", "BA", "BG", "HR", "CY", "CZ", "DK", "EE", "FO", "FI", "FR", "GE", "DE", "GI", "GR", "HU", "IS", "IE", "IM", "IT", "XK", "LV", "LI", "LT", "LU", "MK", "MT", "MD", "MC", "ME", "NL", "NO", "PL", "PT", "RO", "RU", "SM", "RS", "SK", "SI", "ES", "SE", "CH", "TR", "UA", "GB", "VA"];
 
@@ -40,7 +40,7 @@ const mapA = new mapboxgl.Map({
     // maxBounds: americaBounds,
 
 
-    // interactive: false, // dragPan: true, // scrollZoom: false, // doubleClickZoom: false, // boxZoom: false, // dragRotate: false, // pitchWithRotate: false, // touchPitch: false, // touchZoomRotate: false, // keyboard: false,
+    interactive: false, // dragPan: true, // scrollZoom: false, // doubleClickZoom: false, // boxZoom: false, // dragRotate: false, // pitchWithRotate: false, // touchPitch: false, // touchZoomRotate: false, // keyboard: false,
     // scrollZoom: false,
     // doubleClickZoom: false,
     // boxZoom: false,
